@@ -1,7 +1,7 @@
 #include"Date.h"
 using namespace std;
 
-int Date::GetMonthDay(int year, int month)
+int Date::GetMonthDay(int year, int month)const
 {
 	if (month == 0)
 	{
@@ -17,14 +17,8 @@ int Date::GetMonthDay(int year, int month)
 }
 
 
-void Swap(int d1, int d2)
-{
-	int temp = d1;
-	d1 = d2;
-	d2 = temp;
-}
-
-void Date::DisplayDate()
+//这里的const是祖师爷想出来的偏方，用来治疗权限放大的问题（此处的成员变量是不可以在函数中显式声明的，所以才出此下策）
+void Date::Print()const
 {
 	cout << _year << "/" << _month << "/" << _day << endl;
 }
@@ -36,8 +30,11 @@ Date::Date(int year, int month, int day)
 	_month = month;
 	_day = day;
 	if (CheckDate())
+	{
 		std::cout << "非法日期:";
-	DisplayDate();
+		Print();
+	}
+		
 }
 bool Date::CheckDate()
 {
@@ -85,7 +82,7 @@ Date& Date::operator+=(int day)
 	return *this;
 }
 
-Date Date::operator+(int day)
+Date Date::operator+(int day)const
 {
 
 	Date temp = *this;
@@ -115,9 +112,10 @@ Date& Date::operator-=(int day)
 	}
 	return *this;
 }
+
 //为何一定要采用这种方法？
 //因为-是一定要复制的，但是-=是不需要的，如果将主逻辑写在-中，那么不可避免的要出现多调用一次拷贝构造函数的问题
-Date Date::operator-(int day)
+Date Date::operator-(int day)const
 {
 	Date temp = *this;
 	temp -= day;
@@ -128,6 +126,7 @@ Date::~Date()
 {
 	
 }
+
 //前置++
 Date& Date::operator++()
 {
@@ -136,6 +135,7 @@ Date& Date::operator++()
 }
 //后置++
 //这里的后置++的参数是一个空的int类型(这是祖师爷专门用来区分前置和后置的，实际上是不传参的)
+
 Date Date::operator++(int)
 {
 	Date temp = *this;
@@ -156,7 +156,7 @@ Date Date::operator--(int)
 	return temp;
 }
 
-bool Date::operator>(const Date& d)
+bool Date::operator>(const Date& d)const
 {
 	if (_year > d._year)
 		return true;
@@ -173,40 +173,41 @@ bool Date::operator>(const Date& d)
 	return false;
 }
 
-bool Date::operator==(const Date& d) 
+bool Date::operator==(const Date& d)const 
 {
 	return (*this)._year == d._year &&
 		(*this)._month == d._month &&
 		(*this)._day == d._day;
 }
 
-bool Date::operator >= (const Date& d) 
+bool Date::operator >= (const Date& d) const
 {
 	return *this > d || *this == d;
 }
 
-bool Date::operator < (const Date& d)
+bool Date::operator < (const Date& d)const
 {
 	return !(*this > d);
 }
 
-bool Date::operator <= (const Date& d)
+bool Date::operator <= (const Date& d)const
 {
 	return *this < d || *this == d;
 }
 
-bool Date::operator != (const Date& d)
+bool Date::operator != (const Date& d)const
 {
 	return !(*this == d);
 }
 
-int Date::operator-(const Date& d)
+int Date::operator-(const Date& d)const
 {
 	int BigYear = (*this)._year;
 	int SmallYear = d._year;
+	int flag = 1;
 	//经典的假设法
 	if (BigYear < SmallYear)
-		Swap(BigYear, SmallYear);
+		flag = -1;
 	int ret = 0;
 	ret += (BigYear - SmallYear) * 365;
 	for (int year = SmallYear; year < BigYear; year++)
@@ -226,6 +227,31 @@ int Date::operator-(const Date& d)
 		day2 += GetMonthDay((*this)._year, (*this)._month);
 	}
 	day2 += d._day;
-	return ret + (day1 - day2);
+	return (ret + (day1 - day2))*flag;
 }
+
 //但是我们还可以直接将我们的算法最大程度的复用，直接先比较大小，再依次++
+std::ostream& operator<<(std::ostream& out, const Date& d)
+{
+	out << d._year << "-" << d._month << "-" << d._day;
+	return out;
+}
+
+std::istream& operator>>(std::istream& in,  Date& d)
+{
+	while (1)
+	{
+		cout << "请输入年月日;>";
+		in >> d._year >> d._month >> d._day;
+		if (d.CheckDate())
+		{
+			cout << "非法日期:" << d << endl<<"请重新输入!!!"<<endl;
+		}
+		else
+		{
+			break;
+		}
+	}
+		
+	return in;
+}

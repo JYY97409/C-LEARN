@@ -1,16 +1,18 @@
 #pragma once
 #include<iostream>
+
 class Date
-
 {
-
+	friend std::ostream& operator<<(std::ostream& out, const Date& d);
+	friend std::istream& operator>>(std::istream& in, Date& d);
+		
 public:
 
 	// 获取某年某月的天数
 
-	int GetMonthDay(int year, int month);
+	int GetMonthDay(int year, int month)const;
 
-	void DisplayDate();
+	void Print()const;
 
 	// 全缺省的构造函数
 
@@ -22,6 +24,7 @@ public:
     // d2(d1)
 
 	Date(const Date& d);
+
 
 
 	// 赋值运算符重载
@@ -43,13 +46,13 @@ public:
 
 	// 日期+天数
 
-	Date operator+(int day);
+	Date operator+(int day)const;
 
 
 
 	// 日期-天数
 
-	Date operator-(int day);
+	Date operator-(int day)const;
 
 
 
@@ -85,43 +88,43 @@ public:
 
 	// >运算符重载
 
-	bool operator>(const Date& d);
+	bool operator>(const Date& d)const;
 
 
 
 	// ==运算符重载
 
-	bool operator==(const Date& d);
+	bool operator==(const Date& d)const;
 
 
 
 	// >=运算符重载
 
-	bool operator >= (const Date& d);
+	bool operator >= (const Date& d)const;
 
 
 
 	// <运算符重载
 
-	bool operator < (const Date& d);
+	bool operator < (const Date& d)const;
 
 
 
 	// <=运算符重载
 
-	bool operator <= (const Date& d);
+	bool operator <= (const Date& d)const;
 
 
 
 	// !=运算符重载
 
-	bool operator != (const Date& d);
+	bool operator != (const Date& d)const;
 
 
 
 	// 日期-日期 返回天数
 
-	int operator-(const Date& d);
+	int operator-(const Date& d)const;
 
 	//这里还有流的运算符重载，C++中的cout和cin可以实现自动识别类型的原因就是C++自己写好了函数重载，我们要想我们的自定义类型也可以采用cin、cout就要我们自己写函数重载
 
@@ -134,3 +137,9 @@ private:
 	int _day;
 
 };
+
+std::ostream& operator<<(std::ostream& out, const Date& d);
+
+std::istream& operator>>(std::istream& in, Date& d);
+
+
