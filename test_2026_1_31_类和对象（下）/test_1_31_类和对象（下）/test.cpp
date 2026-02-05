@@ -150,102 +150,110 @@
 
 
 
-//内部类其实是一个独立的类，只不过是受类域和访问限定符的限制，是不存在包含与被包含的关系的
+//内部类其实是一个独立的类，只不过是受外部类类域和访问限定符的限制，是不存在包含与被包含的关系的
 //相应的，在内存上不存在从属关系，代表着我们不会在实例化类的时同时实例化它的内部类
 
 //我们可以认为内部类就是专门为另一个类设计的
 
-//#include<iostream>
-//using namespace std;
-//class A
-//{
-//private:
-//	static int _k;
-//	int _h = 1;
-//public:
-//	class B // B默认就是A的友元
-//	{
-//	public:
-//		void foo(const A& a)
-//		{
-//			cout << _k << endl; //OK
-//			cout << a._h << endl; //OK
-//		}
-//		int _b1;
-//	};
-//};
-//int A::_k = 1;
-//int main()
-//{
-//	cout << sizeof(A) << endl;
-//	A::B b;
-//	A aa;
-//	b.foo(aa);
-//	return 0;
-//}
-#include<iostream>
-#include<algorithm>
-using namespace std;
 
+#include<iostream>
+using namespace std;
 class A
 {
-public:
-	A(int a = 0)
-		:_a(a)
-	{
-		cout << "A(int a)" << endl;
-	}
-
-	~A()
-	{
-		cout << "~A()" << endl;
-	}
-
 private:
-	int _a;
-};
-
-class Solution {
+	static int _k;
+	int _h = 1;
 public:
-	int Sum_Solution(int n) {
-		//...
-		return n;
-	}
+	class B // B默认就是A的友元
+	{
+	public:
+		void foo(const A& a)
+		{
+			cout << _k << endl; //OK
+			cout << a._h << endl; //OK
+		}
+		int _b1;
+	};
 };
-
-bool myfunction(int i, int j) { return (i > j); }
-
+int A::_k = 1;
 int main()
 {
-	A aa1;  //有名对象
-
-	//我们可以认为这种有名对象是面向对象的
-	//而无名对象可以被认为是面向过程的
-
-	// 不能这么定义对象，因为编译器无法识别下面是一个函数声明，还是对象定义
-	//A aa2();
-
-	// 生命周期只在当前一行
-	A(); // 匿名对象
-	A(1);
-
-	Solution st;
-	cout << st.Sum_Solution(10) << endl;
-
-	// 为了更方便
-	cout << Solution().Sum_Solution(10) << endl;
-
-	int a[] = { 32,71,12,45,26,80,53,33 };
-	// < 升序
-	sort(a, a + 8);
-
-	// > 降序
-	sort(a, a + 8, myfunction);
-
-	/*greater<int> gt;
-	sort(a, a + 8, gt);*/
-
-	sort(a, a + 8, greater<int>());
-
+	cout << sizeof(A) << endl;
+	A::B b;
+	A aa;
+	b.foo(aa);
+	cout << sizeof(A);
 	return 0;
 }
+
+
+
+
+
+
+//#include<iostream>
+//#include<algorithm>
+//using namespace std;
+//
+//class A
+//{
+//public:
+//	A(int a = 0)
+//		:_a(a)
+//	{
+//		cout << "A(int a)" << endl;
+//	}
+//
+//	~A()
+//	{
+//		cout << "~A()" << endl;
+//	}
+//
+//private:
+//	int _a;
+//};
+//
+//class Solution {
+//public:
+//	int Sum_Solution(int n) {
+//		//...
+//		return n;
+//	}
+//};
+//
+//bool myfunction(int i, int j) { return (i > j); }
+//
+//int main()
+//{
+//	A aa1;  //有名对象
+//
+//	//我们可以认为这种有名对象是面向对象的
+//	//而无名对象可以被认为是面向过程的
+//
+//	// 不能这么定义对象，因为编译器无法识别下面是一个函数声明，还是对象定义
+//	//A aa2();
+//
+//	// 生命周期只在当前一行
+//	A(); // 匿名对象
+//	A(1);
+//
+//	Solution st;
+//	cout << st.Sum_Solution(10) << endl;
+//
+//	// 为了更方便
+//	cout << Solution().Sum_Solution(10) << endl;
+//
+//	int a[] = { 32,71,12,45,26,80,53,33 };
+//	// < 升序
+//	sort(a, a + 8);
+//
+//	// > 降序
+//	sort(a, a + 8, myfunction);
+//
+//	/*greater<int> gt;
+//	sort(a, a + 8, gt);*/
+//
+//	sort(a, a + 8, greater<int>());
+//
+//	return 0;
+//}
