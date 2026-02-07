@@ -3,8 +3,9 @@ using namespace std;
 class A
 {
 public:
-	A(int a = 0)
-		:_a1(a)
+	A(int a1 = 0,int a2 = 1)
+		:_a1(a1)
+		,_a2(a2)
 	{
 		cout << "A(int a)" << endl;
 	}
@@ -41,7 +42,7 @@ public:
 	}
 private:
 	int _a1 = 1;
-
+	int _a2 = 2;
 };
 
 void f1(A aa)
@@ -94,22 +95,120 @@ A f2()
 //
 
 
+//int main()
+//{
+//	int* p1 = new int[10];
+//	int* p2 = new int;
+//
+//
+//	
+//
+//
+//	int* p3 = new int[10] { 0 };
+//	int* p4 = new int[10] {1, 2, 3, 4, 5};
+//
+//
+//	delete[] p1;
+//	delete p2;
+//	delete[] p3;
+//	delete[] p4;
+//	return 0;
+//}
+
+
+
+//int main()
+//{
+//	A* p1 = new A(1);
+//	A* p2 = new A(2, 2);
+//
+//	A* p3 = new A[3]{ A(1, 1), A(2, 2), A(3, 3) };
+//
+//	  
+//	A* p4 = new A[3]{ {1,1},{2,2},{3,3} };
+//	//隐式类型转换
+//
+//
+//	delete(p1);
+//	delete(p2);
+//
+//	//new的数组要将[]使用起来（对应起来）
+//	delete[](p3);
+//	delete[](p4);
+//
+//	return 0;
+//}
+
+
+//int main()
+//{
+//
+//	try
+//	{
+//		void* p1 = new char[1024 * 1024 * 1024];
+//
+//		cout << p1 << endl;
+//		void* p2 = new char[1024 * 1024 * 1024];
+//
+//		cout << p2 << endl;
+//		void* p3 = new char[1024 * 1024 * 1024];
+//		cout << p3 << endl;
+//
+//		int n = 1;
+//		while (1)
+//		{
+//			void* p1 = new char[1024 * 1024 * 1024];
+//			cout << n << endl;
+//			++n;
+//		}
+//
+//	}
+//	catch(const exception& e)
+//	{
+//		cout << e.what() << endl;
+//	}
+//	//面向对象捕捉错误信息
+//
+//	//new的底层实际上是malloc，malloc是负责开空间的
+//
+//	return 0;
+//}
+
+
+
+
+class B
+{
+
+private:
+	int _a1;
+	int _a2;
+};
+
+
 int main()
 {
-	int* p1 = new int[10];
-	int* p2 = new int;
+	//malloc是用来申请空间的
+	//构造函数是用来初始化
 
 
-	
+
+	A* p2 = new A[10];
+	delete(p2);
+	//这里显示实现了析构函数，所以函数栈桢前面多出了4个字节用来存储有几个对象，好调用析构函数
+	//内存是整段申请的，我们的指针指向的是连带上了的前面的数字，这时候我们的函数
+
+	///////////////////////////////////////////////////////////////////////////////////////////
+	////new的底层就是operator new （也就是malloc+抛异常）和调用构造函数//这个面试的时候问过
 
 
-	int* p3 = new int[10] { 0 };
-	int* p4 = new int[10] {1, 2, 3, 4, 5};
 
 
-	delete[] p1;
-	delete p2;
-	delete[] p3;
-	delete[] p4;
+	B* p3 = new B[10];
+	delete p3;
+	//这里的类没有显示实现析构函数所以编译器没有在前面加上那四个字节的数字
+
+
+
 	return 0;
 }
