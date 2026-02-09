@@ -1,3 +1,0 @@
-﻿  test.cpp
-C:\Users\lenovo\Desktop\github仓库\C-LEARN\2026_2_7\2026_2_7\test.cpp(156,15): warning C4930: “Stack<float> psr(void)”: 未调用原型函数(是否是有意用变量定义的?)
-  2026_2_7.vcxproj -> C:\Users\lenovo\Desktop\github仓库\C-LEARN\2026_2_7\x64\Debug\2026_2_7.exe
