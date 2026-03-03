@@ -143,7 +143,7 @@ void test_string4()
 int main()
 {
 	//test_string1();
-	//test_string2();
+	test_string2();
 	/*test_string3();*/
 	/*TestPushBack();*/
 
