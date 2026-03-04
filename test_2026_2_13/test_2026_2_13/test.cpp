@@ -78,7 +78,7 @@ void test_string4()
 	std::string str("Please, replace the vowels in this sentence by asterisks.");
 	std::cout << str << '\n';
 
-	std::size_t found = str.find_first_not_of("abcdef");
+	std::size_t found = str.find_first_of("abcdef");
 	//实际上是叫find_any_of更好
 	//是找到string中符合""中的任意一个字符的下标
 	while (found != std::string::npos)
@@ -159,8 +159,8 @@ int main()
 	//test_string1();
 	//test_string2();
 	//test_string3();
-	//test_string4();
+	test_string4();
 	//test_string5();
-	test_string6();
+	//test_string6();
 	return 0;
 }

@@ -1,0 +1,5 @@
+﻿  test.cpp
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_4\test_2026_3_4\test.cpp(88,32): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_4\test_2026_3_4\test.cpp(93,36): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_4\test_2026_3_4\test.cpp(95,23): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+  test_2026_3_4.vcxproj -> C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_4\x64\Debug\test_2026_3_4.exe
