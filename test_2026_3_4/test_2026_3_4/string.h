@@ -3,12 +3,18 @@
 #pragma once
 #include<iostream>
 #include<cstring>
+#include<cassert>
 using namespace std;
 
 namespace jyy
 {
+
+
 	class string
 	{
+
+ 	friend ostream& operator<<(ostream& out, const string& s);
+	friend istream& operator>> (istream& in, string& s);
 	public:
 		typedef char* iteartor;
 		typedef const char* const_iteartor;
@@ -19,6 +25,12 @@ namespace jyy
 			,_capacity(0)
 		{}*/
 
+
+		void clear()
+		{
+			_size = 0;
+			_str[_size] = '\0';
+		}
 		iteartor begin()
 		{
 			return _str;
@@ -56,7 +68,18 @@ namespace jyy
 			_size = _capacity = 0;
 		}
 
-		char* c_str()
+		string(const string& s)
+		{
+			size_t len = strlen(s.c_str());
+			reserve(len);
+			for (size_t i = 0; i < s._size; i++)
+			{
+				_str[_size++] = s._str[i];
+			}
+		}
+
+
+		char* c_str()const
 		{
 			return _str;
 		}
@@ -83,19 +106,35 @@ namespace jyy
 		
 		string& operator+=(char ch);
 		string& operator+=(const char* str);
+		string& operator=(const string& s);
 
 		void insert(size_t pos, char ch);
 		void insert(size_t pos, const char* str);
 		void erase(size_t pos, size_t len = npos);
+
+		size_t find(size_t pos, char ch);
+		size_t find(size_t pos, const char* str);
+		string substr(size_t pos);
+
+
+		
+
 	private:
 		char* _str;
 		size_t _size;
 		size_t _capacity;
 
-		static const size_t npos;
+		static const size_t npos = -1;
 	};
-		 
+		
+	//这里实际上是写入了流，所以是不可以在前面加上const的
+	ostream& operator<<(ostream& out,const string& s);
+	istream& operator>> (istream& in,string& s);
+	
+
 	void test_string1();
 	void test_string2();
+	void test_string3();
+	void test_string4();
 }
 
