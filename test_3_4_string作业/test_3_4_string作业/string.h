@@ -12,15 +12,16 @@ namespace jyy
 	class string
 	{
 
-		friend ostream& operator<<(ostream& _cout, const jyy::string& s);
+		friend ostream& operator<<(ostream& out, const string& s);
 
-		friend istream& operator>>(istream& _cin, jyy::string& s);
+		friend istream& operator>>(istream& in, string& s);
 	public:
 
 		void reserve(size_t n)
 		{
 			assert(n > _capacity);
-			char*  tmp = new char[n] ;
+			char*  tmp = new char[n + 1] ;
+			//依旧忽略了要给'\0'留下空间		
 			strcpy(tmp, _str);
 			delete[] _str;
 			_str = tmp;
@@ -33,6 +34,7 @@ namespace jyy
 			, _size(0)
 			, _capacity(0)
 		{}
+
 		string(const char* str)
 		{
 			_size = strlen(str);
@@ -80,24 +82,52 @@ namespace jyy
 			_size += len;
 		}
 
+		void begin();
+		void end();
+		
+		void insert(size_t pos, char ch);
+		void insert(size_t pos, const char* str);
+		void append(const char* str);
+		void erase(size_t pos, size_t len);
+
+		void swap(string& s);
+		string substr(size_t pos);
+		size_t find(size_t pos, char ch);
+		size_t find(size_t pos, const char* str);
+
+		bool operator==(const string& s);
+		bool operator!=(const string& s);
+		
+		bool operator>=(const string& s);
+		bool operator>(const string& s);
+		
+		bool operator<=(const string& s);
+		bool operator<(const string& s);
+
+
+
+
+		void clear()
+		{
+			_str[0] = '\0';
+			_size = 0;
+		}
 
 	private:
 		char* _str;
 		size_t _size;
 		size_t _capacity;
 
+
+		static const size_t npos = -1;
 	};
 
 
-	static  void test_string1()
-	{
-		string s1;
-		string s2("hello wrold");
+	istream& operator>>(istream& in, string& s);
+	ostream& operator<<(ostream& out, const string& s);
 
 
-		//s2 += " what can i say";
-		cout << s2.c_str() << endl;
-	}
+	
 
 	
 }
