@@ -19,18 +19,34 @@ namespace jyy
 	{
 		string s1("hello wrold");
 
-		s1.append("what can i say");
-
+		//s1.append(" what can i say");
+		cin >> s1;
 		cout << s1 << endl;
 
-		s1.insert(0, '%');
+		//s1.insert(0, '%');
+		
+		//s1.erase(5, 7);
+		s1.insert(0, "hello wrold ");
 		cout << s1 << endl;
+
+
+
+	}
+
+
+	void test_string3()
+	{
+		string s1("hello world");
+
+		string s2 = s1;
+
+		cout << s1 << endl << s2 << endl;
 
 	}
 }
 int main()
 {
-	jyy::test_string2();
+	jyy::test_string3();
 
 	return 0;
 }

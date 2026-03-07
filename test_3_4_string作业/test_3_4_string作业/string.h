@@ -29,18 +29,29 @@ namespace jyy
 		}
 		
 
+		void swap(string& s)
+		{
+			std::swap(_str, s._str);
+			std::swap(_size, s._size);
+			std::swap(_capacity, s._capacity);
+		}
+
 		string()
 			:_str(new char[1]{ '\0' })
 			, _size(0)
 			, _capacity(0)
 		{}
-
 		string(const char* str)
 		{
 			_size = strlen(str);
 			_capacity = _size;
 			_str = new char[_size + 1];
 			strcpy(_str, str);
+		}
+		string(const string& s)
+		{
+			string tmp(s._str);
+			swap(tmp);
 		}
 
 		~string()
@@ -70,7 +81,6 @@ namespace jyy
 			_str[_size++] = ch;
 			_str[_size] = '\0';
 		}
-		
 		void operator+=(const char* str)
 		{
 			size_t len = strlen(str);
@@ -81,6 +91,34 @@ namespace jyy
 			strcpy(_str + _size, str);
 			_size += len;
 		}
+		/*string& operator=(const char* str)
+		{
+			string tmp(str);
+			swap(tmp);
+
+			return *this;
+
+		}*/
+		string& operator=(string tmp)
+		{
+			swap(tmp);
+
+
+			return *this;
+		}
+
+		string& operator=(const string& s)
+		{
+			if (*this != s)
+			{
+				string tmp = s;
+				swap(tmp);
+			}
+			return *this;
+		}
+
+
+
 
 		void begin();
 		void end();
@@ -88,9 +126,8 @@ namespace jyy
 		void insert(size_t pos, char ch);
 		void insert(size_t pos, const char* str);
 		void append(const char* str);
-		void erase(size_t pos, size_t len);
+		void erase(size_t pos, size_t len = npos);
 
-		void swap(string& s);
 		string substr(size_t pos);
 		size_t find(size_t pos, char ch);
 		size_t find(size_t pos, const char* str);
@@ -114,9 +151,9 @@ namespace jyy
 		}
 
 	private:
-		char* _str;
-		size_t _size;
-		size_t _capacity;
+		char* _str = nullptr;
+		size_t _size = 0;
+		size_t _capacity = 0;
 
 
 		static const size_t npos = -1;

@@ -12,16 +12,33 @@ namespace jyy
 
 	istream& operator>>(istream& in, string& s)
 	{
+		s.clear();
+		
+		int i = 0;
+		const int N = 256;
+		char buff[N];
+
 		char ch;
 		ch = cin.get();
 		while (ch != '\n')
 		{
-			s += ch;
+			buff[i++] = ch;
 			ch = cin.get();
+			if (i == N - 1)
+			{
+				buff[i] = '\0';
+				s += buff;
+				i = 0;
+			}
+		}
+
+		if (i > 0)
+		{
+			buff[i] = '\0';
+			s += buff;
 		}
 
 		return in;
-
 	}
 
 	void string::insert(size_t pos, char ch)
@@ -46,6 +63,25 @@ namespace jyy
 	{
 		assert(pos <= _size);
 
+		size_t len = strlen(str);
+		
+		if (len + _size > _capacity)
+		{
+			reserve(len + _size > 2 * _capacity ? len + _size : 2 * _capacity);
+		}
+
+		for (size_t cur = _size + len; cur >= pos + len; --cur)
+		{
+			_str[cur] = _str[cur - len];
+		}
+
+		for (size_t i = 0; str[i] != '\0'; i++)
+		{
+			_str[pos++] = str[i];
+		}
+
+		_size += len;
+		_str[_size] = '\0';
 	}
 	void string::append(const char* str)
 	{
@@ -68,7 +104,17 @@ namespace jyy
 	}
 	void string::erase(size_t pos, size_t len)
 	{
+		assert(pos < _size);
 
+		size_t cur = pos;
+		while (cur + len <= _size)
+		{
+			_str[cur] = _str[cur + len];
+			++cur;
+		}
+
+		_size -= len;
+		_str[_size] = '\0';
 	}
 
 
@@ -89,18 +135,7 @@ namespace jyy
 
 	
 
-	void string::swap(string& s)
-	{
-		char* tmp = _str;
-		_str = s._str;
-		s._str = tmp;
-
-		std::swap(_size, s._size);
-		std::swap(_capacity, s._capacity);
-
-					
-	}	
-
+	
 	size_t string::find(size_t pos, char ch)
 	{
 		assert(pos < _size);
