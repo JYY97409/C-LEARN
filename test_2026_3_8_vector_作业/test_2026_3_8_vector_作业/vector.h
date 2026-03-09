@@ -51,40 +51,50 @@ namespace jyy
 
         // construct and destroy
 
-        vector()
-        {
-            
-        }
+
+        //这里是直接告诉编译器这个是用默认构造函数
+        vector() = default;
 
         vector(int n, const T& value = T())
         {
-            _start = new T[n];
-            _finish = _start + n;
-            _end_of_storage = _finish;
-            std::fill(_start, _finish, value);
+            resize(n, value);
         }
 
+        //成员函数作为函数模版
         template<class InputIterator>
 
         vector(InputIterator first, InputIterator last)
         {
-            
-
+            while (first != last)
+            {
+                push_back(*first);
+                ++first;
+            }
         }
 
         vector(const vector<T>& v)
         {
+            size_t len = v.size();
 
+            reserve(len);
+            
+            for (size_t i = 0; i < len; i++)
+            {
+                push_back(v._start[i]);
+            }
         }
-
+        
         vector<T>& operator= (vector<T> v)
         {
+            swap(v);
 
+            return *this;
         }
 
         ~vector()
         {
-
+            delete[] _start;
+            _start = _finish = _end_of_storage = nullptr;
         }
 
         // capacity
@@ -107,7 +117,13 @@ namespace jyy
             size_t old_size = size();
 
             T* tmp = new T[n];
-            memcpy(tmp, _start, old_size * sizeof(T));
+            // memcpy(tmp, _start, old_size * sizeof(T));
+            //这里的memcpy容易出现浅拷贝的问题
+            
+            for (size_t i = 0; i < old_size; i++)
+            {
+                tmp[i] = _start[i];
+            }
             delete[] _start;
 
             _start = tmp;
@@ -218,11 +234,7 @@ namespace jyy
     template <class T>
     void printf_vector(const vector<T>& v)
     {
-        /*for (const auto ch : v)
-        {
-            cout << ch << " ";
-        }
-        cout << endl;*/
+ 
 
 
         auto it = v.begin();
@@ -234,6 +246,18 @@ namespace jyy
         cout << endl;
     }
 
+    template <class  Container>
+    void printf_container(const  Container& v)
+    {
+
+        auto it = v.begin();
+        while (it != v.end())
+        {
+            cout << *it << " ";
+            ++it;
+        }
+        cout << endl;
+    }
     void test_vector()
     {
         vector<int> v1(10, 5);
@@ -255,6 +279,35 @@ namespace jyy
         printf_vector(v1);
 
 
+    }
+
+    void test_vector1()
+    {
+        vector<int> v(10, 1);
+        vector<int> v1 = v;
+        
+        vector<int> v2;
+        v2 = v1;
+
+        printf_vector(v);
+        printf_vector(v1);
+        printf_vector(v2);
+
+
+        vector<int> v3(v2.begin() + 3, v2.end());
+        printf_vector(v3);
+        
+
+
+        vector<string> v4 ;
+        v4.push_back("11111111111111111");
+        v4.push_back("11111111111111111");
+        v4.push_back("11111111111111111");
+        v4.push_back("11111111111111111");
+        printf_container(v4);
+
+        v4.push_back("11111111111111111");
+        printf_container(v4);
 
     }
 

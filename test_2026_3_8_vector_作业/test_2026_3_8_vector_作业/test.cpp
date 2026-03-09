@@ -2,7 +2,7 @@
 
 int main()
 {
-	jyy::test_vector();
+	jyy::test_vector1();
 
 	
 

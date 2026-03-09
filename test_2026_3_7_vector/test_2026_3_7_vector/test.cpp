@@ -7,7 +7,7 @@ void test_vector1();
 
 int main()
 {
-	jyy::test_vector5();
+	jyy::test_vector8();
 	return 0;
 }
 
