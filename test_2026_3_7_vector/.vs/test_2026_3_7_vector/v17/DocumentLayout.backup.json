@@ -7,8 +7,8 @@
       "RelativeMoniker": "D:0:0:{0CF4147B-3381-4E11-869C-58A35F78A7B2}|test_2026_3_7_vector\\test_2026_3_7_vector.vcxproj|solutionrelative:test_2026_3_7_vector\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CF4147B-3381-4E11-869C-58A35F78A7B2}|test_2026_3_7_vector\\test_2026_3_7_vector.vcxproj|C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_7_vector\\test_2026_3_7_vector\\vector.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CF4147B-3381-4E11-869C-58A35F78A7B2}|test_2026_3_7_vector\\test_2026_3_7_vector.vcxproj|solutionrelative:test_2026_3_7_vector\\vector.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{0CF4147B-3381-4E11-869C-58A35F78A7B2}|test_2026_3_7_vector\\test_2026_3_7_vector.vcxproj|C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_7_vector\\test_2026_3_7_vector\\vector.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF4147B-3381-4E11-869C-58A35F78A7B2}|test_2026_3_7_vector\\test_2026_3_7_vector.vcxproj|solutionrelative:test_2026_3_7_vector\\vector.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,14 +31,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "vector.cpp",
-              "DocumentMoniker": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_7_vector\\test_2026_3_7_vector\\vector.cpp",
-              "RelativeDocumentMoniker": "test_2026_3_7_vector\\vector.cpp",
-              "ToolTip": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_7_vector\\test_2026_3_7_vector\\vector.cpp",
-              "RelativeToolTip": "test_2026_3_7_vector\\vector.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-07T14:04:01.304Z",
+              "Title": "vector.h",
+              "DocumentMoniker": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_7_vector\\test_2026_3_7_vector\\vector.h",
+              "RelativeDocumentMoniker": "test_2026_3_7_vector\\vector.h",
+              "ToolTip": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_7_vector\\test_2026_3_7_vector\\vector.h",
+              "RelativeToolTip": "test_2026_3_7_vector\\vector.h",
+              "ViewState": "AgIAAAoBAAAAAAAAAAAQwDEBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-03-08T04:25:18.849Z",
               "EditorCaption": ""
             },
             {
@@ -47,9 +47,9 @@
               "Title": "test.cpp",
               "DocumentMoniker": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_7_vector\\test_2026_3_7_vector\\test.cpp",
               "RelativeDocumentMoniker": "test_2026_3_7_vector\\test.cpp",
-              "ToolTip": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_7_vector\\test_2026_3_7_vector\\test.cpp*",
-              "RelativeToolTip": "test_2026_3_7_vector\\test.cpp*",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAAAFwAAAAeAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_7_vector\\test_2026_3_7_vector\\test.cpp",
+              "RelativeToolTip": "test_2026_3_7_vector\\test.cpp",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAAAAkAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-03-07T07:43:54.19Z",
               "EditorCaption": ""

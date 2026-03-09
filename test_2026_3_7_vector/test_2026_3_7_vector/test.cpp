@@ -1,7 +1,15 @@
 #include<iostream>
 #include<vector>
+#include"vector.h"
 using namespace std;
 
+void test_vector1();
+
+int main()
+{
+	jyy::test_vector5();
+	return 0;
+}
 
 void test_vector1()
 {
@@ -95,8 +103,5 @@ void test_vector4()
 
 }
 
-int main()
-{
-	test_vector4();
-	return 0;
-}
+
+

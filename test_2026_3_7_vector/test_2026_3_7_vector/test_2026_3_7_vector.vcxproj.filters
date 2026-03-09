@@ -18,8 +18,10 @@
     <ClCompile Include="test.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="vector.cpp">
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="vector.h">
       <Filter>头文件</Filter>
-    </ClCompile>
+    </ClInclude>
   </ItemGroup>
 </Project>
