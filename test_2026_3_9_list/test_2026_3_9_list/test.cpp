@@ -1,6 +1,7 @@
 #include<iostream>
 #include<list>
 #include<algorithm>
+//#include"list.h"
 using namespace std;
 
 
@@ -100,6 +101,9 @@ void test_list3()
 	cout << endl;
 }
 
+
+
+
 void test_list4()
 {
 	list<int> lt;
@@ -130,6 +134,31 @@ void test_list4()
 		cout << it << " ";
 	}
 	cout << endl;
+}
+
+void test_list5()
+{
+	list<int> lt1;
+	lt1.emplace_back(1);
+	lt1.emplace_back(2);
+	lt1.emplace_back(3);
+	lt1.emplace_back(4);
+	lt1.emplace_back(5);
+	lt1.emplace_back(6);
+
+	list<int> lt2;
+
+	lt2.emplace_back(10);
+	lt2.emplace_back(20);
+	lt2.emplace_back(30);
+	lt2.emplace_back(40);
+
+	lt1.splice(lt2);
+
+
+
+
+
 }
 
 int main()
