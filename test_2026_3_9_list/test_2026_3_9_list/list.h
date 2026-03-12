@@ -134,7 +134,7 @@ namespace jyy
   			Node* next = it._node->next;
 			Node* prev = it._node->prev;
 			iterator ret = ++it;
-			
+			//这里存在bug，会使it指向下一个位置，从而delete错误的位置
 			prev->next = next;
 			next->prev = prev;
 
