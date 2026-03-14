@@ -24,58 +24,152 @@ namespace jyy
 		list_node<T>* prev;
 	};
 
-
-
-	template<class T>
+	template<class T, class Ref, class  Ptr>
 	struct list_iterator
 	{
 		typedef list_node<T> Node;
-		typedef list_iterator<T> iterator;
-	
+		typedef list_iterator<T,Ref,Ptr> Self;
+		
+		//这里的Self可以非常好的兼容两个类型的迭代器
 		list_iterator(Node* node)
-		{
-			_node = node;
-		}
+			:_node(node)
+		{}
 
-		iterator operator++()
+		Ref operator*()
+		{
+			return _node->_data;
+		}
+		Ptr operator->()
+		{
+			return &_node->_data;
+		}
+		Self& operator++()
 		{
 			_node = _node->next;
 			return *this;
 		}
-		iterator operator--()
+		Self& operator--()
 		{
 			_node = _node->prev;
 			return *this;
 		}
-		
-		bool operator !=(const iterator&  it)const
+
+		Self operator++(int)
 		{
-			return !(it._node == _node);
+			iterator ret = *this;
+			_node = _node->next;
+			return ret;
 		}
-		bool operator ==(const iterator& it)const
+		Self operator--(int)
 		{
-			return !it != *this;
+			iterator ret = *this;
+			_node = _node->prev;
+			return ret;
+		}
+		
+		bool operator !=(const Self&  it)const
+		{
+			return it._node != _node;
+		}
+		bool operator ==(const Self& it)const
+		{
+			return it._node == _node;
 		}
 
-		T operator*()const
-		{
-			return _node->_data;
-		}
-
-		
 	public:
 		Node* _node;
 	};
 
 
+
+	//template<class T>
+	//struct list_const_iterator
+	//{
+	//	typedef list_node<T> Node;
+	//	typedef list_const_iterator<T> const_iterator;
+
+	//	list_const_iterator(Node* node)
+	//		:_node(node)
+	//	{}
+
+	//	const_iterator& operator++()
+	//	{
+	//		_node = _node->next;
+	//		return *this;
+	//	}
+	//	const_iterator& operator--()
+	//	{
+	//		_node = _node->prev;
+	//		return *this;
+	//	}
+
+	//	const_iterator operator++(int)
+	//	{
+	//		const_iterator ret = *this;
+	//		_node = _node->next;
+	//		return ret;
+	//	}
+	//	const_iterator operator--(int)
+	//	{
+	//		const_iterator ret = *this;
+	//		_node = _node->prev;
+	//		return ret;
+	//	}
+
+	//	bool operator !=(const const_iterator& it)const
+	//	{
+	//		return (it._node != _node);
+	//	}
+	//	bool operator ==(const const_iterator& it)const
+	//	{
+	//		return it._node ==_node;
+	//	}
+
+	//	//此处应该是T&
+	//	const T& operator*()
+	//	{
+	//		return _node->_data;
+	//	}
+	//	const T* operator->()
+	//	{
+	//		return &_node->_data;
+	//	}
+	//	
+	//public:
+	//	Node* _node;
+	//};
+
+
+
+	template<class Contianer>
+	void printf_contianer(const Contianer& con)
+	{
+
+		auto it = con.begin();
+		while (it != con.end())
+		{
+			*it += 10;
+			++it;
+		}
+		cout << endl;
+
+		for (auto e : con)
+		{
+			cout << e << " ";
+		}
+		cout << endl;
+	}
 	template<class T>
 	class list
 	{
 	public:
 		typedef list_node<T> Node;
-		typedef list_iterator<T> iterator;
+		/*typedef list_iterator<T> iterator;
+		typedef list_const_iterator<T> const_iterator;*/
 
-
+		typedef list_iterator<T, T&, T*>  iterator;
+		typedef list_iterator<T, const T&, const T*> const_iterator;
+		//可以认为这是在类中声明了迭代器的类型，然后在模版中直接套用
 		list()
 		{
 			_head = new Node();
@@ -84,19 +178,7 @@ namespace jyy
 			_size = 0;
 		}
 		void push_back(T x)
-		{
-			
-			/*Node* new_node = (new Node(x));
-
-			Node* tail = _head->prev;
-
-			tail->next = new_node;
-			new_node->prev = tail;
-
-			new_node->next = _head;
-			_head->prev = new_node;
-
-			++_size;*/
+		{	
 			insert(end(), x);
 		}
 		void push_front(T x)
@@ -125,7 +207,6 @@ namespace jyy
 			return --it;
 		}
 		
-
 		iterator erase(iterator it)
 		{
 			assert(it != end());
@@ -146,12 +227,19 @@ namespace jyy
 
 		iterator begin()
 		{
-			return iterator(_head -> next);
+			return iterator(_head->next);
  		}
-
 		iterator end()
 		{
 			return iterator(_head);
+		}
+		const_iterator begin()const
+		{
+			return	const_iterator(_head->next);
+		}
+		const_iterator end()const
+		{
+			return const_iterator(_head);
 		}
 	
 	private:
@@ -159,5 +247,10 @@ namespace jyy
 		size_t _size;
 	};
 	
-	
 }
+
+
+
+
+
+
