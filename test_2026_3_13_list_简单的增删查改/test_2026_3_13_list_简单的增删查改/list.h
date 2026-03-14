@@ -115,7 +115,6 @@ namespace jyy
                 push_back(value);
             }
         }
-        //我现在还是有点没绷住what can  i say
         template <class Iterator>
         list(Iterator first, Iterator last)
         {
