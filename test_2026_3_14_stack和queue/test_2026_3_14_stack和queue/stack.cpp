@@ -2,10 +2,11 @@
 #include<stack>
 #include<queue>
 #include<list>
-
+#include"stack.h"
+#include"queue.h"
 using namespace std;
 
-void test_list6()
+void test_list1()
 {
 	// 一个链表节点转移给另一个链表
 	std::list<int> mylist1, mylist2;
@@ -56,16 +57,31 @@ void test_list6()
 	cout << endl;
 }
 
-void test_list1()
+void test_list2()
 {
 	list<int> l1 = { 1,2,3,4,5 };
 	list<int> l2;
 	l2.splice(l2.begin(),l1, l1.begin(), l1.end());
 }
+namespace jyy
+{
+	void test_queue1()
+	{
+		queue<int> q1;
+		q1.push(1);
+		q1.push(1);
+		q1.push(1);
+		q1.push(1);
+	}
+	void test_stack1()
+	{
+
+	}
+}
 
 int main()
 {
-	test_list1();
+	jyy::test_queue1();
 	
 
 	return 0;
