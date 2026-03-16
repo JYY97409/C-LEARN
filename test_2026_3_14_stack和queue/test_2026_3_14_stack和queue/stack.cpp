@@ -81,8 +81,24 @@ namespace jyy
 
 int main()
 {
-	jyy::test_queue1();
-	
+	//jyy::test_queue1();
 
+	//这里是传了一个仿函数，用于指示容器按照相应的方式
+	priority_queue<int,vector<int> ,greater<int>> pq;
+	pq.push(1);
+	pq.push(4);
+	pq.push(3);
+	pq.push(5);
+	pq.push(6);
+	pq.push(9);
+
+
+	while (!pq.empty())
+	{
+		cout << pq.top() << " ";
+		pq.pop();
+	}
+
+	cout << endl;
 	return 0;
 }

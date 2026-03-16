@@ -32,23 +32,10 @@
               "RelativeDocumentMoniker": "test_2026_3_14_stack\u548Cqueue\\queue.h",
               "ToolTip": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_14_stack\u548Cqueue\\test_2026_3_14_stack\u548Cqueue\\queue.h",
               "RelativeToolTip": "test_2026_3_14_stack\u548Cqueue\\queue.h",
-              "ViewState": "AgIAAAkAAAAAAAAAAAD4vxsAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACgAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-03-15T14:25:22.77Z",
               "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "stack.h",
-              "DocumentMoniker": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_14_stack\u548Cqueue\\test_2026_3_14_stack\u548Cqueue\\stack.h",
-              "RelativeDocumentMoniker": "test_2026_3_14_stack\u548Cqueue\\stack.h",
-              "ToolTip": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_14_stack\u548Cqueue\\test_2026_3_14_stack\u548Cqueue\\stack.h",
-              "RelativeToolTip": "test_2026_3_14_stack\u548Cqueue\\stack.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-15T14:45:01.86Z",
               "EditorCaption": ""
             },
             {
@@ -61,13 +48,26 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "stack.h",
+              "DocumentMoniker": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_14_stack\u548Cqueue\\test_2026_3_14_stack\u548Cqueue\\stack.h",
+              "RelativeDocumentMoniker": "test_2026_3_14_stack\u548Cqueue\\stack.h",
+              "ToolTip": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_14_stack\u548Cqueue\\test_2026_3_14_stack\u548Cqueue\\stack.h",
+              "RelativeToolTip": "test_2026_3_14_stack\u548Cqueue\\stack.h",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACkAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-03-15T14:45:01.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "stack.cpp",
               "DocumentMoniker": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_14_stack\u548Cqueue\\test_2026_3_14_stack\u548Cqueue\\stack.cpp",
               "RelativeDocumentMoniker": "test_2026_3_14_stack\u548Cqueue\\stack.cpp",
               "ToolTip": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_14_stack\u548Cqueue\\test_2026_3_14_stack\u548Cqueue\\stack.cpp*",
               "RelativeToolTip": "test_2026_3_14_stack\u548Cqueue\\stack.cpp*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAFQAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-03-14T09:13:11.391Z",
               "EditorCaption": ""

@@ -35,6 +35,10 @@ namespace jyy
 			return _con.size();
 		}
 
+		bool empty()
+		{
+			return _con.empty();
+		}
 	private:
 		Container _con;
 	};
