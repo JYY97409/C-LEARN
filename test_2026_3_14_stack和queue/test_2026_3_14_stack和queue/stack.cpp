@@ -6,6 +6,8 @@
 #include"queue.h"
 using namespace std;
 
+
+
 void test_list1()
 {
 	// 一个链表节点转移给另一个链表
@@ -77,14 +79,36 @@ namespace jyy
 	{
 
 	}
+
+	template<class T>
+	class less_func
+	{
+	public:
+		bool operator()(const T& a,const T& b)
+		{
+			return a < b;
+		}
+	};
+
+
+	template<class T>
+	class greater_func
+	{
+		bool operator()(const T& a,const T& b)
+		{
+			return a > b;
+		}
+	};
 }
+
+
 
 int main()
 {
 	//jyy::test_queue1();
 
 	//这里是传了一个仿函数，用于指示容器按照相应的方式
-	priority_queue<int,vector<int> ,greater<int>> pq;
+	priority_queue<int,vector<int>,greater<int> > pq;
 	pq.push(1);
 	pq.push(4);
 	pq.push(3);
