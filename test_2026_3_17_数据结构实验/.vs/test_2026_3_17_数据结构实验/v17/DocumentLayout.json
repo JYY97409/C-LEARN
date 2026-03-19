@@ -39,8 +39,7 @@
               "ViewState": "AgIAACQAAAAAAAAAAAAAAD4AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-03-17T04:13:53.27Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -60,8 +59,7 @@
               "RelativeToolTip": "test_2026_3_17_\u6570\u636E\u7ED3\u6784\u5B9E\u9A8C\\linear_list.h",
               "ViewState": "AgIAAEsAAAAAAAAAAAAAAF8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-17T04:15:16.756Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-17T04:15:16.756Z"
             },
             {
               "$type": "Document",
@@ -71,7 +69,7 @@
               "RelativeDocumentMoniker": "test_2026_3_17_\u6570\u636E\u7ED3\u6784\u5B9E\u9A8C\\queue.h",
               "ToolTip": "C:\\Users\\lenovo\\Desktop\\github\u4ED3\u5E93\\C-LEARN\\test_2026_3_17_\u6570\u636E\u7ED3\u6784\u5B9E\u9A8C\\test_2026_3_17_\u6570\u636E\u7ED3\u6784\u5B9E\u9A8C\\queue.h",
               "RelativeToolTip": "test_2026_3_17_\u6570\u636E\u7ED3\u6784\u5B9E\u9A8C\\queue.h",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAcwEYAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAcwDMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-03-17T04:14:20.717Z",
               "EditorCaption": ""
@@ -86,8 +84,7 @@
               "RelativeToolTip": "test_2026_3_17_\u6570\u636E\u7ED3\u6784\u5B9E\u9A8C\\stack.h",
               "ViewState": "AgIAABEAAAAAAAAAAAAcwDkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-17T04:14:11.504Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-17T04:14:11.504Z"
             }
           ]
         }

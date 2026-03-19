@@ -65,7 +65,7 @@ namespace jyy
 	
 
 }
-
+//可以说就是构造的时候可以认为是
 
 int main()
 {

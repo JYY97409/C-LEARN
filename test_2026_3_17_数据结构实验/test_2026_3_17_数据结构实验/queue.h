@@ -48,6 +48,8 @@ namespace jyy
 		{
 			return _size;
 		}
+
+
 		bool empty()
 		{
 			return _front == _tail;
