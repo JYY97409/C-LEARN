@@ -47,7 +47,7 @@ namespace jyy
 
 		Student& operator=(const Student& s)
 		{
-			Person::operator=(s);
+			Person::operator= ( s );
 			//这里就是体现了切片的用法，将子类中父类的成员变量切出来
 			_number = s._number;
 
@@ -66,7 +66,7 @@ namespace jyy
 
 }
 //可以说就是构造的时候可以认为是
-
+//构造的时候是先构造父类，析构的时候是先析构子类，这个顺序还是挺不一样的
 int main()
 {
 	jyy::Student s1;
