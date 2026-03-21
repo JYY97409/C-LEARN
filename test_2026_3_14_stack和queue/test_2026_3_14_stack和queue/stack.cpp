@@ -116,11 +116,26 @@ int main()
 	pq.push(6);
 	pq.push(9);
 
+	stack<int> st1;
+	st1.push(1);
+	st1.push(2);
+	st1.push(3);
+	st1.push(4);
+	st1.push(5);
+	st1.push(6);
+	st1.push(7);
 
 	while (!pq.empty())
 	{
 		cout << pq.top() << " ";
 		pq.pop();
+	}
+	cout << endl;
+
+	while (!st1.empty())
+	{
+		cout << st1.top() << " ";
+		st1.pop();
 	}
 
 	cout << endl;

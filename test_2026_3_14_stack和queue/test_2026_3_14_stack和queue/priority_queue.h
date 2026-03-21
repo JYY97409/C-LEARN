@@ -19,14 +19,12 @@ namespace jyy
 		{
 			_con.push_back(val);
 			Adjustup(_con.size()-1);
-
 		}
 
 		void pop()
 		{
 			swap(_con[0]£¬_con[_con.size() - 1]);
 			Adjustdown(0);
-
 		}
 
 		T top()

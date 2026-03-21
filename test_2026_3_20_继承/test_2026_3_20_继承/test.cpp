@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<string>
 
 using namespace std;
@@ -28,7 +28,7 @@ public:
 class Teacher : public virtual Person
 {
 public:
-	Teacher(const string& name ,const string& position = "ÉòÑô´ó½Ö")
+	Teacher(const string& name ,const string& position = "æ²ˆé˜³å¤§è¡—")
 		:Person(name)
 		,_position(position)
 	{}
@@ -36,8 +36,8 @@ public:
 };
 
 
-//ÕâÀï¾ÍÊÇÏÈÔÚ³öÏÖ¶şÒåĞÔµÃµØ·½ÉùÃ÷Ğéº¯Êı£¬µ«ÊÇ´ËÊ±¶şÒåĞÔÄÚÈİÊÇ´æÔÚÒ»¸ö¹«¹²¿Õ¼ä£¬²»ÊôÓÚÈÎºÎÒ»¸ö¶ÔÏó
-//³öÓÚ´ÓÊô¹ØÏµµÄ¿¼Á¿£¬ÎÒÃÇĞèÒªÔÚ¶ÔÏóÖĞÏÔÊ¾µ÷ÓÃPersonÀàµÄ¹¹Ôìº¯Êı
+//è¿™é‡Œå°±æ˜¯å…ˆåœ¨å‡ºç°äºŒä¹‰æ€§å¾—åœ°æ–¹å£°æ˜è™šå‡½æ•°ï¼Œä½†æ˜¯æ­¤æ—¶äºŒä¹‰æ€§å†…å®¹æ˜¯å­˜åœ¨ä¸€ä¸ªå…¬å…±ç©ºé—´ï¼Œä¸å±äºä»»ä½•ä¸€ä¸ªå¯¹è±¡
+//å‡ºäºä»å±å…³ç³»çš„è€ƒé‡ï¼Œæˆ‘ä»¬éœ€è¦åœ¨å¯¹è±¡ä¸­æ˜¾ç¤ºè°ƒç”¨Personç±»çš„æ„é€ å‡½æ•°
 class Display : public Student,public Teacher
 {
 public:
@@ -52,7 +52,7 @@ public:
 
 int main()
 {
-	Display d1("ÕÅÈı");
+	Display d1("å¼ ä¸‰");
 
 	cout << d1._name << endl;
 	cout << d1._name << endl;
@@ -63,3 +63,45 @@ int main()
 
 	return 0;
 }
+
+
+//class Person
+//{
+//protected:
+//	string _name; // å§“å
+//	string _sex; // æ€§åˆ«
+//	int _age; // å¹´é¾„
+//};
+//class Student : public Person
+//{
+//public:
+//	int _No; // å­¦å·
+//};
+//
+//
+//class Person
+//{
+//protected:
+//	string _name; // å§“å
+//	string _sex; // æ€§åˆ«
+//	int _age; // å¹´é¾„
+//};
+//class Student : public Person
+//{
+//public:
+//	int _No; // å­¦å·
+//};
+//int main()
+//{
+//	Student sobj;
+//	// 1.æ´¾â½£ç±»å¯¹è±¡å¯ä»¥èµ‹å€¼ç»™åŸºç±»çš„æŒ‡é’ˆ/å¼•â½¤
+//	Person* pp = &sobj;
+//	Person& rp = sobj;
+//	// â½£ç±»å¯¹è±¡å¯ä»¥èµ‹å€¼ç»™åŸºç±»çš„å¯¹è±¡æ˜¯é€šè¿‡è°ƒâ½¤åâ¾¯ä¼šè®²è§£çš„åŸºç±»çš„æ‹·â»‰æ„é€ å®Œæˆçš„
+//	Person pobj = sobj;
+//	//2.åŸºç±»å¯¹è±¡ä¸èƒ½èµ‹å€¼ç»™æ´¾â½£ç±»å¯¹è±¡ï¼Œè¿™â¾¥ä¼šç¼–è¯‘æŠ¥é”™
+//	sobj = pobj;
+//	return 0;
+//}
+
+
