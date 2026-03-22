@@ -9,7 +9,11 @@ public:
 		:_name(name)
 		,_age(age)
 	{}
-
+	void operator=(const Person& s)
+	{
+		_name = s._name;
+		_age = s._age;
+	}
 	string _name;
 	int _age;
 
@@ -22,7 +26,13 @@ public:
 		:Person(name)
 		,_num(num)
 	{}
-
+	//这里是应用了切片
+	void operator=(const Student& s)
+	{
+		Person::operator=(s);
+		_num = s._num;
+	}
+	
 	int _num;
 };
 class Teacher : public virtual Person
@@ -105,3 +115,15 @@ int main()
 //}
 
 
+// C++11的⽅法
+class Base final
+{
+public:
+	void func5() { cout << "Base::func5" << endl; }
+protected:
+	int a = 1;
+private:
+	// C++98的⽅法
+	/*Base()
+	{}*/
+};
