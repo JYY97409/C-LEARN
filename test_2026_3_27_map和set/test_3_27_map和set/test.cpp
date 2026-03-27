@@ -1,6 +1,7 @@
 #include<iostream>
 #include<algorithm>
 #include<set>
+#include<map>
 
 
 using namespace std;
@@ -27,15 +28,46 @@ using namespace std;
 //	return 0;
 //}
 
+//int main()
+//{
+//	multiset<int> s1 = { 1,4,3,5,7,2 };
+//
+//	for (auto e : s1)
+//	{
+//		cout << e << " ";
+//	}
+//	cout << endl;
+//
+//	return 0;
+//}
+
 int main()
 {
-	multiset<int> s1 = { 1,4,3,5,7,2 };
-
+	set<int> s1;
+	s1.insert(1);
+	s1.insert(6);
+	s1.insert(7);
+	s1.insert(3);
+	s1.insert(4);
+	s1.insert(5);
+ 
 	for (auto e : s1)
 	{
 		cout << e << " ";
 	}
 	cout << endl;
 
+	cout << s1.count(1) << endl;
+
 	return 0;
 }
+
+
+//int main()
+//{
+//	map<string, string> dict;
+//	dict.insert({ "auto","自动的" });
+//	//插入
+//	dict.insert({ "auto","自动的xxx" });
+//
+//	return 0;
