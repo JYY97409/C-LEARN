@@ -41,26 +41,26 @@ using namespace std;
 //	return 0;
 //}
 
-int main()
-{
-	set<int> s1;
-	s1.insert(1);
-	s1.insert(6);
-	s1.insert(7);
-	s1.insert(3);
-	s1.insert(4);
-	s1.insert(5);
- 
-	for (auto e : s1)
-	{
-		cout << e << " ";
-	}
-	cout << endl;
-
-	cout << s1.count(1) << endl;
-
-	return 0;
-}
+//int main()
+//{
+//	set<int> s1;
+//	s1.insert(1);
+//	s1.insert(6);
+//	s1.insert(7);
+//	s1.insert(3);
+//	s1.insert(4);
+//	s1.insert(5);
+// 
+//	for (auto e : s1)
+//	{
+//		cout << e << " ";
+//	}
+//	cout << endl;
+//
+//	cout << s1.count(1) << endl;
+//
+//	return 0;
+//}
 
 
 //int main()
@@ -71,3 +71,13 @@ int main()
 //	dict.insert({ "auto","×Ô¶¯µÄxxx" });
 //
 //	return 0;
+
+int main()
+{
+
+
+
+
+	return 0;
+}
+
