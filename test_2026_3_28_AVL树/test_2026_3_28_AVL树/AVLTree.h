@@ -225,7 +225,12 @@ namespace jyy
 		void RotateRL(Node* parent)
 		{
 			//不管单旋中有没有更新平衡因子，我们都需要再更新一次，这就是为了降低耦合度
+			Node* subL = parent->_left;
+			//先将左子树右旋
+			RotateR(subL);
 
+			RotateL(parent);
+			//其他的还是明天再搞吧
 		}
 		// 左右双旋
 		void RotateLR(Node* parent)
