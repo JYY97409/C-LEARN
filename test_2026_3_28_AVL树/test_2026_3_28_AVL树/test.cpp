@@ -7,9 +7,9 @@ void TestAVLTree1()
 {
 	AVLTree<int, int> t;
 	// 常规的测试用例
-	int a[] = { 16, 3, 7, 11, 9, 26, 18, 14, 15 };
+	//int a[] = { 16, 3, 7, 11, 9, 26, 18, 14, 15 };
 	// 特殊的带有双旋场景的测试用例
-	//int a[] = { 4, 2, 6, 1, 3, 5, 15, 7, 16, 14 };
+	int a[] = { 4, 2, 6, 1, 3, 5, 15, 7, 16, 14 };
 
 	for (auto e : a)
 	{
@@ -18,6 +18,8 @@ void TestAVLTree1()
 
 	t.InOrder();
 	cout << t.IsAVLTree() << endl;
+	//返回的是bool类型的值
+
 }
 
 void TestAVLTree2()
@@ -52,10 +54,10 @@ void TestAVLTree2()
 		t.Find(e);
 	}
 	// 随机值
-	/*for (size_t i = 0; i < N; i++)
+	for (size_t i = 0; i < N; i++)
 	{
 		t.Find((rand() + i));
-	}*/
+	}
 	size_t end1 = clock();
 	cout << "Find:" << end1 - begin1 << endl;
 }
@@ -63,6 +65,6 @@ void TestAVLTree2()
 
 int main()
 {
-	TestAVLTree2();	
+	TestAVLTree1();	
 	return 0;
 }

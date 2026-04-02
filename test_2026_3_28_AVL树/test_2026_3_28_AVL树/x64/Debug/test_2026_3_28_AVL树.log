@@ -5,6 +5,11 @@ C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_28_AVL树\test_2026_3_2
 C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_28_AVL树\test_2026_3_28_AVL树\test.cpp(31,22): warning C4267:         [
 C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_28_AVL树\test_2026_3_28_AVL树\test.cpp(31,22): warning C4267:             _Ty=int
 C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_28_AVL树\test_2026_3_28_AVL树\test.cpp(31,22): warning C4267:         ]
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_28_AVL树\test_2026_3_28_AVL树\test.cpp(57,18): warning C4267: “参数”: 从“size_t”转换到“const T”，可能丢失数据
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_28_AVL树\test_2026_3_28_AVL树\test.cpp(57,18): warning C4267:         with
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_28_AVL树\test_2026_3_28_AVL树\test.cpp(57,18): warning C4267:         [
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_28_AVL树\test_2026_3_28_AVL树\test.cpp(57,18): warning C4267:             T=int
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_28_AVL树\test_2026_3_28_AVL树\test.cpp(57,18): warning C4267:         ]
 C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_28_AVL树\test_2026_3_28_AVL树\AVLTree.h(195,15): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
   (编译源文件“test.cpp”)
       C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_3_28_AVL树\test_2026_3_28_AVL树\AVLTree.h(195,15):
