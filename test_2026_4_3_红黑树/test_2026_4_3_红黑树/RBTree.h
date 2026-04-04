@@ -3,7 +3,7 @@
 #include<iostream>
 #include<vector>
 #include<cassert>
-
+using namespace std;
 enum Colour
 {
 	RED,
@@ -37,7 +37,7 @@ class RBTree
 {
 	typedef RBTreeNode<K, V> Node;
 public:
-	bool Insert(const pair<K, V>& kv)
+	bool Insert(const pair<K, V>& kv )  
 	{
 		//还是先插入
 
@@ -70,7 +70,7 @@ public:
 
 		
 		cur = new Node(kv);
-		if (kv.first > cur->_kv.first)
+		if (kv.first > parent->_kv.first)
 		{
 			parent->_right = cur;
 		}
@@ -82,85 +82,109 @@ public:
 		cur->_parent = parent;
 		cur->_col = RED;
 
-		Node* grandparent = nullptr, uncle = nullptr;
+		Node* grandparent = parent->_parent;
+		Node* uncle = nullptr;
 		
 		//这里是以parent_col来做判断
-		while (parent&&parent->_col == RED)
+		while (parent && parent->_col == RED)
 		{
-			Node* grandparent = parent->_parent;
+			grandparent = parent->_parent;
+
+			if (grandparent == nullptr)
+				break;
 			if (parent == grandparent->_left)
 			{
-				Node* uncle = grandparent->_right;
+				 uncle = grandparent->_right;
 			}
 			else
 			{
-				Node* uncle = grandparent->_left;
+				 uncle = grandparent->_left;
 			}
 
-			if (parent == grandparent->_left)
+			if (uncle && uncle->_col == RED)
 			{
-				//这是最简单的情况
-				if (uncle && uncle->_col == RED)
+				//这时候将uncle节点置为BLACK节点
+				uncle->_col = BLACK;
+				parent->_col = BLACK;
+				grandparent->_col = RED;
+				cur = grandparent;
+				parent = cur->_parent;
+
+			}
+			else
+			{
+				if (parent == grandparent->_left)
 				{
-					//这时候将uncle节点置为BLACK节点
-					uncle->_col = BLACK;
-					parent->_col = BLACK;
-					grandparent->_col = RED;
-					cur = grandparent;
-					parent = cur->_parent;
-
-				}
-				else
-				{
-					if (uncle && uncle->_col == BLACK)
+					if (cur == parent->_left)
 					{
-						//只需要单旋+变色
-						if (cur == parent->_left)
-						{
-							RotateR(grandparent);
-							//但是这里旋转过后需要保证这个根节点是黑色的
 
-							parent->_col = BLACK;
-							grandparent->_col = RED;
+						//    g
+						//  p   u
+						// c
+						RotateR(grandparent);
+						//但是这里旋转过后需要保证这个根节点是黑色的
 
-							//这个还没搞完，改日再议
-							break;
-							//此时这个子树的根节点还是黑色的，此时不需要向上更新
-						}
-						else
-						{
-							//双旋+变色
-						}
-					}
-					else if (uncle == nullptr)
-					{
-						if (cur == parent->_left)
-						{
-							//代表是可以直接旋转
-							RotateR(grandparent);
-							//但是这里旋转过后需要保证这个根节点是黑色的
+						parent->_col = BLACK;
+						grandparent->_col = RED;
 
-							parent->_col = BLACK;
-							grandparent->_col = RED;
-							break;
-							
-						}
-						else
-						{
-
-						}
+						//这个还没搞完，改日再议
+						break;
+						//此时这个子树的根节点还是黑色的，此时不需要向上更新
 					}
 					else
 					{
-						assert(flase);
+						//   g 
+						//  p   u
+						//   c 
+						RotateL(parent);
+						RotateR(grandparent);
+
+
+						cur->_col = BLACK;
+						grandparent->_col = RED;
+
 					}
 				}
-			}
-				
-			else
-			{
+				else if (parent == grandparent->_right)
+				{
+					if (cur == parent->_right)
+					{
+						//   g 
+						//  u    p
+						//         c   
 
+						RotateL(grandparent);
+						//但是这里旋转过后需要保证这个根节点是黑色的
+
+						parent->_col = BLACK;
+						grandparent->_col = RED;
+
+						//这个还没搞完，改日再议
+						break;
+						//此时这个子树的根节点还是黑色的，此时不需要向上更新
+					}
+					
+					else
+					{
+						//   g 
+						//  u    p
+						//     c  
+
+						RotateR(parent);
+						RotateL(grandparent);
+
+
+						cur->_col = BLACK;
+						grandparent->_col = RED;
+					}
+				}
+				else
+				{
+					assert(false);
+				}
 			}
+			
+			
 		}
 
 
@@ -168,25 +192,16 @@ public:
 		_root->_col = BLACK;
 		return true;
 	}
-	void _InOrder(Node* root)
+	
+
+
+	void InOrder()
 	{
-		if (root == nullptr)
-		{
-			return;
-		}
-
-
-		_InOrder(root->_left);
-		cout << root->_kv.first << " ";
-		_InOrder(root->_right);
+		_InOrder(_root);
+		cout << endl;
 	}
 
-
-	
-	
-
-
-	bool IsBalanceTree()
+	bool IsBalance()
 	{	
 		//这里其实是嵌套了一层
 
@@ -211,6 +226,19 @@ public:
 
 
 private:
+
+	void _InOrder(Node* root)
+	{
+		if (root == nullptr)
+		{
+			return;
+		}
+
+
+		_InOrder(root->_left);
+		cout << root->_kv.first << " ";
+		_InOrder(root->_right);
+	}
 	// 右单旋
 	void RotateR(Node* parent)
 	{

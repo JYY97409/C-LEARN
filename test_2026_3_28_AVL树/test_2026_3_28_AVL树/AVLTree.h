@@ -294,6 +294,8 @@ private:
 		subR->_bf = 0;
 		parent->_bf = 0;
 	}
+
+	//适用于不完全是左边高的情况
 	// 左右双旋
 	void RotateLR(Node* parent)
 	{
@@ -302,11 +304,10 @@ private:
 		Node* subLR = subL->_right;
 
 		int flag = subLR->_bf;
-		//先将左子树右旋
+		//先将左子树左旋
 		RotateL(subL);
 
 		RotateR(parent);
-		//其他的还是明天再搞吧
 		if (flag == 1)//证明之前是右边高
 		{
 			parent->_bf = 0;
@@ -330,7 +331,9 @@ private:
 			assert(false);
 		}
 	}
-	//这里主要是先在还没有旋转的时候就记录flag，还有就是需要在函数调用完成后再改变一次_bf的值
+
+
+	// 这适用于不完全是右边高的情况
 	// 右左双旋
 	void RotateRL(Node* parent)
 	{
