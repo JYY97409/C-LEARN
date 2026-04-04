@@ -31,7 +31,7 @@ struct RBTreeNode
 	{}
 };
 
-
+//这是要改的，注意
 template<class K, class V>
 class RBTree
 {
@@ -224,8 +224,56 @@ public:
 		Check(_root, 0, refNum);
 	}
 
+	size_t Height()
+	{
+		return _Height(_root);
+	}
+
+	size_t Size()
+	{
+		return _Size(_root);
+	}
+
+	Node* Find(const K& key)
+	{
+		Node* cur = _root;
+		while (cur)
+		{
+			if (key > cur->_kv.first)
+			{
+				cur = cur->_right;
+			}
+			else if (key < cur->_kv.first)
+			{
+				cur = cur->_left;
+			}
+			else
+			{
+				return cur;
+			}
+		}
+		return nullptr;
+	}
 
 private:
+
+
+	size_t _Height(Node* root)
+	{
+		if (!root)
+			return 0;
+		size_t heightL = _Height(root->_left);
+		size_t heightR = _Height(root->_right);
+
+		return heightL > heightR ? heightL + 1 : heightR + 1;
+	}
+	size_t _Size(Node* root)
+	{
+		if (!root)
+			return 0;
+		return _Size(root->_left) + _Size(root->_right) + 1;
+	}
+
 
 	void _InOrder(Node* root)
 	{

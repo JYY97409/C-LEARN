@@ -1,3 +1,14 @@
 ﻿  test.cpp
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\test_2026_4_3_红黑树\test.cpp(26,12): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\test_2026_4_3_红黑树\test.cpp(29,22): warning C4267: “参数”: 从“size_t”转换到“_Ty”，可能丢失数据
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\test_2026_4_3_红黑树\test.cpp(29,22): warning C4267:         with
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\test_2026_4_3_红黑树\test.cpp(29,22): warning C4267:         [
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\test_2026_4_3_红黑树\test.cpp(29,22): warning C4267:             _Ty=int
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\test_2026_4_3_红黑树\test.cpp(29,22): warning C4267:         ]
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\test_2026_4_3_红黑树\test.cpp(55,18): warning C4267: “参数”: 从“size_t”转换到“const K”，可能丢失数据
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\test_2026_4_3_红黑树\test.cpp(55,18): warning C4267:         with
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\test_2026_4_3_红黑树\test.cpp(55,18): warning C4267:         [
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\test_2026_4_3_红黑树\test.cpp(55,18): warning C4267:             K=int
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\test_2026_4_3_红黑树\test.cpp(55,18): warning C4267:         ]
 C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\test_2026_4_3_红黑树\RBTree.h(225,1): warning C4715: “RBTree<int,int>::IsBalance”: 不是所有的控件路径都返回值
   test_2026_4_3_红黑树.vcxproj -> C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_3_红黑树\x64\Debug\test_2026_4_3_红黑树.exe

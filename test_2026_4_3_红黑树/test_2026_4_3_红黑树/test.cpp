@@ -18,11 +18,50 @@ void TestRBTree1()
 	t.InOrder();
 	cout << t.IsBalance() << endl;
 }
+void TestRBTree2()
+{
+	const int N = 1000000;
+	vector<int> v;
+	v.reserve(N);
+	srand(time(0));
+	for (size_t i = 0; i < N; i++)
+	{
+		v.push_back(rand() + i);
+	}
+
+	size_t begin2 = clock();
+	RBTree<int, int> t;
+	for (auto e : v)
+	{
+		t.Insert(make_pair(e, e));
+	}
+	size_t end2 = clock();
+
+	cout << "Insert:" << end2 - begin2 << endl;
+	cout << t.IsBalance() << endl;
+
+	cout << "Height:" << t.Height() << endl;
+	cout << "Size:" << t.Size() << endl;
+
+	size_t begin1 = clock();
+	// 确定在的值
+	for (auto e : v)
+	{
+		t.Find(e);
+	}
+	// 随机值
+	for (size_t i = 0; i < N; i++)
+	{
+		t.Find((rand() + i));
+	}
+	size_t end1 = clock();
+	cout << "Find:" << end1 - begin1 << endl;
+}
 
 
 int main()
 {
 
-	TestRBTree1();
+	TestRBTree2();
 	return 0;
 }
