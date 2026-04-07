@@ -12,75 +12,252 @@ enum Colour
 
 
 // 这里我们默认按key/value结构实现
-template<class K, class V>
+template<class T>
 struct RBTreeNode
 {
 	// 这里更新控制平衡也要加入parent指针
-	pair<K, V> _kv;
-	RBTreeNode<K, V>* _left;
-	RBTreeNode<K, V>* _right;
-	RBTreeNode<K, V>* _parent;
+	T _data;
+	RBTreeNode<T>* _left;
+	RBTreeNode<T>* _right;
+	RBTreeNode<T>* _parent;
 	Colour _col;
 
 
-	RBTreeNode(const pair<K, V>& kv)
-		:_kv(kv)
+	RBTreeNode(const T& data)
+		:_data(data)
 		, _left(nullptr)
 		, _right(nullptr)
 		, _parent(nullptr)
 	{}
 };
 
-//这是要改的，注意
-template<class K, class V>
+//在这里加上迭代器
+
+template <class T,class Ref ,class Ptr>
+class Iterator 
+{
+public:
+	typedef RBTreeNode<T> Node;
+	typedef Iterator<T, Ref, Ptr> Self;
+	Node* _node;
+	Node* _root;
+	//确实是不得不实现以下构造函数
+	//这里是为了在operator--时方便更新
+
+	Iterator( Node* node,Node* root)
+		:_node(node)
+		,_root(root)
+	{}
+
+	Iterator(const Self& i)
+	{
+		_node = i._node;
+		_root = i._root;
+	}
+
+	//这里实际上是省略了一次->实际上应该调用两个->
+	Ptr operator->()
+	{
+		return &(_node->_data);
+	}
+	Ref operator*()
+	{
+		return _node->_data;
+	}
+
+	Self& operator++()
+	{
+		//这里的逻辑是存在右节点就移动到最右节点
+		//假如没有最右节点，沿路径到最近的子树在左边的父节点
+		if (_node->_right)
+		{
+			//需要找到右子树的最左值
+
+			Node* cur = _node->_right;
+			while (cur->_left)
+			{
+				cur = cur->_left;
+			}
+			_node = cur;
+		}
+		else
+		{
+
+			Node* cur = _node;
+			Node* parent = _node->_parent;
+			while (parent && cur == parent->_right)
+			{
+				cur = parent;
+				parent = parent->_parent;
+			}
+			//这需要复习，还是掌握的不好			
+			_node = parent;
+		}
+
+
+		return *this;
+	}
+	Self operator++(int)
+	{
+		Self ret(*this);
+		operator++();
+
+		return ret;
+	}
+
+
+
+	Self& operator--()
+	{
+		if (_node == nullptr)
+		{
+			Node* cur = _root;
+			while (cur->_right)
+			{
+				cur = cur->_right;
+			}
+			_node = cur;
+		}
+		else if(_node->_left)
+		{
+			Node* cur = _node->_left;
+			while (cur->_right)
+			{
+				cur = cur->_right;
+			}
+			_node = cur;
+		}
+		else
+		{
+			Node* cur = _node;
+			Node* parent = cur->_parent;
+			while (parent && cur == parent->_left)
+			{
+				cur = parent;
+				parent = parent->_parent;
+			}
+
+			_node = parent;
+		}
+
+
+		return *this;
+	}
+	Self operator--(int)
+	{
+		Self ret(*this);
+		operator--();
+
+		return ret;
+	}
+
+
+	bool operator==(const Self& i)const
+	{
+		return _node == i._node;
+	}
+	bool operator!=(const Self& i)const
+	{
+		return _node != i._node;
+	}
+
+
+	//这里存在一个误区，operator[]函数并不是迭代器的函数
+
+};
+
+
+
+//template<class K, class V>
+template<class K, class T ,class KeyofValue>
 class RBTree
 {
-	typedef RBTreeNode<K, V> Node;
+	typedef RBTreeNode<T> Node;
 public:
-	bool Insert(const pair<K, V>& kv )  
+	typedef Iterator<T, T&, T*> iterator;
+	typedef Iterator<T,const T&,const T*> const_iterator;
+
+	iterator begin()
+	{
+		Node* ret = _root;
+
+		while (ret->_left)
+		{
+			ret = ret->_left;
+		}
+		return iterator(ret,_root);
+	}
+	const_iterator begin()const
+	{
+		Node* ret = _root;
+
+		while (ret->_left)
+		{
+			ret = ret->_left;
+		}
+		return const_iterator(ret,_root);
+	}
+	//这是消除歧义的方法
+
+
+	iterator end()
+	{
+		return iterator(nullptr, _root);
+	}
+	const_iterator end()const
+	{
+		return const_iterator(nullptr, _root);
+	}
+	//将nullptr作为end，保证左闭右开原则
+
+ 	
+
+
+	pair<iterator,bool>  Insert(const T& data)  
 	{
 		//还是先插入
+		KeyofValue get;
 
 		if (_root == nullptr)
 		{
-			_root = new Node(kv);
+			_root = new Node(data);
 			_root->_col = BLACK;
-			return true;
+			return {iterator(_root,_root),true};
 		}
 
 		Node* cur = _root;
 		Node* parent = cur->_parent;
 		while (cur)
 		{
-			if (kv.first > cur->_kv.first)
+			if (get(data) > get(cur->_data))
 			{
 				parent = cur;
 				cur = cur->_right;
 			}
-			else if (kv.first < cur->_kv.first)
+			else if (get(data) < get(cur->_data))
 			{
 				parent = cur;
 				cur = cur->_left;
 			}
 			else
 			{
-				return false;
+				return {iterator(cur,_root),false};
 			}
 		}
 
-		
-		cur = new Node(kv);
-		if (kv.first > parent->_kv.first)
+		cur = new Node(data);
+		if (get(data) > get(parent->_data))
 		{
 			parent->_right = cur;
 		}
 		else
 		{
 			parent->_left = cur;
-
 		}
 		cur->_parent = parent;
 		cur->_col = RED;
+
+		Node* ret = cur;
 
 		Node* grandparent = parent->_parent;
 		Node* uncle = nullptr;
@@ -111,10 +288,12 @@ public:
 				parent = cur->_parent;
 
 			}
+			//这是统一变色处理
 			else
 			{
 				if (parent == grandparent->_left)
 				{
+					
 					if (cur == parent->_left)
 					{
 
@@ -138,7 +317,6 @@ public:
 						//   c 
 						RotateL(parent);
 						RotateR(grandparent);
-
 
 						cur->_col = BLACK;
 						grandparent->_col = RED;
@@ -173,7 +351,6 @@ public:
 						RotateR(parent);
 						RotateL(grandparent);
 
-
 						cur->_col = BLACK;
 						grandparent->_col = RED;
 					}
@@ -183,23 +360,11 @@ public:
 					assert(false);
 				}
 			}
-			
-			
 		}
-
-
-
 		_root->_col = BLACK;
-		return true;
+		return {iterator(ret,_root),true};
 	}
 	
-
-
-	void InOrder()
-	{
-		_InOrder(_root);
-		cout << endl;
-	}
 
 	bool IsBalance()
 	{	
@@ -221,7 +386,7 @@ public:
 			
 			cur = cur->_left;
 		}
-		Check(_root, 0, refNum);
+		return Check(_root, 0, refNum);
 	}
 
 	size_t Height()
@@ -236,14 +401,15 @@ public:
 
 	Node* Find(const K& key)
 	{
+		KeyofValue get;
 		Node* cur = _root;
 		while (cur)
 		{
-			if (key > cur->_kv.first)
+			if (key > get(cur->_data))
 			{
 				cur = cur->_right;
 			}
-			else if (key < cur->_kv.first)
+			else if (key < get(cur->_data))
 			{
 				cur = cur->_left;
 			}
@@ -255,6 +421,11 @@ public:
 		return nullptr;
 	}
 
+
+	void InOrder()
+	{
+		_InOrder(_root);
+	}
 private:
 
 
@@ -284,7 +455,7 @@ private:
 
 
 		_InOrder(root->_left);
-		cout << root->_kv.first << " ";
+		cout << root->_data.first << " ";
 		_InOrder(root->_right);
 	}
 	// 右单旋
@@ -371,7 +542,7 @@ private:
 			if (root->_parent->_col == RED)
 				return false;
 		}
-
+		//这里向下检查还是比较困难的，还是从上往下比较好
 
 		return Check(root->_left, blackNum, refNum) &&
 			Check(root->_right, blackNum, refNum);
