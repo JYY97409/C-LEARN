@@ -70,15 +70,15 @@ public:
 	HashData<K, V>* find(const K& key)
 	{
 		int hash0 = key % _table.size();
-		if (_table[hash0]._n == EXIST && _table[hash0]._data.first == key)
+		if (_table[hash0]._state == EXIST && _table[hash0]._data.first == key)
 		{
 			return &_table[hash0];
 		}
 		int i = 1;
 		int hashi = hash0;
-		while (_table[hashi]._state == EXIST)
+		while (_table[hashi]._state != EMPTY)
 		{
-			if (_table[hashi]._data.first == key)
+			if (_table[hashi]._state == EXIST && _table[hashi]._data.first == key)
 			{
 				return &_table[hashi];
 			}
@@ -99,7 +99,7 @@ public:
 			return false;
 		else
 		{
-			kv->_state = EXIST;
+			kv->_state = DELETE;
 			--_n;
 			return true;
 		}

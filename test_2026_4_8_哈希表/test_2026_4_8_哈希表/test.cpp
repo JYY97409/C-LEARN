@@ -11,7 +11,24 @@ void test_hash1()
 	{
 		h1.insert({e,e});
 	}
+	h1.erase(30);
+
 	
+	auto ret1 = h1.find(20);
+	if (ret1)
+	{
+		cout << "找到了" << endl;
+	}
+
+	auto ret = h1.find(30);
+	if (ret)
+	{
+		cout << "找到了" << endl;
+	}
+	else
+	{
+		cout << "没有找到" << endl;
+	}
 
 }
 
