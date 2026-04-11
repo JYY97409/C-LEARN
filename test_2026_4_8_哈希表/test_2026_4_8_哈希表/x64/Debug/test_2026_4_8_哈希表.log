@@ -1,0 +1,18 @@
+﻿  test.cpp
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(40,42): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“test.cpp”)
+      C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(40,42):
+      模板实例化上下文(最早的实例化上下文)为
+          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\test.cpp(8,23):
+          查看对正在编译的 类 模板 实例化“HashTable<int,int>”的引用
+          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(36,7):
+          在编译 类 模板 成员函数“bool HashTable<int,int>::insert(const std::pair<K,V> &)”时
+          with
+          [
+              K=int,
+              V=int
+          ]
+              C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\test.cpp(12,12):
+              请参阅 "test_hash1" 中对 "HashTable<int,int>::insert" 的第一个引用
+  
+  test_2026_4_8_哈希表.vcxproj -> C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\x64\Debug\test_2026_4_8_哈希表.exe
