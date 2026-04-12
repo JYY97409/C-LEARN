@@ -1,45 +1,43 @@
 ﻿  test.cpp
-C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(233,49): warning C4267: “参数”: 从“size_t”转换到“unsigned long”，可能丢失数据
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(355,49): warning C4267: “参数”: 从“size_t”转换到“unsigned long”，可能丢失数据
   (编译源文件“test.cpp”)
-      C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(233,49):
+      C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(355,49):
       模板实例化上下文(最早的实例化上下文)为
-          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\test.cpp(99,50):
-          查看对正在编译的 类 模板 实例化“hash_bucket::HashTable<Date,int,DateHashFunc>”的引用
-          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(222,8):
-          在编译 类 模板 成员函数“bool hash_bucket::HashTable<Date,int,DateHashFunc>::insert(const std::pair<K,V> &)”时
-          with
-          [
-              K=Date,
-              V=int
-          ]
-              C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\test.cpp(100,11):
-              请参阅 "main" 中对 "hash_bucket::HashTable<Date,int,DateHashFunc>::insert" 的第一个引用
-  
-C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(110,44): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-  (编译源文件“test.cpp”)
-      C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(110,44):
-      模板实例化上下文(最早的实例化上下文)为
-          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\test.cpp(8,36):
-          查看对正在编译的 类 模板 实例化“open_adress::HashTable<int,int,HashFunc<K>>”的引用
+          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\test.cpp(130,31):
+          查看对正在编译的 类 模板 实例化“jyy::unordered_map<int,int,HashFunc<K>>”的引用
           with
           [
               K=int
           ]
-          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(101,8):
-          在编译 类 模板 成员函数“bool open_adress::HashTable<int,int,HashFunc<K>>::insert(const std::pair<K,V> &)”时
+          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\unordered_map.h(23,82):
+          查看对正在编译的 类 模板 实例化“hash_bucket::HashTable<K,std::pair<const K,V>,jyy::unordered_map<K,V,HashFunc<K>>::KeyofMap,Hash>”的引用
           with
           [
               K=int,
-              V=int
+              V=int,
+              Hash=HashFunc<int>
           ]
-              C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\test.cpp(12,12):
-              请参阅 "test_hash1" 中对 "open_adress::HashTable<int,int,HashFunc<K>>::insert" 的第一个引用
+          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(343,8):
+          在编译 类 模板 成员函数“bool hash_bucket::HashTable<K,std::pair<const K,V>,jyy::unordered_map<K,V,HashFunc<K>>::KeyofMap,Hash>::insert(const T &)”时
+          with
+          [
+              K=int,
+              V=int,
+              Hash=HashFunc<int>,
+              T=std::pair<const int,int>
+          ]
+              C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\unordered_map.h(29,4):
+              请参阅 "jyy::unordered_map<int,int,HashFunc<K>>::insert" 中对 "hash_bucket::HashTable<K,std::pair<const K,V>,jyy::unordered_map<K,V,HashFunc<K>>::KeyofMap,Hash>::insert" 的第一个引用
+          with
+          [
+              K=int
+          ]
+              C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\test.cpp(134,13):
+              请参阅 "test_map1" 中对 "jyy::unordered_map<int,int,HashFunc<K>>::insert" 的第一个引用
           with
           [
               K=int
           ]
   
-C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(261,1): warning C4715: “hash_bucket::HashTable<std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,HashFunc<std::basic_string<char,std::char_traits<char>,std::allocator<char> > > >::insert”: 不是所有的控件路径都返回值
-C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(261,1): warning C4715: “hash_bucket::HashTable<int,int,HashFunc<int> >::insert”: 不是所有的控件路径都返回值
-C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(261,1): warning C4715: “hash_bucket::HashTable<Date,int,DateHashFunc>::insert”: 不是所有的控件路径都返回值
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(383,1): warning C4715: “hash_bucket::HashTable<int,std::pair<int const ,int>,jyy::unordered_map<int,int,HashFunc<int> >::KeyofMap,HashFunc<int> >::insert”: 不是所有的控件路径都返回值
   test_2026_4_8_哈希表.vcxproj -> C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\x64\Debug\test_2026_4_8_哈希表.exe

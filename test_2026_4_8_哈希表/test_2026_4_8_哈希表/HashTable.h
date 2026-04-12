@@ -16,15 +16,15 @@ enum State
 template<class K, class V>
 class HashNode
 {
-	/*HashNode(const pair<K,V>& kv)
-		:_kv({kv.first,kv.second})
+	/*HashNode(const pair<K,V>& data = make_pair(0,0))
+		:_data(data)
 		, _state(EMPTY)
 	{ }*/
 
 
 	//构造函数在没有显示实现时候会自己调用自定义类型的构造函数（浅拷贝）
 public:
-	pair<K, V> _kv;
+	pair<K, V> _data;
 	State _state = EMPTY;
 };
 //模板特化
@@ -47,13 +47,7 @@ struct HashFunc<string>
 		int flag = 1;
 		for (auto ch : key)
 		{
-			if (flag)
-			{
-				ret += ch * 131;
-				flag = 0;
-			}
-			else
-				flag = 1;
+			ret = ret * 131 + ch;
 		}
 		return ret;
 	}
@@ -63,10 +57,7 @@ struct HashFunc<string>
 //仿函数解决类型转换问题
 //常见类型使用模板特化
 //实际上是反映了哈希对key的要求就是key可以转成整形
-
 //哈希表需要key支持转成整形和支持等于比较
-
-
 //这里还是存在一个问题：参数不应该传当前参数，而是传n + 1
 inline unsigned long __stl_next_prime(unsigned long n)
 {
@@ -86,6 +77,9 @@ inline unsigned long __stl_next_prime(unsigned long n)
 	return pos == last ? *(last - 1) : *pos;
 }
 
+
+
+
 namespace open_adress
 {
 
@@ -98,9 +92,9 @@ namespace open_adress
 			, _n(0)
 		{}
 
-		bool insert(const pair<K, V>& kv)
+		bool insert(const pair<K, V>& data)
 		{
-			if (find(kv.first))
+			if (find(data.first))
 			{
 				return false;
 			}
@@ -111,14 +105,14 @@ namespace open_adress
 
 				for (auto e : _table)
 				{
-					new_hash.insert(e._kv);
+					new_hash.insert(e._data);
 				}
 
 				_table.swap(new_hash._table);
 				_n = new_hash._n;
 			}
 			Hash hashF;
-			size_t hash0 = hashF(kv.first) % _table.size();
+			size_t hash0 = hashF(data.first) % _table.size();
 			size_t i = 1;
 			size_t hashi = hash0;
 			while (_table[hashi]._state == EXIST)
@@ -128,7 +122,7 @@ namespace open_adress
 				i++;
 			}
 
-			_table[hashi]._kv = kv;
+			_table[hashi]._data = data;
 			_table[hashi]._state = EXIST;
 			_n++;
 			return true;
@@ -141,7 +135,7 @@ namespace open_adress
 		{
 			Hash hashF;
 			size_t hash0 = hashF(key) % _table.size();
-			if (_table[hash0]._state == EXIST && _table[hash0]._kv.first == key)
+			if (_table[hash0]._state == EXIST && _table[hash0]._data.first == key)
 			{
 				return &_table[hash0];
 			}
@@ -150,7 +144,7 @@ namespace open_adress
 			while (_table[hashi]._state != EMPTY)
 			{
 				//这导致哈希表的key需要支持==，而map只需要支持小于比较就行
-				if (_table[hashi]._state == EXIST && _table[hashi]._kv.first == key)
+				if (_table[hashi]._state == EXIST && _table[hashi]._data.first == key)
 				{
 					return &_table[hashi];
 				}
@@ -165,13 +159,13 @@ namespace open_adress
 
 		bool erase(const K& key)
 		{
-			HashNode<K, V>* kv = find(key);
+			HashNode<K, V>* data = find(key);
 
-			if (kv == nullptr)
+			if (data == nullptr)
 				return false;
 			else
 			{
-				kv->_state = DELETE;
+				data->_state = DELETE;
 				--_n;
 				return true;
 			}
@@ -184,48 +178,176 @@ namespace open_adress
 
 namespace hash_bucket
 {
-
-	template<class K, class V>
+	template<class T>
 	class HashNode
 	{
 	public:
-		using Node = HashNode<K, V>;
+		using Node = HashNode<T>;
 
-		HashNode<K,V>(const pair<K,V> kv)
-			:_kv(kv)
-			,_state(EMPTY)
-			,_next(nullptr)
-		{ }
+		HashNode<T>(const T& data)
+			:_data(data)
+			, _state(EMPTY)
+			, _next(nullptr)
+		{}
 
 		//构造函数在没有显示实现时候会自己调用自定义类型的构造函数（浅拷贝）
 	public:
-		pair<K, V> _kv;
+		T _data;
 		State _state = EMPTY;
 		Node* _next = nullptr;
 	};
 
+	template<class K, class T, class KeyofT, class Hash>
+	class HashTable;
 
 
-
-	template<class K, class V, class Hash = HashFunc<K>>
-	class HashTable
+	template<class K,class T,class Ref,class Ptr,class KeyofT,class Hash>
+	class Iterator
 	{
 	public:
-		using Node = HashNode<K, V>;
+		using Node = HashNode<T>;
+		using HashTable = HashTable<K, T, KeyofT, Hash>;
+		using Self = Iterator<K, T, Ref, Ptr, KeyofT, Hash>;
+
+		Iterator<K, T, Ref, Ptr, KeyofT, Hash>( Node* node , HashTable* ht)
+			:_node(node)
+			,_ht(ht)
+		{}
+
+		Ptr operator->()
+		{
+			return &(_node->_data);
+		}
+
+		Ref operator*()
+		{
+			return _node->_data;
+		}
+		
+		bool operator==(const Self& s)
+		{
+			return _node == s._node && _ht == s._ht;
+		}
+		bool operator!=(const Self& s)
+		{
+			return !operator==(s);
+		}
+		
+		//前置++
+		Self& operator++()
+		{
+			if (_node->_next)
+			{
+				_node = _node->_next;
+			}
+			else
+			{
+				//这里可以优化一下
+				Hash hashf;
+				KeyofT kot;
+				size_t hashi = hashf(kot(_node->_data)) % _ht->_table.size() + 1;
+				while (hashi < _ht->_table.size())
+				{
+					if (_ht->_table[hashi])
+					{
+						_node = _ht->_table[hashi];
+						break;
+					}
+					else
+					{
+						hashi++;
+					}
+				}
+
+				if (hashi == _ht->_table.size())
+				{
+					_node = nullptr;
+				}
+			}
+
+			return *this;
+		}
+
+	private:
+		Node* _node;
+		HashTable* _ht;
+	};
+
+	template<class K, class T ,class KeyofT, class Hash>
+	class HashTable
+	{
+		template<class K, class T, class Ref, class Ptr, class KeyofT, class Hash>
+		friend class Iterator;
+		//模板友元声明需要连上模板参数
+	public:
+		using Node = HashNode<T>;
+		using iterator = Iterator<K, T, T&, T*, KeyofT, Hash>;
+		using const_iterator = Iterator<K, T, const T&,const T*, KeyofT, Hash>;
 
 
-		HashTable<K,V,Hash>(size_t size = 29)
+		HashTable<K,T,KeyofT,Hash>(size_t size = 29)
 			:_table(size)
 			,_n(0)
-		{ }
+		{}
 
-		bool insert(const pair<K, V>& kv)
+		iterator begin()
 		{
-			if (find(kv.first))
+			Node* cur;
+			size_t hashi = 0;
+			while (hashi < _table.size())
+			{
+				if (_table[hashi])
+				{
+					cur = _table[hashi];
+					return iterator(cur,this);
+				}
+				else
+				{
+					hashi++;
+				}
+			}
+
+			return end();
+		}
+
+		const_iterator begin()const
+		{
+			Node* cur;
+			size_t hashi = 0;
+			while (hashi < _table.size())
+			{
+				if (_table[hashi])
+				{
+					cur = _table[hashi];
+					return const_iterator(cur, this);
+				}
+				else
+				{
+					hashi++;
+				}
+			}
+
+			return end();
+		}
+
+		iterator end()
+		{
+			return iterator(nullptr, this);
+		}
+
+		const_iterator end()const
+		{
+			return const_iterator(nullptr, this);
+		}
+
+		bool insert(const T& data)
+		{
+			KeyofT kot;
+			if (find(kot(data)))
 			{
 				return false;
 			}
-			Hash HashFunc;
+			Hash hashf;
 			if (_n == _table.size())
 			{
 				//扩容逻辑
@@ -236,9 +358,10 @@ namespace hash_bucket
 				{
 
 					cur = _table[i];
-					size_t hashi = HashFunc(cur->_kv.first) % new_table.size();
+
 					while (cur)
 					{
+						size_t hashi = hashf(kot(cur->_data)) % new_table.size();
 						Node* next = cur->_next;
 						cur->_next = new_table[hashi];
 						new_table[hashi] = cur;
@@ -252,9 +375,8 @@ namespace hash_bucket
 				_table.swap(new_table);
 			}
 
-
-			size_t hashi = HashFunc(kv.first) % _table.size();
-			Node* new_node = new Node(kv);
+			size_t hashi = hashf(kot(data)) % _table.size();
+			Node* new_node = new Node(data);
 			new_node->_next = _table[hashi];
 			_table[hashi] = new_node;
 
@@ -262,28 +384,49 @@ namespace hash_bucket
 
 		bool erase(const K& key)
 		{
-			Node* ret = find(key);
-			if (ret)
+			KeyofT kot;
+			Hash hashf;
+			size_t hashi = hashf(key) % _table.size();
+			Node* cur = _table[hashi];
+			Node* prev = nullptr;
+			while (cur)
 			{
-				ret->_state = DELETE;
-			}
-			else
-			{
-				return false;
+				if ( kot(cur->_data) == key)
+				{
+					if (prev == nullptr)
+					{
+						_table[hashi] = cur->_next;
+					}
+					else
+					{
+						prev->_next = cur->_next;
+					}
+					delete cur;
+
+					_n--;
+					return true;
+				}
+				else
+				{
+					prev = cur;
+					cur = cur->_next;
+				}
+
 			}
 
+			return false;
 		}
 
 		Node* find(const K& key)
 		{
 			
-			Hash HashFunc;
-			size_t hashi = HashFunc(key) % _table.size();
+			Hash hashf;
+			size_t hashi = hashf(key) % _table.size();
 
 			Node* cur = _table[hashi];
 			while (cur)
 			{
-				if (cur->_kv.first == key&&cur->_state!=DELETE)
+				if (cur->_data.first == key)
 					return cur;
 
 				cur = cur->_next;
