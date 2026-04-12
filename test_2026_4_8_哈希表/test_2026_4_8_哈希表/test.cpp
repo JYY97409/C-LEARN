@@ -5,8 +5,8 @@ using namespace std;
 
 void test_hash1()
 {
-	HashTable<int, int > h1;
-	int a[] = { 19,30,5,36,13,20,21,12 };
+	open_adress::HashTable<int, int > h1;
+	int a[] = { 19,30,5,36,13,20,21,12,17,18};
 	for (auto e : a)
 	{
 		h1.insert({e,e});
@@ -33,9 +33,90 @@ void test_hash1()
 }
 
 
+struct Date
+{
+	int _year;
+	int _month;
+	int _day;
+
+	Date(int year = 1, int month = 1, int day = 1)
+		:_year(year)
+		, _month(month)
+		, _day(day)
+	{
+	}
+
+	bool operator==(const Date& d)
+	{
+		return _year == d._year
+			&& _month == d._month
+			&& _day == d._day;
+	}
+};
+
+struct DateHashFunc
+{
+	size_t operator()(const Date& d)
+	{
+		size_t hash = 0;
+		hash += d._year;
+		hash *= 131;
+
+		hash += d._month;
+		hash *= 131;
+
+		hash += d._day;
+		hash *= 131;
+
+		return hash;
+	}
+};
+
+
 int main()
 {
-	test_hash1();
+	//int a[] = { 19,30,52,63,11,22 };
 	
+	const char* a1[] = { "abcd", "sort", "insert" };
+	hash_bucket::HashTable<string, string> ht1;
+	for (auto& e : a1)
+	{
+		ht1.insert({ e, e });
+	}
+
+	cout << HashFunc<string>()("abcd") << endl;
+	cout << HashFunc<string>()("bcad") << endl;
+	cout << HashFunc<string>()("aadd") << endl;
+
+	int a2[] = { -19,-30,5,36,13,20,21,12 };
+	hash_bucket::HashTable<int, int> ht2;
+	for (auto e : a2)
+	{
+		ht2.insert({ e, e });
+	}
+
+	// ¹şÏ£³åÍ»
+	hash_bucket::HashTable<Date, int, DateHashFunc> ht;
+	ht.insert({ { 2024, 10, 12 }, 1});
+	ht.insert({ { 2024, 12, 10 }, 1 });
+
 	return 0;
 }
+
+
+
+//int main()
+//{
+//	int a2[] = { 19,30,5,36,13,20,21,12,24,96 };
+//	hash_bucket::HashTable<int, int> ht2;
+//	for (auto e : a2)
+//	{
+//		ht2.insert({ e, e });
+//	}
+//
+//	ht2.insert({ 100, 100 });
+//	ht2.insert({ 101, 101 });
+//
+//
+//	return 0;
+//}
