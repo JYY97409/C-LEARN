@@ -108,45 +108,45 @@ using namespace std;
 
 
 
-//int main()
-//{
-//	int a2[] = { 19,30,5,36,13,20,21,12,24,96 };
-//	hash_bucket::HashTable<int, int> ht2;
-//	for (auto e : a2)
-//	{
-//		ht2.insert({ e, e });
-//	}
-//
-//	ht2.insert({ 100, 100 });
-//	ht2.insert({ 101, 101 });
-//
-//
-//	return 0;
-//}
-
-
-void test_map1()
-{
-	jyy::unordered_map<int, int> ht1;
-	int a2[] = { 19,30,5,36,13,20,21,12,24,96 };
-	for (auto e : a2)
-	{
-		ht1.insert({e,e});
-	}
-
-	auto it = ht1.begin();
-	while (it != ht1.end())
-	{
-		cout << it->first << ":" << it->first << " ";
-		++it;
-	}
-
-}
-
-
 int main()
 {
-	test_map1();
+	int a2[] = { 19,30,5,36,13,20,21,12,24,96 };
+	jyy::unordered_map<int, int> ht2;
+	for (auto e : a2)
+	{
+		ht2.insert({ e, e });
+	}
+
+	ht2.insert({ 100, 100 });
+	ht2.insert({ 101, 101 });
+
 
 	return 0;
 }
+
+
+//void test_map1()
+//{
+//	jyy::unordered_map<int, int> ht1;
+//	int a2[] = { 19,30,5,36,13,20,21,12,24,96 };
+//	for (auto e : a2)
+//	{
+//		ht1.insert({e,e});
+//	}
+//
+//	auto it = ht1.begin();
+//	while (it != ht1.end())
+//	{
+//		cout << it->first << ":" << it->first << " ";
+//		++it;
+//	}
+//
+//}
+//
+//
+//int main()
+//{
+//	test_map1();
+//
+//	return 0;
+//}
