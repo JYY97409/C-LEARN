@@ -108,6 +108,8 @@ using namespace std;
 
 
 
+
+
 int main()
 {
 	int a2[] = { 19,30,5,36,13,20,21,12,24,96 };

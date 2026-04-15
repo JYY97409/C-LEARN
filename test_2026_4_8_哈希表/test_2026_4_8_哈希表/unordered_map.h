@@ -26,7 +26,7 @@ namespace jyy
 		typedef unordered_map<K, V, Hash> Self;
 		bool insert(const pair<K, V> kv)
 		{
-			return _ht.insert(kv);
+			return _ht.insert(kv).second;
 		}
 
 		
@@ -48,6 +48,16 @@ namespace jyy
 			return _ht.end();
 		}
 
+		V& operator[](const K& key)
+		{
+			pair<iterator, bool> ret = _ht.insert(key);
+
+
+			return ret.first->second;
+		}
+
+
+		
 	private:
 		hash_bucket::HashTable<K, pair<const K, V>, KeyofMap, Hash> _ht;
 	};

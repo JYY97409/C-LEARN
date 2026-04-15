@@ -340,12 +340,13 @@ namespace hash_bucket
 			return const_iterator(nullptr, this);
 		}
 
-		bool insert(const T& data)
+		pair<iterator ,bool> insert(const T& data)
 		{
 			KeyofT kot;
-			if (find(kot(data)))
+			Node* ret = find(kot(data));
+			if (ret)
 			{
-				return false;
+				return { iterator(ret,this),false };
 			}
 			Hash hashf;
 			if (_n == _table.size())
@@ -380,6 +381,7 @@ namespace hash_bucket
 			new_node->_next = _table[hashi];
 			_table[hashi] = new_node;
 
+			return { iterator(new_node,this),true };
 		}
 
 		bool erase(const K& key)
