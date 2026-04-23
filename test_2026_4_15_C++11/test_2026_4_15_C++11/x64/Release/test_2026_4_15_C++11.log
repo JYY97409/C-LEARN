@@ -1,0 +1,8 @@
+﻿  test.cpp
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_15_C++11\test_2026_4_15_C++11\test.cpp(350,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_15_C++11\test_2026_4_15_C++11\test.cpp(350,36): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  正在生成代码
+  Previous IPDB not found, fall back to full compilation.
+  All 40 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  test_2026_4_15_C++11.vcxproj -> C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_15_C++11\x64\Release\test_2026_4_15_C++11.exe
