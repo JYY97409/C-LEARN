@@ -246,12 +246,12 @@ namespace bit
 		}
 
 		//移动构造
-		//string(string&& s)
-		//{
-		//	cout << "string(string&& s) -- 移动构造" << endl;
-		//	// 转移掠夺你的资源
-		//	swap(s);
-		//}
+		string(string&& s)
+		{
+			cout << "string(string&& s) -- 移动构造" << endl;
+			// 转移掠夺你的资源
+			swap(s);
+		}
 		//也就是将资源转移出来，这也是右值引用的类型是左值的原因
 
 		string& operator=(const string& s)
@@ -362,22 +362,23 @@ public:
 		if (next == 1)
 			str += '1';
 		reverse(str.begin(), str.end());
-		cout << &str << endl;
+		//cout << &str << endl;
 
 		return str;
 	}
 };
 
-//int main()
-//{
-//	// ...
-//
-//	bit::string	ret = Solution().addStrings("11111111111111111111", "222222222222222222222222222");
-//	cout << ret.c_str() << endl;
-//	cout << &ret<< endl;
-//	//可以发现是直接使用一块空间，这还算是比较激进的优化
-//	return 0;
-//}
+int main()
+{
+	// ...
+
+	bit::string	ret;
+	ret = Solution().addStrings("11111111111111111111", "222222222222222222222222222");
+	cout << ret.c_str() << endl;
+	//cout << &ret<< endl;
+	//可以发现是直接使用一块空间，这还算是比较激进的优化
+	return 0;
+}
 
 //int main()
 //{
@@ -506,7 +507,8 @@ void Function(T&& t)
 #include"list.h"
 
 
-int main()
-{
-	
-}
+//int main()
+//{
+//	
+//}
+

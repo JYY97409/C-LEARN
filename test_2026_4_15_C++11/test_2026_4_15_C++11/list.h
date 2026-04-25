@@ -16,8 +16,8 @@ namespace jyy
 		//这里还是一个注意的点：const是为了减少拷贝,T()是为了使用默认构造，拥有更好的适配性
 		
 
-		
-		list_node(const T& data = T())
+		template<class X>
+		list_node(X&& data = T())
 			:_data(data)
 			, next(nullptr)
 			, prev(nullptr)
