@@ -4,38 +4,39 @@
 #include<vector>
 #include<map>
 #include<cassert>
+#include<list>
 using namespace std;
 
-struct Point
-{
-	int _x;
-	int _y;
-};
-
-
-class Date
-{
-public:
-	Date(int year = 1, int month = 1, int day = 1)
-		:_year(year)
-		, _month(month)
-		, _day(day)
-	{
-		cout << "Date(int year, int month, int day)" << endl;
-	}
-
-	Date(const Date& d)
-		:_year(d._year)
-		, _month(d._month)
-		, _day(d._day)
-	{
-		cout << "Date(const Date& d)" << endl;
-	}
-private:
-	int _year;
-	int _month;
-	int _day;
-};
+//struct Point
+//{
+//	int _x;
+//	int _y;
+//};
+//
+//
+//class Date
+//{
+//public:
+//	Date(int year = 1, int month = 1, int day = 1)
+//		:_year(year)
+//		, _month(month)
+//		, _day(day)
+//	{
+//		cout << "Date(int year, int month, int day)" << endl;
+//	}
+//
+//	Date(const Date& d)
+//		:_year(d._year)
+//		, _month(d._month)
+//		, _day(d._day)
+//	{
+//		cout << "Date(const Date& d)" << endl;
+//	}
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
 
 //int main()
 //{
@@ -341,44 +342,44 @@ namespace bit
 		size_t _capacity = 0;
 	};
 }
-
-class Solution {
-public:
-	// 传值返回需要拷贝
-	bit::string addStrings(bit::string num1, bit::string num2) {
-		bit::string str;
-		int end1 = num1.size() - 1, end2 = num2.size() - 1;
-		// 进位
-		int next = 0;
-		while (end1 >= 0 || end2 >= 0)
-		{
-			int val1 = end1 >= 0 ? num1[end1--] - '0' : 0;
-			int val2 = end2 >= 0 ? num2[end2--] - '0' : 0;
-			int ret = val1 + val2 + next;
-			next = ret / 10;
-			ret = ret % 10;
-			str += ('0' + ret);
-		}
-		if (next == 1)
-			str += '1';
-		reverse(str.begin(), str.end());
-		//cout << &str << endl;
-
-		return str;
-	}
-};
-
-int main()
-{
-	// ...
-
-	bit::string	ret;
-	ret = Solution().addStrings("11111111111111111111", "222222222222222222222222222");
-	cout << ret.c_str() << endl;
-	//cout << &ret<< endl;
-	//可以发现是直接使用一块空间，这还算是比较激进的优化
-	return 0;
-}
+//
+//class Solution {
+//public:
+//	// 传值返回需要拷贝
+//	bit::string addStrings(bit::string num1, bit::string num2) {
+//		bit::string str;
+//		int end1 = num1.size() - 1, end2 = num2.size() - 1;
+//		// 进位
+//		int next = 0;
+//		while (end1 >= 0 || end2 >= 0)
+//		{
+//			int val1 = end1 >= 0 ? num1[end1--] - '0' : 0;
+//			int val2 = end2 >= 0 ? num2[end2--] - '0' : 0;
+//			int ret = val1 + val2 + next;
+//			next = ret / 10;
+//			ret = ret % 10;
+//			str += ('0' + ret);
+//		}
+//		if (next == 1)
+//			str += '1';
+//		reverse(str.begin(), str.end());
+//		//cout << &str << endl;
+//
+//		return str;
+//	}
+//};
+//
+//int main()
+//{
+//	// ...
+//
+//	bit::string	ret;
+//	ret = Solution().addStrings("11111111111111111111", "222222222222222222222222222");
+//	cout << ret.c_str() << endl;
+//	//cout << &ret<< endl;
+//	//可以发现是直接使用一块空间，这还算是比较激进的优化
+//	return 0;
+//}
 
 //int main()
 //{
@@ -504,11 +505,78 @@ void Function(T&& t)
 //}
 
 
-#include"list.h"
-
-
+//#include"list.h"
+//
+//
 //int main()
 //{
-//	
+//	jyy::list<bit::string> lt;
+//	bit::string s1("11111111111");
+//	lt.push_back(s1);
+//
+//	bit::string s2("33333333333");
+//	lt.push_back(move(s2));
+//
+//	lt.push_back("22222222222");
+//
+//	return 0;
 //}
 
+
+//template <class T>
+//int GetArg(const T& x)
+//{
+//	cout << x << " ";
+//	return 0;
+//}
+//
+//template <class ...Args>
+//void Arguments(Args... args)
+//{
+//}
+//
+//template <class ...Args>
+//void Print(Args... args)
+//{
+//	// 注意GetArg必须返回或者到的对象，这样才能组成参数包给Arguments
+//	Arguments(GetArg(args)...);
+//}
+//
+//
+//
+//int main()
+//{
+//	Print(1, "xxxx", 1.1);
+//
+//	return 0;
+//}
+
+int main()
+{
+	list<bit::string> lt;
+	// 传左值，跟push_back一样，走拷贝构造
+	bit::string s1("111111111111");
+	bit::string s2("111111111111");
+
+	lt.emplace_back(s1);
+	cout << "*********************************" << endl;
+
+	lt.push_back(s1);
+	cout << "*********************************" << endl;
+
+	// 右值，跟push_back一样，走移动构造
+	lt.emplace_back(move(s1));
+	cout << "*********************************" << endl;
+
+	lt.push_back(move(s2));
+	cout << "*********************************" << endl;
+	
+	lt.emplace_back("111111111111");
+	cout << "*********************************" << endl;
+
+	// 直接传参，隐式类型转换
+	lt.push_back("111111111111");
+	cout << "*********************************" << endl;
+
+	return 0;
+}

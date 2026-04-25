@@ -2,7 +2,6 @@
 #pragma once
 #include<iostream>
 #include<list>
-#include<algorithm>
 #include<cassert>
 using namespace std;
 
@@ -15,10 +14,11 @@ namespace jyy
 	public:
 		//这里还是一个注意的点：const是为了减少拷贝,T()是为了使用默认构造，拥有更好的适配性
 		
+		list_node() = default;
 
 		template<class X>
 		list_node(X&& data = T())
-			:_data(data)
+			:_data(forward<X>(data))
 			, next(nullptr)
 			, prev(nullptr)
 		{}
@@ -37,8 +37,7 @@ namespace jyy
 		//这里的Self可以非常好的兼容两个类型的迭代器
 		list_iterator(Node* node)
 			:_node(node)
-		{
-		}
+		{}
 
 		Ref operator*()
 		{
@@ -184,9 +183,9 @@ namespace jyy
 		}
 
 		template<class X>
-		void push_back(T x)
+		void push_back(X&& x)
 		{
-			insert(end(), x);
+			insert(end(), forward<X>(x));
 		}
 		void push_front(T x)
 		{
@@ -197,10 +196,10 @@ namespace jyy
 		{
 			erase(--end());
 		}
-
-		iterator insert(iterator it, T data)
+		template<class X>
+		iterator insert(iterator it, X&& data)
 		{
-			Node* new_node = new Node(data);
+			Node* new_node = new Node(forward<X>(data));
 
 			Node* next = it._node;
 			Node* prev = it._node->prev;
