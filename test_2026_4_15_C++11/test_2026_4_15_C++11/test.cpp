@@ -1,10 +1,11 @@
-#define _CRT_SECURE_NO_WARNINGS
-
+ï»¿#define _CRT_SECURE_NO_WARNINGS
+#include"list.h"
 #include<iostream>
 #include<vector>
 #include<map>
 #include<cassert>
 #include<list>
+#include<functional>
 using namespace std;
 
 //struct Point
@@ -40,49 +41,49 @@ using namespace std;
 
 //int main()
 //{
-//	// C++98Ö§³ÖµÄ
+//	// C++98æ”¯æŒçš„
 //	int a1[] = { 1, 2, 3, 4, 5 };
 //	int a2[5] = { 0 };
 //	Point p = { 1, 2 };
 //
-//	// C++11Ö§³ÖµÄ
-//	// ÄÚÖÃÀàĞÍÖ§³Ö
+//	// C++11æ”¯æŒçš„
+//	// å†…ç½®ç±»å‹æ”¯æŒ
 //	int x1 = { 2 };
 //	int x2 = 2;
 //
-//	// ×Ô¶¨ÒåÀàĞÍÖ§³Ö
-//	// ÕâÀï±¾ÖÊÊÇÓÃ{ 2025, 1, 1}¹¹ÔìÒ»¸öDateÁÙÊ±¶ÔÏó
-//	// ÁÙÊ±¶ÔÏóÔÙÈ¥¿½±´¹¹Ôìd1£¬±àÒëÆ÷ÓÅ»¯ºóºÏ¶şÎªÒ»±ä³É{ 2025, 1, 1}Ö±½Ó¹¹Ôì³õÊ¼»¯d1
-//	// ÔËĞĞÒ»ÏÂ£¬ÎÒÃÇ¿ÉÒÔÑéÖ¤ÉÏÃæµÄÀíÂÛ£¬·¢ÏÖÊÇÃ»µ÷ÓÃ¿½±´¹¹ÔìµÄ
+//	// è‡ªå®šä¹‰ç±»å‹æ”¯æŒ
+//	// è¿™é‡Œæœ¬è´¨æ˜¯ç”¨{ 2025, 1, 1}æ„é€ ä¸€ä¸ªDateä¸´æ—¶å¯¹è±¡
+//	// ä¸´æ—¶å¯¹è±¡å†å»æ‹·è´æ„é€ d1ï¼Œç¼–è¯‘å™¨ä¼˜åŒ–ååˆäºŒä¸ºä¸€å˜æˆ{ 2025, 1, 1}ç›´æ¥æ„é€ åˆå§‹åŒ–d1
+//	// è¿è¡Œä¸€ä¸‹ï¼Œæˆ‘ä»¬å¯ä»¥éªŒè¯ä¸Šé¢çš„ç†è®ºï¼Œå‘ç°æ˜¯æ²¡è°ƒç”¨æ‹·è´æ„é€ çš„
 //	Date d1 = { 2025, 1, 1 };
 //	Date d2(2025, 1, 1);
 //
-//	// ÕâÀïd2ÒıÓÃµÄÊÇ{ 2024, 7, 25 }¹¹ÔìµÄÁÙÊ±¶ÔÏó
+//	// è¿™é‡Œd2å¼•ç”¨çš„æ˜¯{ 2024, 7, 25 }æ„é€ çš„ä¸´æ—¶å¯¹è±¡
 //	const Date& d2 = { 2024, 7, 25 };
 //
-//	// ĞèÒª×¢ÒâµÄÊÇC++98Ö§³Öµ¥²ÎÊıÊ±ÀàĞÍ×ª»»£¬Ò²¿ÉÒÔ²»ÓÃ{}
+//	// éœ€è¦æ³¨æ„çš„æ˜¯C++98æ”¯æŒå•å‚æ•°æ—¶ç±»å‹è½¬æ¢ï¼Œä¹Ÿå¯ä»¥ä¸ç”¨{}
 //	Date d3 = { 2025 }; // C++11
 //	Date d4 = 2025;     // C++98
 //	string str = "1111";
 //
-//	// ¿ÉÒÔÊ¡ÂÔµô=
+//	// å¯ä»¥çœç•¥æ‰=
 //	Point p1{ 1, 2 };
 //	int x3{ 2 };
 //	Date d6{ 2024, 7, 25 };
 //	const Date& d7{ 2024, 7, 25 };
 //
-//	// ²»Ö§³Ö£¬Ö»ÓĞ{}³õÊ¼»¯£¬²ÅÄÜÊ¡ÂÔ=
+//	// ä¸æ”¯æŒï¼Œåªæœ‰{}åˆå§‹åŒ–ï¼Œæ‰èƒ½çœç•¥=
 //	// Date d8 2025;
 //
 //	vector<Date> v;
 //	v.push_back(d1);
 //	v.push_back(Date(2025, 1, 1));
-//	// ±ÈÆğÓĞÃû¶ÔÏóºÍÄäÃû¶ÔÏó´«²Î£¬ÕâÀï{}¸üÓĞĞÔ¼Û±È
+//	// æ¯”èµ·æœ‰åå¯¹è±¡å’ŒåŒ¿åå¯¹è±¡ä¼ å‚ï¼Œè¿™é‡Œ{}æ›´æœ‰æ€§ä»·æ¯”
 //	v.push_back({ 2025, 1, 1 });
 //	map<string, string> dict;
 //	dict.insert({ "xxx", "yyyy" });
 //
-//	// ¹¹Ôì+¿½±´¹¹Ôì+ÓÅ»¯
+//	// æ„é€ +æ‹·è´æ„é€ +ä¼˜åŒ–
 //	//vector<int> v1 = { 1,2,3,4 };
 //	//vector<int> v2 = { 10,20,30,1,1,1,1,1,1,1,1,1};
 //	//const vector<int>& v4 = { 10,20,30,1,1,1,1,1,1,1,1,1 };
@@ -91,13 +92,13 @@ using namespace std;
 //	vector<int> v2{ 10,20,30,1,1,1,1,1,1,1,1,1 };
 //	const vector<int>& v4 { 10,20,30,1,1,1,1,1,1,1,1,1 };
 //
-//	// ¹¹Ôì
+//	// æ„é€ 
 //	vector<int> v3({ 10,20,30,1,1,1,1,1,1,1,1,1 });
 //
 //	initializer_list<int> il1 = { 10, 20, 30, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 //	int aa1[] = { 10, 20, 30, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 //
-//	// initializer_list + {}pair³õÊ¼»¯ÒşÊ½ÀàĞÍ×ª»»
+//	// initializer_list + {}pairåˆå§‹åŒ–éšå¼ç±»å‹è½¬æ¢
 //	//map<string, string> dict = { { "xxx", "yyyy" }, { "sort", "zzzz" } };
 //
 //	return 0;
@@ -110,8 +111,8 @@ using namespace std;
 //
 //int main()
 //{
-//	// ×óÖµ£º¿ÉÒÔÈ¡µØÖ·
-//	// ÒÔÏÂµÄp¡¢b¡¢c¡¢*p¡¢s¡¢s[0]¾ÍÊÇ³£¼ûµÄ×óÖµ
+//	// å·¦å€¼ï¼šå¯ä»¥å–åœ°å€
+//	// ä»¥ä¸‹çš„pã€bã€cã€*pã€sã€s[0]å°±æ˜¯å¸¸è§çš„å·¦å€¼
 //	int* p = new int(0);
 //	int b = 1;
 //	const int c = b;
@@ -122,7 +123,7 @@ using namespace std;
 //	cout << &c << endl;
 //	cout << (void*)&s[0] << endl;
 //
-//	// ×óÖµÒıÓÃ¸ø×óÖµÈ¡±ğÃû
+//	// å·¦å€¼å¼•ç”¨ç»™å·¦å€¼å–åˆ«å
 //	int& r1 = b;
 //	int*& r2 = p;
 //	int& r3 = *p;
@@ -131,9 +132,9 @@ using namespace std;
 //	
 //
 //
-//	// ÓÒÖµ£º²»ÄÜÈ¡µØÖ·
+//	// å³å€¼ï¼šä¸èƒ½å–åœ°å€
 //	double x = 1.1, y = 2.2;
-//	// ÒÔÏÂ¼¸¸ö10¡¢x + y¡¢fmin(x, y)¡¢string("11111")¶¼ÊÇ³£¼ûµÄÓÒÖµ
+//	// ä»¥ä¸‹å‡ ä¸ª10ã€x + yã€fmin(x, y)ã€string("11111")éƒ½æ˜¯å¸¸è§çš„å³å€¼
 //	10;
 //	x + y;
 //	fmin(x, y);
@@ -144,212 +145,60 @@ using namespace std;
 //	//cout << &(fmin(x, y)) << endl;
 //	//cout << &string("11111") << endl;
 //
-//	// ÓÒÖµÒıÓÃ¸øÓÒÖµÈ¡±ğÃû
+//	// å³å€¼å¼•ç”¨ç»™å³å€¼å–åˆ«å
 //	int&& rr1 = 10;
 //	double&& rr2 = x + y;
 //	double&& rr3 = fmin(x, y);
 //	string&& rr4 = string("11111");
 //
-//	// ×óÖµÒıÓÃ²»ÄÜÖ±½ÓÒıÓÃÓÒÖµ£¬µ«ÊÇconst×óÖµÒıÓÃ¿ÉÒÔÒıÓÃÓÒÖµ
+//	// å·¦å€¼å¼•ç”¨ä¸èƒ½ç›´æ¥å¼•ç”¨å³å€¼ï¼Œä½†æ˜¯constå·¦å€¼å¼•ç”¨å¯ä»¥å¼•ç”¨å³å€¼
 //	const int& rx1 = 10;
 //	const double& rx2 = x + y;
 //	const double& rx3 = fmin(x, y);
 //	const string& rx4 = string("11111");
 //
-//	// ÓÒÖµÒıÓÃ²»ÄÜÖ±½ÓÒıÓÃ×óÖµ£¬µ«ÊÇÓÒÖµÒıÓÃ¿ÉÒÔÒıÓÃmove(×óÖµ)
+//	// å³å€¼å¼•ç”¨ä¸èƒ½ç›´æ¥å¼•ç”¨å·¦å€¼ï¼Œä½†æ˜¯å³å€¼å¼•ç”¨å¯ä»¥å¼•ç”¨move(å·¦å€¼)
 //	int&& rrx1 = move(b);
 //	int*&& rrx2 = move(p);
 //	int&& rrx3 = move(*p);
 //	string&& rrx4 = move(s);
 //	string&& rrx5 = (string&&)s;
-//	//ÆäÊµÍêÈ«¿ÉÒÔÈÏÎªÊÇÇ¿ÖÆÀàĞÍ×ª»»£¬ËùÒÔmoveÊÇÍêÈ«²»Ó°ÏìÔ­À´×óÖµµÄĞÔÖÊµÄ
+//	//å…¶å®å®Œå…¨å¯ä»¥è®¤ä¸ºæ˜¯å¼ºåˆ¶ç±»å‹è½¬æ¢ï¼Œæ‰€ä»¥moveæ˜¯å®Œå…¨ä¸å½±å“åŸæ¥å·¦å€¼çš„æ€§è´¨çš„
 //
-//	// b¡¢r1¡¢rr1¶¼ÊÇ±äÁ¿±í´ïÊ½£¬¶¼ÊÇ×óÖµ
+//	// bã€r1ã€rr1éƒ½æ˜¯å˜é‡è¡¨è¾¾å¼ï¼Œéƒ½æ˜¯å·¦å€¼
 //	cout << &b << endl;
 //	cout << &r1 << endl;
 //	cout << &rr1 << endl;
-//	//ÆäÊµmove¾ÍÊÇÇ¿ÖÆÀàĞÍ×ª»»£¬Ò²¾ÍÊÇËµmoveÊÇ²»»áÓ°Ïì±»moveµÄÖµµÄ
+//	//å…¶å®moveå°±æ˜¯å¼ºåˆ¶ç±»å‹è½¬æ¢ï¼Œä¹Ÿå°±æ˜¯è¯´moveæ˜¯ä¸ä¼šå½±å“è¢«moveçš„å€¼çš„
 //
 //	int i = 1;
 //	int* ptr = (int*)i;
 //
 //	// int&& rr1 = 10;
-//	// ÕâÀïÒª×¢ÒâµÄÊÇ£¬rr1µÄÊôĞÔÊÇ×óÖµ£¬ËùÒÔ²»ÄÜÔÙ±»ÓÒÖµÒıÓÃ°ó¶¨£¬³ı·ÇmoveÒ»ÏÂ
+//	// è¿™é‡Œè¦æ³¨æ„çš„æ˜¯ï¼Œrr1çš„å±æ€§æ˜¯å·¦å€¼ï¼Œæ‰€ä»¥ä¸èƒ½å†è¢«å³å€¼å¼•ç”¨ç»‘å®šï¼Œé™¤émoveä¸€ä¸‹
 //	int& r6 = rr1;
 //
 //	//int&& rrx6 = rr1;
 //	int&& rrx6 = move(rr1);
 //
-//	//×óÖµÒıÓÃµÄ±í´ïÊ½ÊÇ×óÖµ£¬ÓÒÖµµÄ±í´ïÊ½Ò²ÊÇ×óÖµ
+//	//å·¦å€¼å¼•ç”¨çš„è¡¨è¾¾å¼æ˜¯å·¦å€¼ï¼Œå³å€¼çš„è¡¨è¾¾å¼ä¹Ÿæ˜¯å·¦å€¼
 //
-//	//Ò»ÇĞÒıÓÃ¶¼ÊÇÖ¸Õë
+//	//ä¸€åˆ‡å¼•ç”¨éƒ½æ˜¯æŒ‡é’ˆ
 //	return 0;
 //}
 
 
-//µ«ÊÇ¼òµ¥µÄ½«·µ»ØÖµÀàĞÍ¸Ä³É&&ÀàĞÍ²»ÊÇºÜºÃµÄ·½Ê½£¬ÕâÊÇÒòÎª·µ»ØÖµ´¦ÔÚº¯ÊıÕ»èåµÄÎ»ÖÃ£¬Õâ¸öÌõ¼şÊÇÃ»·¨¸Ä±äµÄ£¬ËùÒÔÊÇÃ»°ì·¨ÑÓ³¤µÄ
+//ä½†æ˜¯ç®€å•çš„å°†è¿”å›å€¼ç±»å‹æ”¹æˆ&&ç±»å‹ä¸æ˜¯å¾ˆå¥½çš„æ–¹å¼ï¼Œè¿™æ˜¯å› ä¸ºè¿”å›å€¼å¤„åœ¨å‡½æ•°æ ˆæ¡¢çš„ä½ç½®ï¼Œè¿™ä¸ªæ¡ä»¶æ˜¯æ²¡æ³•æ”¹å˜çš„ï¼Œæ‰€ä»¥æ˜¯æ²¡åŠæ³•å»¶é•¿çš„
 
 
-namespace bit
-{
-	class string
-	{
-	public:
-		typedef char* iterator;
-		typedef const char* const_iterator;
-
-		iterator begin()
-		{
-			return _str;
-		}
-
-		iterator end()
-		{
-			return _str + _size;
-		}
-
-		const_iterator begin() const
-		{
-			return _str;
-		}
-
-		const_iterator end() const
-		{
-			return _str + _size;
-		}
-
-		string(const char* str = "")
-			:_size(strlen(str))
-			, _capacity(_size)
-		{
-			cout << "string(char* str)-¹¹Ôì" << endl;
-			_str = new char[_capacity + 1];
-			strcpy(_str, str);
-		}
-
-		// ¿½±´¹¹Ôì
-		string(const string& s)
-			:_str(nullptr)
-		{
-			cout << "string(const string& s) -- ¿½±´¹¹Ôì" << endl;
-			reserve(s._capacity);
-			for (auto ch : s)
-			{
-				push_back(ch);
-			}
-		}
-
-		void swap(string& ss)
-		{
-			::swap(_str, ss._str);
-			::swap(_size, ss._size);
-			::swap(_capacity, ss._capacity);
-		}
-
-		//ÒÆ¶¯¹¹Ôì
-		string(string&& s)
-		{
-			cout << "string(string&& s) -- ÒÆ¶¯¹¹Ôì" << endl;
-			// ×ªÒÆÂÓ¶áÄãµÄ×ÊÔ´
-			swap(s);
-		}
-		//Ò²¾ÍÊÇ½«×ÊÔ´×ªÒÆ³öÀ´£¬ÕâÒ²ÊÇÓÒÖµÒıÓÃµÄÀàĞÍÊÇ×óÖµµÄÔ­Òò
-
-		string& operator=(const string& s)
-		{
-			cout << "string& operator=(const string& s) -- ¿½±´¸³Öµ" <<
-				endl;
-			if (this != &s)
-			{
-				_str[0] = '\0';
-				_size = 0;
-				reserve(s._capacity);
-				for (auto ch : s)
-				{
-					push_back(ch);
-				}
-			}
-			return *this;
-		}
-
-		// ÒÆ¶¯¸³Öµ
-		string& operator=(string&& s)
-		{
-			cout << "string& operator=(string&& s) -- ÒÆ¶¯¸³Öµ" << endl;
-			swap(s);
-			return *this;
-		}
-
-		~string()
-		{
-			//cout << "~string() -- Îö¹¹" << endl;
-			delete[] _str;
-			_str = nullptr;
-		}
-
-		char& operator[](size_t pos)
-		{
-			assert(pos < _size);
-			return _str[pos];
-		}
-
-		void reserve(size_t n)
-		{
-			if (n > _capacity)
-			{
-				char* tmp = new char[n + 1];
-				if (_str)
-				{
-					strcpy(tmp, _str);
-					delete[] _str;
-				}
-				_str = tmp;
-				_capacity = n;
-			}
-		}
-
-		void push_back(char ch)
-		{
-			if (_size >= _capacity)
-			{
-				size_t newcapacity = _capacity == 0 ? 4 : _capacity *
-					2;
-				reserve(newcapacity);
-			}
-			_str[_size] = ch;
-			++_size;
-			_str[_size] = '\0';
-		}
-
-		string& operator+=(char ch)
-		{
-			push_back(ch);
-			return *this;
-		}
-
-		const char* c_str() const
-		{
-			return _str;
-		}
-
-		size_t size() const
-		{
-			return _size;
-		}
-	private:
-		char* _str = nullptr;
-		size_t _size = 0;
-		size_t _capacity = 0;
-	};
-}
 //
 //class Solution {
 //public:
-//	// ´«Öµ·µ»ØĞèÒª¿½±´
+//	// ä¼ å€¼è¿”å›éœ€è¦æ‹·è´
 //	bit::string addStrings(bit::string num1, bit::string num2) {
 //		bit::string str;
 //		int end1 = num1.size() - 1, end2 = num2.size() - 1;
-//		// ½øÎ»
+//		// è¿›ä½
 //		int next = 0;
 //		while (end1 >= 0 || end2 >= 0)
 //		{
@@ -377,7 +226,7 @@ namespace bit
 //	ret = Solution().addStrings("11111111111111111111", "222222222222222222222222222");
 //	cout << ret.c_str() << endl;
 //	//cout << &ret<< endl;
-//	//¿ÉÒÔ·¢ÏÖÊÇÖ±½ÓÊ¹ÓÃÒ»¿é¿Õ¼ä£¬Õâ»¹ËãÊÇ±È½Ï¼¤½øµÄÓÅ»¯
+//	//å¯ä»¥å‘ç°æ˜¯ç›´æ¥ä½¿ç”¨ä¸€å—ç©ºé—´ï¼Œè¿™è¿˜ç®—æ˜¯æ¯”è¾ƒæ¿€è¿›çš„ä¼˜åŒ–
 //	return 0;
 //}
 
@@ -391,7 +240,7 @@ namespace bit
 //	bit::string s3 = s1;
 //	bit::string s4 = bit::string("222222222");
 //	bit::string s5 = move(s1);
-//	//×óÖµ»¹ÊÇ²»ÒªÇáÒ×µÄmove £¬ÈİÒ×³öÊÂ
+//	//å·¦å€¼è¿˜æ˜¯ä¸è¦è½»æ˜“çš„move ï¼Œå®¹æ˜“å‡ºäº‹
 //
 //	return 0;
 //}
@@ -408,12 +257,12 @@ namespace bit
 //	return 0;
 //}
 
-//// ÓÉÓÚÒıÓÃÕÛµşÏŞ¶¨£¬f1ÊµÀı»¯ÒÔºó×ÜÊÇÒ»¸ö×óÖµÒıÓÃ
+//// ç”±äºå¼•ç”¨æŠ˜å é™å®šï¼Œf1å®ä¾‹åŒ–ä»¥åæ€»æ˜¯ä¸€ä¸ªå·¦å€¼å¼•ç”¨
 //template<class T>
 //void f1(T& x)
 //{}
 //
-//// ÓÉÓÚÒıÓÃÕÛµşÏŞ¶¨£¬f2ÊµÀı»¯ºó¿ÉÒÔÊÇ×óÖµÒıÓÃ£¬Ò²¿ÉÒÔÊÇÓÒÖµÒıÓÃ
+//// ç”±äºå¼•ç”¨æŠ˜å é™å®šï¼Œf2å®ä¾‹åŒ–åå¯ä»¥æ˜¯å·¦å€¼å¼•ç”¨ï¼Œä¹Ÿå¯ä»¥æ˜¯å³å€¼å¼•ç”¨
 //template<class T>
 //void f2(T&& x)
 //{}
@@ -424,82 +273,82 @@ namespace bit
 //	typedef int&& rref;
 //	int n = 0;
 //
-//	// ÒıÓÃÕÛµş
-//	lref& r1 = n; // r1 µÄÀàĞÍÊÇ int&
-//	lref&& r2 = n; // r2 µÄÀàĞÍÊÇ int&
-//	rref& r3 = n; // r3 µÄÀàĞÍÊÇ int&
-//	rref&& r4 = 1; // r4 µÄÀàĞÍÊÇ int&&
+//	// å¼•ç”¨æŠ˜å 
+//	lref& r1 = n; // r1 çš„ç±»å‹æ˜¯ int&
+//	lref&& r2 = n; // r2 çš„ç±»å‹æ˜¯ int&
+//	rref& r3 = n; // r3 çš„ç±»å‹æ˜¯ int&
+//	rref&& r4 = 1; // r4 çš„ç±»å‹æ˜¯ int&&
 //
-//	// Ã»ÓĞÕÛµş->ÊµÀı»¯Îªvoid f1(int& x)
+//	// æ²¡æœ‰æŠ˜å ->å®ä¾‹åŒ–ä¸ºvoid f1(int& x)
 //	f1<int>(n);
-//	//f1<int>(0); // ±¨´í
+//	//f1<int>(0); // æŠ¥é”™
 //
-//	// ÕÛµş->ÊµÀı»¯Îªvoid f1(int& x)
+//	// æŠ˜å ->å®ä¾‹åŒ–ä¸ºvoid f1(int& x)
 //	f1<int&>(n);
-//	//f1<int&>(0); // ±¨´í
+//	//f1<int&>(0); // æŠ¥é”™
 //
-//	// ÕÛµş->ÊµÀı»¯Îªvoid f1(int& x)
+//	// æŠ˜å ->å®ä¾‹åŒ–ä¸ºvoid f1(int& x)
 //	f1<int&&>(n);
-//	//f1<int&&>(0); // ±¨´í
+//	//f1<int&&>(0); // æŠ¥é”™
 //
-//	// ÕÛµş->ÊµÀı»¯Îªvoid f1(const int& x)
+//	// æŠ˜å ->å®ä¾‹åŒ–ä¸ºvoid f1(const int& x)
 //	f1<const int&>(n);
 //	f1<const int&>(0);
 //
-//	// ÕÛµş->ÊµÀı»¯Îªvoid f1(const int& x)
+//	// æŠ˜å ->å®ä¾‹åŒ–ä¸ºvoid f1(const int& x)
 //	f1<const int&&>(n);
 //	f1<const int&&>(0);
 //
-//	// Ã»ÓĞÕÛµş->ÊµÀı»¯Îªvoid f2(int&& x)
-//	//f2<int>(n); // ±¨´í
+//	// æ²¡æœ‰æŠ˜å ->å®ä¾‹åŒ–ä¸ºvoid f2(int&& x)
+//	//f2<int>(n); // æŠ¥é”™
 //	f2<int>(0);
 //
-//	// ÕÛµş->ÊµÀı»¯Îªvoid f2(int& x)
+//	// æŠ˜å ->å®ä¾‹åŒ–ä¸ºvoid f2(int& x)
 //	f2<int&>(n);
-//	//f2<int&>(0); // ±¨´í
+//	//f2<int&>(0); // æŠ¥é”™
 //
-//	// ÕÛµş->ÊµÀı»¯Îªvoid f2(int&& x)
-//	//f2<int&&>(n); // ±¨´í
+//	// æŠ˜å ->å®ä¾‹åŒ–ä¸ºvoid f2(int&& x)
+//	//f2<int&&>(n); // æŠ¥é”™
 //	f2<int&&>(0);
 //
 //	return 0;
 //}
 
-//ÍòÄÜÒıÓÃ 
-template<class T>
-void Function(T&& t)
-{
-	int a = 0;
-	T x = a;
-	//x++;
-
-	cout << &a << endl;
-	cout << &x << endl << endl;
-}
-
+////ä¸‡èƒ½å¼•ç”¨ 
+//template<class T>
+//void Function(T&& t)
+//{
+//	int a = 0;
+//	T x = a;
+//	//x++;
+//
+//	cout << &a << endl;
+//	cout << &x << endl << endl;
+//}
+//
 //int main()
 //{
-//	// 10ÊÇÓÒÖµ£¬ÍÆµ¼³öTÎªint£¬Ä£°åÊµÀı»¯Îªvoid Function(int&& t)
-//	//Function(10);
+//	// 10æ˜¯å³å€¼ï¼Œæ¨å¯¼å‡ºTä¸ºintï¼Œæ¨¡æ¿å®ä¾‹åŒ–ä¸ºvoid Function(int&& t)
+//	Function(10);
 //
 //	int a;
-//	// aÊÇ×óÖµ£¬ÍÆµ¼³öTÎªint&£¬ÒıÓÃÕÛµş£¬Ä£°åÊµÀı»¯Îªvoid Function(int& t)
-//	//Function(a); // ×óÖµ
+//	// aæ˜¯å·¦å€¼ï¼Œæ¨å¯¼å‡ºTä¸ºint&ï¼Œå¼•ç”¨æŠ˜å ï¼Œæ¨¡æ¿å®ä¾‹åŒ–ä¸ºvoid Function(int& t)
+//	Function(a); // å·¦å€¼
 //
-//	// std::move(a)ÊÇÓÒÖµ£¬ÍÆµ¼³öTÎªint£¬Ä£°åÊµÀı»¯Îªvoid Function(int&& t)
-//	//Function(std::move(a));
+//	// std::move(a)æ˜¯å³å€¼ï¼Œæ¨å¯¼å‡ºTä¸ºintï¼Œæ¨¡æ¿å®ä¾‹åŒ–ä¸ºvoid Function(int&& t)
+//	Function(std::move(a));
 //
 //	const int b = 8;
-//	// bÊÇ×óÖµ£¬ÍÆµ¼³öTÎªconst int&£¬ÒıÓÃÕÛµş£¬Ä£°åÊµÀı»¯Îªvoid Function(const int& t)
-//	// ËùÒÔFunctionÄÚ²¿»á±àÒë±¨´í£¬x²»ÄÜ++
-//	//Function(b);    // const ×óÖµ
+//	// bæ˜¯å·¦å€¼ï¼Œæ¨å¯¼å‡ºTä¸ºconst int&ï¼Œå¼•ç”¨æŠ˜å ï¼Œæ¨¡æ¿å®ä¾‹åŒ–ä¸ºvoid Function(const int& t)
+//	// æ‰€ä»¥Functionå†…éƒ¨ä¼šç¼–è¯‘æŠ¥é”™ï¼Œxä¸èƒ½++
+//	Function(b);    // const å·¦å€¼
 //
-//	// std::move(b)ÓÒÖµ£¬ÍÆµ¼³öTÎªconst int£¬Ä£°åÊµÀı»¯Îªvoid Function(const int&& t)
-//	// ËùÒÔFunctionÄÚ²¿»á±àÒë±¨´í£¬x²»ÄÜ++
-//	Function(std::move(b)); // const ÓÒÖµ
+//	// std::move(b)å³å€¼ï¼Œæ¨å¯¼å‡ºTä¸ºconst intï¼Œæ¨¡æ¿å®ä¾‹åŒ–ä¸ºvoid Function(const int&& t)
+//	// æ‰€ä»¥Functionå†…éƒ¨ä¼šç¼–è¯‘æŠ¥é”™ï¼Œxä¸èƒ½++
+//	Function(std::move(b)); // const å³å€¼
 //
 //
-//	//Èç¹ûÊÇÃ»ÓĞÏÔÊ¾Ö¸Ê¾FunctionµÄÀàĞÍ£¬ÄÇÃ´ÓÒÖµÍùÍùÊÇ±»Ê¶±ğÎªintÀàĞÍ£¬¶ø×óÖµÍùÍù±»Ê¶±ğÎªÒıÓÃ
+//	//å¦‚æœæ˜¯æ²¡æœ‰æ˜¾ç¤ºæŒ‡ç¤ºFunctionçš„ç±»å‹ï¼Œé‚£ä¹ˆå³å€¼å¾€å¾€æ˜¯è¢«è¯†åˆ«ä¸ºintç±»å‹ï¼Œè€Œå·¦å€¼å¾€å¾€è¢«è¯†åˆ«ä¸ºå¼•ç”¨
 //
 //	return 0;
 //}
@@ -532,17 +381,14 @@ void Function(T&& t)
 //
 //template <class ...Args>
 //void Arguments(Args... args)
-//{
-//}
+//{}
 //
 //template <class ...Args>
 //void Print(Args... args)
 //{
-//	// ×¢ÒâGetArg±ØĞë·µ»Ø»òÕßµ½µÄ¶ÔÏó£¬ÕâÑù²ÅÄÜ×é³É²ÎÊı°ü¸øArguments
+//	// æ³¨æ„GetArgå¿…é¡»è¿”å›æˆ–è€…åˆ°çš„å¯¹è±¡ï¼Œè¿™æ ·æ‰èƒ½ç»„æˆå‚æ•°åŒ…ç»™Arguments
 //	Arguments(GetArg(args)...);
 //}
-//
-//
 //
 //int main()
 //{
@@ -551,32 +397,473 @@ void Function(T&& t)
 //	return 0;
 //}
 
+//int main()
+//{
+//	jyy::list<bit::string> lt;
+//	// ä¼ å·¦å€¼ï¼Œè·Ÿpush_backä¸€æ ·ï¼Œèµ°æ‹·è´æ„é€ 
+//	bit::string s1("111111111111");
+//	bit::string s2("111111111111");
+//	cout << "*********************************" << endl;
+//
+//	lt.emplace_back(s1);
+//	cout << "*********************************" << endl;
+//
+//	lt.push_back(s1);
+//	cout << "*********************************" << endl;
+//
+//	// å³å€¼ï¼Œè·Ÿpush_backä¸€æ ·ï¼Œèµ°ç§»åŠ¨æ„é€ 
+//	lt.emplace_back(move(s1));
+//	cout << "*********************************" << endl;
+//
+//	lt.push_back(move(s2));
+//	cout << "*********************************" << endl;
+//
+//	lt.emplace_back("111111111111");
+//	cout << "*********************************" << endl;
+//
+//	// ç›´æ¥ä¼ å‚ï¼Œéšå¼ç±»å‹è½¬æ¢
+//	lt.push_back("111111111111");
+//	cout << "*********************************" << endl;
+//
+//	return 0;
+//}
+
+//int main()
+//{
+//	jyy::list<pair<bit::string, int>> lt1;
+//	// è·Ÿpush_backä¸€æ ·
+//	// æ„é€ pair + æ‹·è´/ç§»åŠ¨æ„é€ pairåˆ°listçš„èŠ‚ç‚¹ä¸­dataä¸Š
+//	pair<bit::string, int> kv("è‹¹æœ", 1);
+//	lt1.emplace_back(kv);
+//	cout << "*********************************" << endl;
+//
+//	// 21:15
+//	// è·Ÿpush_backä¸€æ ·
+//	lt1.emplace_back(move(kv));
+//	cout << "*********************************" << endl;
+//
+//	// è¿™é‡Œè¾¾åˆ°çš„æ•ˆæœæ˜¯push_backåšä¸åˆ°çš„
+//	//lt1.emplace_back({ "è‹¹æœ", 1 }); // ä¸æ”¯æŒ
+//	lt1.emplace_back("è‹¹æœ", 1 ); 
+//	cout << "*********************************" << endl;
+//
+//	lt1.push_back({ "è‹¹æœ", 1 });
+//	cout << "*********************************" << endl;
+//
+//	return 0;
+//}
+
+
+
+//int main()
+//{
+//
+//
+//
+//	return 0;
+//}
+
+
+
+//#include<algorithm>
+//
+//struct Goods
+//{
+//	string _name;  // åå­—
+//	double _price; // ä»·æ ¼
+//	int _evaluate; // è¯„ä»·
+//	// ...
+//
+//	Goods(const char* str, double price, int evaluate)
+//		:_name(str)
+//		, _price(price)
+//		, _evaluate(evaluate)
+//	{
+//	}
+//};
+//
+//struct Compare1
+//{
+//	bool operator()(const Goods& gl, const Goods& gr)
+//	{
+//		return gl._price < gr._price;
+//	}
+//};
+//
+//struct Compare2
+//{
+//	bool operator()(const Goods& gl, const Goods& gr)
+//	{
+//		return gl._price > gr._price;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<Goods> v = { { "è‹¹æœ", 2.1, 5 }, { "é¦™è•‰", 3, 4 }, { "æ©™å­", 2.2, 3}, { "è è", 1.5, 4 } };
+//	// ç±»ä¼¼è¿™æ ·çš„åœºæ™¯ï¼Œæˆ‘ä»¬å®ç°ä»¿å‡½æ•°å¯¹è±¡æˆ–è€…å‡½æ•°æŒ‡é’ˆæ”¯æŒå•†å“ä¸­
+//	// ä¸åŒé¡¹çš„æ¯”è¾ƒï¼Œç›¸å¯¹è¿˜æ˜¯æ¯”è¾ƒéº»çƒ¦çš„ï¼Œé‚£ä¹ˆè¿™é‡Œlambdaå°±å¾ˆå¥½ç”¨äº†
+//
+//	// ä»·æ ¼å‡åº
+//	//sort(v.begin(), v.end(), Compare1());
+//
+//	// ä»·æ ¼é™åº
+//	//sort(v.begin(), v.end(), Compare2());
+//
+//	sort(v.begin(), v.end(), [](const Goods& g1, const Goods& g2) {
+//		return g1._price < g2._price; });
+//
+//	sort(v.begin(), v.end(), [](const Goods& g1, const Goods& g2) {
+//		return g1._price > g2._price; });
+//
+//	sort(v.begin(), v.end(), [](const Goods& g1, const Goods& g2) {
+//		return g1._evaluate < g2._evaluate; });
+//
+//	sort(v.begin(), v.end(), [](const Goods& g1, const Goods& g2) {
+//		return g1._evaluate > g2._evaluate; });
+//
+//	return 0;
+//}
+
+
+//// åŒ…æ‰©å±•ï¼ˆè§£æå‡ºå‚æ•°åŒ…çš„å†…å®¹ï¼‰
+//void ShowList()
+//{
+//	// ç¼–è¯‘å™¨æ—¶é€’å½’çš„ç»ˆæ­¢æ¡ä»¶ï¼Œå‚æ•°åŒ…æ˜¯0ä¸ªæ—¶ï¼Œç›´æ¥åŒ¹é…è¿™ä¸ªå‡½æ•°
+//	cout << endl;
+//}
+//
+//template <class T, class ...Args>
+//void ShowList(T&& x, Args&&... args)
+//{
+//	// è¿è¡Œæ—¶
+//	/*if (sizeof...(args) == 0)
+//		return;*/
+//
+//	cout << x << " ";
+//	// argsæ˜¯Nä¸ªå‚æ•°çš„å‚æ•°åŒ…
+//	// è°ƒç”¨ShowListï¼Œå‚æ•°åŒ…çš„ç¬¬ä¸€ä¸ªä¼ ç»™xï¼Œå‰©ä¸‹N-1ä¼ ç»™ç¬¬äºŒä¸ªå‚æ•°åŒ…
+//	ShowList(args...);
+//}
+//
+//template <class ...Args>
+//void Print(Args&&... args)
+//{
+//	ShowList(args...);
+//}
+
+
+////////////////////////////////////////////////////////////
+// åŒ…æ‰©å±•
+//template <class T>
+//const T& GetArg(const T& x)
+//{
+//	cout << x << " ";
+//	return x;
+//}
+
+// //åŒ…æ‰©å±•
+//template <class T>
+//const T& GetArg(const T& x)
+//{
+//	cout << x << " ";
+//	return x;
+//}
+//
+//template <class ...Args>
+//void Arguments(Args... args)
+//{}
+//
+//template <class ...Args>
+//void Print(Args... args)
+//{
+//	// æ³¨æ„GetArgå¿…é¡»è¿”å›æˆ–è€…åˆ°çš„å¯¹è±¡ï¼Œè¿™æ ·æ‰èƒ½ç»„æˆå‚æ•°åŒ…ç»™Arguments
+//	Arguments(GetArg(args)...);
+//}
+
+
+int y = 1;
+
+//int main()
+//{
+//	// åªèƒ½ç”¨å½“å‰lambdaå±€éƒ¨åŸŸå’Œæ•æ‰çš„å¯¹è±¡å’Œå…¨å±€å¯¹è±¡
+//	int a = 0, b = 1, c = 2, d = 3;
+//	auto func1 = [a, &b](int x)mutable
+//	{
+//		// å€¼æ•æ‰çš„å˜é‡ä¸èƒ½ä¿®æ”¹ï¼Œå¼•ç”¨æ•æ‰çš„å˜é‡å¯ä»¥ä¿®æ”¹
+//		a++;
+//		b++;
+//		int ret = a + b + x + y;
+//		return ret;
+//	};
+//
+//	cout << func1(1) << endl;
+//	//func2();
+//
+//	// éšå¼å€¼æ•æ‰
+//	// ç”¨äº†å“ªäº›å˜é‡å°±æ•æ‰å“ªäº›å˜é‡
+//	auto func2 = [=]
+//	{
+//		int ret = a + b + c;
+//		return ret;
+//	};
+//	cout << func2() << endl;
+//
+//	// éšå¼å¼•ç”¨æ•æ‰
+//	// ç”¨äº†å“ªäº›å˜é‡å°±æ•æ‰å“ªäº›å˜é‡
+//	auto func3 = [&]
+//	{
+//		a++;
+//		c++;
+//		//d++;
+//	};
+//
+//	func3();
+//	cout << a << " " << b << " " << c << " " << d << endl;
+//
+//	// æ··åˆæ•æ‰1
+//	auto func4 = [&, a, b]
+//	{
+//		//a++;
+//		//b++;
+//		c++;
+//		d++;
+//		return a + b + c + d;
+//	};
+//
+//	func4();
+//	cout << a << " " << b << " " << c << " " << d << endl;
+//
+//	return 0;
+//}
+
+class Rate
+{
+public:
+	Rate(double rate)
+		: _rate(rate)
+	{
+	}
+	double operator()(double money, int year)
+	{
+		return money * _rate * year;
+	}
+private:
+	double _rate;
+};
+
 int main()
 {
-	list<bit::string> lt;
-	// ´«×óÖµ£¬¸úpush_backÒ»Ñù£¬×ß¿½±´¹¹Ôì
-	bit::string s1("111111111111");
-	bit::string s2("111111111111");
+	double rate = 0.49;
 
-	lt.emplace_back(s1);
-	cout << "*********************************" << endl;
+	// lambda
+	auto r2 = [rate](double money, int year) {
+		return money * rate * year;
+	};
 
-	lt.push_back(s1);
-	cout << "*********************************" << endl;
+	// å‡½æ•°å¯¹è±¡
+	Rate r1(rate);
+	r1(10000, 2);
+	r2(10000, 2);
 
-	// ÓÒÖµ£¬¸úpush_backÒ»Ñù£¬×ßÒÆ¶¯¹¹Ôì
-	lt.emplace_back(move(s1));
-	cout << "*********************************" << endl;
+	auto func1 = [] {
+		cout << "hello world" << endl;
+	};
 
-	lt.push_back(move(s2));
-	cout << "*********************************" << endl;
-	
-	lt.emplace_back("111111111111");
-	cout << "*********************************" << endl;
-
-	// Ö±½Ó´«²Î£¬ÒşÊ½ÀàĞÍ×ª»»
-	lt.push_back("111111111111");
-	cout << "*********************************" << endl;
+	func1();
 
 	return 0;
 }
+
+
+////ç§»åŠ¨æ„é€ å’Œç§»åŠ¨èµ‹å€¼çš„é»˜è®¤ç”Ÿæˆæœºåˆ¶ï¼šåœ¨ææ„ã€æ‹·è´æ„é€ ã€ç§»åŠ¨èµ‹å€¼é‡è½½ä¸­å³ä»»æ„ä¸€ä¸ªæ²¡å†™ï¼Œç”ŸæˆåŸåˆ™å’Œä¹‹å‰çš„æ‹·è´æ„é€ çš„é»˜è®¤ç”Ÿæˆæ˜¯ä¸€è‡´çš„
+//class Person
+//{
+//public:
+//	Person(const char* name = "å¼ ä¸‰", int age = 1)
+//		:_name(name)
+//		, _age(age)
+//	{}
+//
+//	Person(const Person& p) = default;
+//	Person(Person&& p) = default;
+//
+//	/*~Person()
+//	{}*/
+//private:
+//	bit::string _name;
+//	int _age;
+//};
+//
+//void func(ostream& out)
+//{
+//}
+//
+//int main()
+//{
+//	Person s1;
+//	Person s2 = s1;
+//	Person s3 = std::move(s1);
+//
+//	Person s4;
+//	//s4 = std::move(s3);
+//
+//	func(cout);
+//
+//	return 0;
+//}
+
+
+///////lambdaå‡½æ•°ä¹‹æ•è·
+//int main()
+//{
+//	int a = 0, b = 1, c = 2;
+//	auto func1 = [a, b, c]()
+//		{
+//			return a + b + c;
+//		};
+//
+//	cout << func1() << endl;
+//
+//	//è‡ªåŠ¨å¼•ç”¨æ•è·
+//	auto func2 = [&, b, c]()
+//		{
+//			a++;
+//			return a + b + c;
+//		};
+//
+//
+//	cout << func2() << endl;
+//
+//	//åœ¨[]ä¸­å†™ä¸Šä¸€ä¸ª=æ˜¯è‡ªåŠ¨ä¼ å€¼æ•è·
+//	auto func3 = [=]()
+//		{
+//			return a + b + c;
+//		};
+//
+//	cout << func3() << endl;
+//
+//	auto func4 = [&]()
+//		{
+//			return a + b + c;
+//		};
+//
+//	cout << func4() << endl;
+//	return 0;
+//}
+//
+
+//////////bindçš„ä½¿ç”¨
+using placeholders::_1;
+using placeholders::_2;
+using placeholders::_3;
+//è¿™é‡Œå…¶å®å°±æ˜¯å°†è¿™äº›æ•°å­—å°è£…åœ¨place_holdrersè¿™ä¸ªå‘½åç©ºé—´ä¸­äº†
+int Sub(int a, int b)
+{
+	return (a - b) * 10;
+}
+
+int SubX(int a, int b, int c)
+{
+	return (a - b - c) * 10;
+}
+
+
+int sub (int a,int b)
+{
+	return a - b;
+}
+
+int subx(int a, int b,int c)
+{
+	return a + b + c;
+}
+
+//bindè¡¨è¾¾å¼
+//int main()
+//{
+//
+//	int a = 1, b = 2, c = 3;
+//
+//
+//	auto sub1 = bind(sub,_1, _2);
+//	cout << sub1(a, b) << endl;
+//
+//	auto sub5 = bind(sub, _2, _1);
+//	cout << sub5(a, b) << endl;
+//
+//	auto sub2 = bind(sub, 100, _1);
+//	cout << sub2(a) << endl;
+//	
+//	auto sub3 = bind(subx, _1, _2,_3);
+//	cout << sub3(a, b,c) << endl;
+//
+//	auto sub4 = bind(subx, 100 , _1, _2);
+//	cout << sub4(a, b) << endl;
+//
+//	return 0;
+//
+// 
+// 
+// 
+//}
+
+//int f(int a, int b)
+//{
+//	return a + b;
+//}
+//
+//struct Functor
+//{
+//public:
+//	int operator() (int a, int b)
+//	{
+//		return a + b;
+//	}
+//};
+//
+//class Plus
+//{
+//public:
+//	Plus(int n = 10)
+//		:_n(n)
+//	{}
+//
+//	int plusi(int a, int b)
+//	{
+//		return a + b;
+//	}
+//
+//	double plusd(double a, double b)
+//	{
+//		return (a + b) * _n;
+//	}
+//
+//private:
+//	int _n;
+//};
+//
+//int main()
+//{
+//	function<int(int, int)> f1 = f;
+//	Plus p1;
+//
+//	//ç±»çš„æˆå‘˜å‡½æ•°å­˜åœ¨ä¸€ä¸ªéšè—çš„å˜é‡ï¼šthisæŒ‡é’ˆ
+//	//å¯ä»¥è®¤ä¸ºè¿™é‡Œçš„thisæŒ‡é’ˆæ˜¯ä¸ºäº†ç»‘å®šæŒ‡å‘å“ªä¸€ä¸ªç±»çš„å®ä¾‹ï¼Œè¿™æ˜¯å› ä¸ºç±»çš„æˆå‘˜å‡½æ•°å¾ˆå¯èƒ½æ˜¯ä¼šè°ƒç”¨ç±»çš„æˆå‘˜å˜é‡çš„ï¼Œè¿™æ—¶å€™è¦ç¡®ä¿ç»‘å®šäº†ç±»çš„å®ä¾‹
+//	//thisæŒ‡é’ˆçš„å¼•ç”¨æ˜¯ä¼šå†³å®šç±»ä¸­æ•°æ®çš„æ”¹å˜ä¸å¦çš„ï¼Œæ¯”å¦‚ä¼ å€¼ä¼ å‚å¾ˆæ˜¾ç„¶ç”±äºåˆ›å»ºä¸´æ—¶å¯¹è±¡çš„ç¼˜æ•…æ˜¯ä¸ä¼šå½±å“åŸæ¥çš„æ•°æ®çš„
+//	
+//	
+//	function<double(Plus, double, double)> f2 = &Plus::plusi;
+//	cout << f2(Plus(), 1.1, 2.2) << endl;
+//	
+//	function<double(Plus*, double, double)> f3 = &Plus::plusi;
+//	cout << f3(&p1, 1.1, 2.2) << endl;
+//
+//	function<double(Plus&&, double, double)> f4 = &Plus::plusi;
+//	cout << f4(move(p1), 1.1, 2.2) << endl;
+//
+//
+//	return 0;
+//}
+
+

@@ -25,7 +25,7 @@ Book* create_list(void)
     Book* head = (Book*)malloc(sizeof(Book));
     if (!head)
     {
-        printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+        printf("å†…å­˜åˆ†é…å¤±è´¥\n");
         exit(EXIT_FAILURE);
     }
     head->next = NULL;
@@ -68,18 +68,18 @@ Book* create_book(int id)
     Book* book = (Book*)malloc(sizeof(Book));
     if (!book)
     {
-        printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+        printf("å†…å­˜åˆ†é…å¤±è´¥\n");
         return NULL;
     }
     book->id = id;
-    read_line("ÊäÈëÀà±ğ: ", book->category, MAX_LEN);
-    read_line("ÊäÈëÊéÃû: ", book->title, MAX_LEN);
-    read_line("ÊäÈë×÷Õß: ", book->author, MAX_LEN);
-    read_line("ÊäÈëISBN: ", book->isbn, MAX_LEN);
-    read_line("ÊäÈë³ö°æÉç: ", book->publisher, MAX_LEN);
-    read_line("ÊäÈë³ö°æÈÕÆÚ: ", book->pubDate, MAX_LEN);
-    book->price = read_double("ÊäÈë¼Û¸ñ: ");
-    book->count = read_int("ÊäÈë²áÊı: ");
+    read_line("è¾“å…¥ç±»åˆ«: ", book->category, MAX_LEN);
+    read_line("è¾“å…¥ä¹¦å: ", book->title, MAX_LEN);
+    read_line("è¾“å…¥ä½œè€…: ", book->author, MAX_LEN);
+    read_line("è¾“å…¥ISBN: ", book->isbn, MAX_LEN);
+    read_line("è¾“å…¥å‡ºç‰ˆç¤¾: ", book->publisher, MAX_LEN);
+    read_line("è¾“å…¥å‡ºç‰ˆæ—¥æœŸ: ", book->pubDate, MAX_LEN);
+    book->price = read_double("è¾“å…¥ä»·æ ¼: ");
+    book->count = read_int("è¾“å…¥å†Œæ•°: ");
     book->borrowed = 0;
     book->next = NULL;
     return book;
@@ -125,7 +125,7 @@ void print_book(const Book* book)
 
 void print_header(void)
 {
-    printf("ID   Àà±ğ       ÊéÃû                 ×÷Õß            ISBN            ³ö°æÉç          ³ö°æÈÕÆÚ     ¼Û¸ñ     ²áÊı ÒÑ½è\n");
+    printf("ID   ç±»åˆ«       ä¹¦å                 ä½œè€…            ISBN            å‡ºç‰ˆç¤¾          å‡ºç‰ˆæ—¥æœŸ     ä»·æ ¼     å†Œæ•° å·²å€Ÿ\n");
     printf("--------------------------------------------------------------------------------------------------------------\n");
 }
 
@@ -134,7 +134,7 @@ void list_books(Book* head)
     Book* p = head->next;
     if (!p)
     {
-        printf("µ±Ç°ÎŞÍ¼Êé¼ÇÂ¼¡£\n");
+        printf("å½“å‰æ— å›¾ä¹¦è®°å½•ã€‚\n");
         return;
     }
     print_header();
@@ -145,20 +145,20 @@ void list_books(Book* head)
 }
 
 void list_books_by_condition(Book* head) {
-    printf("1. °´Àà±ğ²éÑ¯\n");
-    printf("2. °´ÊéÃû²éÑ¯\n");
-    printf("3. °´×÷Õß²éÑ¯\n");
-    printf("4. °´³ö°æÉç²éÑ¯\n");
-    printf("5. °´ISBN²éÑ¯\n");
-    int choice = read_int("ÇëÑ¡Ôñ²éÑ¯·½Ê½ (1-5): ");
+    printf("1. æŒ‰ç±»åˆ«æŸ¥è¯¢\n");
+    printf("2. æŒ‰ä¹¦åæŸ¥è¯¢\n");
+    printf("3. æŒ‰ä½œè€…æŸ¥è¯¢\n");
+    printf("4. æŒ‰å‡ºç‰ˆç¤¾æŸ¥è¯¢\n");
+    printf("5. æŒ‰ISBNæŸ¥è¯¢\n");
+    int choice = read_int("è¯·é€‰æ‹©æŸ¥è¯¢æ–¹å¼ (1-5): ");
     if (choice < 1 || choice > 5) {
-        printf("ÎŞĞ§µÄ²éÑ¯·½Ê½¡£\n");
+        printf("æ— æ•ˆçš„æŸ¥è¯¢æ–¹å¼ã€‚\n");
         return;
     }
     char keyword[MAX_LEN];
-    read_line("ÇëÊäÈë²éÑ¯¹Ø¼ü´Ê: ", keyword, MAX_LEN);
+    read_line("è¯·è¾“å…¥æŸ¥è¯¢å…³é”®è¯: ", keyword, MAX_LEN);
     if (strlen(keyword) == 0) {
-        printf("¹Ø¼ü´Ê²»ÄÜÎª¿Õ¡£\n");
+        printf("å…³é”®è¯ä¸èƒ½ä¸ºç©ºã€‚\n");
         return;
     }
     Book* p = head->next;
@@ -177,7 +177,7 @@ void list_books_by_condition(Book* head) {
         }
         p = p->next;
     }
-    if (!found) printf("Î´ÕÒµ½Æ¥Åä¼ÇÂ¼¡£\n");
+    if (!found) printf("æœªæ‰¾åˆ°åŒ¹é…è®°å½•ã€‚\n");
 }
 
 void swap_books(Book* a, Book* b) {
@@ -220,16 +220,16 @@ void swap_books(Book* a, Book* b) {
 
 void sort_books(Book* head) {
     if (!head->next || !head->next->next) {
-        printf("¼ÇÂ¼Ì«ÉÙ£¬ÎŞĞèÅÅĞò¡£\n");
+        printf("è®°å½•å¤ªå°‘ï¼Œæ— éœ€æ’åºã€‚\n");
         return;
     }
-    printf("1. °´Àà±ğÅÅĞò\n");
-    printf("2. °´ÊéÃûÅÅĞò\n");
-    printf("3. °´×÷ÕßÅÅĞò\n");
-    printf("4. °´ISBNÅÅĞò\n");
-    int choice = read_int("ÇëÑ¡ÔñÅÅĞò·½Ê½ (1-4): ");
+    printf("1. æŒ‰ç±»åˆ«æ’åº\n");
+    printf("2. æŒ‰ä¹¦åæ’åº\n");
+    printf("3. æŒ‰ä½œè€…æ’åº\n");
+    printf("4. æŒ‰ISBNæ’åº\n");
+    int choice = read_int("è¯·é€‰æ‹©æ’åºæ–¹å¼ (1-4): ");
     if (choice < 1 || choice > 4) {
-        printf("ÎŞĞ§µÄÅÅĞò·½Ê½¡£\n");
+        printf("æ— æ•ˆçš„æ’åºæ–¹å¼ã€‚\n");
         return;
     }
     Book* p, * q;
@@ -243,21 +243,21 @@ void sort_books(Book* head) {
             if (cmp > 0) swap_books(p, q);
         }
     }
-    printf("ÅÅĞòÍê³É¡£\n");
+    printf("æ’åºå®Œæˆã€‚\n");
 }
 
 void insert_book(Book* head, int* nextId) {
     Book* book = create_book((*nextId)++);
     if (!book) return;
     append_book(head, book);
-    printf("Í¼ÊéÒÑ²åÈë£¬ID=%d¡£\n", book->id);
+    printf("å›¾ä¹¦å·²æ’å…¥ï¼ŒID=%dã€‚\n", book->id);
 }
 
 void delete_book(Book* head) {
     char isbn[MAX_LEN];
-    read_line("ÇëÊäÈëÒªÉ¾³ıÍ¼ÊéµÄISBN: ", isbn, MAX_LEN);
+    read_line("è¯·è¾“å…¥è¦åˆ é™¤å›¾ä¹¦çš„ISBN: ", isbn, MAX_LEN);
     if (strlen(isbn) == 0) {
-        printf("ISBN²»ÄÜÎª¿Õ¡£\n");
+        printf("ISBNä¸èƒ½ä¸ºç©ºã€‚\n");
         return;
     }
     Book* prev = head;
@@ -266,76 +266,76 @@ void delete_book(Book* head) {
         if (strcmp(p->isbn, isbn) == 0) {
             prev->next = p->next;
             free(p);
-            printf("Í¼ÊéÒÑÉ¾³ı¡£\n");
+            printf("å›¾ä¹¦å·²åˆ é™¤ã€‚\n");
             return;
         }
         prev = p;
         p = p->next;
     }
-    printf("Î´ÕÒµ½Ö¸¶¨ISBNµÄÍ¼Êé¡£\n");
+    printf("æœªæ‰¾åˆ°æŒ‡å®šISBNçš„å›¾ä¹¦ã€‚\n");
 }
 
 void modify_book(Book* head) {
     char isbn[MAX_LEN];
-    read_line("ÇëÊäÈëÒªĞŞ¸ÄÍ¼ÊéµÄISBN: ", isbn, MAX_LEN);
+    read_line("è¯·è¾“å…¥è¦ä¿®æ”¹å›¾ä¹¦çš„ISBN: ", isbn, MAX_LEN);
     Book* book = find_by_isbn(head, isbn);
     if (!book) {
-        printf("Î´ÕÒµ½Ö¸¶¨Í¼Êé¡£\n");
+        printf("æœªæ‰¾åˆ°æŒ‡å®šå›¾ä¹¦ã€‚\n");
         return;
     }
-    printf("µ±Ç°Í¼ÊéĞÅÏ¢:\n");
+    printf("å½“å‰å›¾ä¹¦ä¿¡æ¯:\n");
     print_header();
     print_book(book);
-    read_line("ÊäÈëĞÂÀà±ğ£¨»Ø³µ±£³Ö²»±ä£©: ", isbn, MAX_LEN);
+    read_line("è¾“å…¥æ–°ç±»åˆ«ï¼ˆå›è½¦ä¿æŒä¸å˜ï¼‰: ", isbn, MAX_LEN);
     if (strlen(isbn) > 0) strcpy(book->category, isbn);
-    read_line("ÊäÈëĞÂÊéÃû£¨»Ø³µ±£³Ö²»±ä£©: ", isbn, MAX_LEN);
+    read_line("è¾“å…¥æ–°ä¹¦åï¼ˆå›è½¦ä¿æŒä¸å˜ï¼‰: ", isbn, MAX_LEN);
     if (strlen(isbn) > 0) strcpy(book->title, isbn);
-    read_line("ÊäÈëĞÂ×÷Õß£¨»Ø³µ±£³Ö²»±ä£©: ", isbn, MAX_LEN);
+    read_line("è¾“å…¥æ–°ä½œè€…ï¼ˆå›è½¦ä¿æŒä¸å˜ï¼‰: ", isbn, MAX_LEN);
     if (strlen(isbn) > 0) strcpy(book->author, isbn);
-    read_line("ÊäÈëĞÂISBN£¨»Ø³µ±£³Ö²»±ä£©: ", isbn, MAX_LEN);
+    read_line("è¾“å…¥æ–°ISBNï¼ˆå›è½¦ä¿æŒä¸å˜ï¼‰: ", isbn, MAX_LEN);
     if (strlen(isbn) > 0) strcpy(book->isbn, isbn);
-    read_line("ÊäÈëĞÂ³ö°æÉç£¨»Ø³µ±£³Ö²»±ä£©: ", isbn, MAX_LEN);
+    read_line("è¾“å…¥æ–°å‡ºç‰ˆç¤¾ï¼ˆå›è½¦ä¿æŒä¸å˜ï¼‰: ", isbn, MAX_LEN);
     if (strlen(isbn) > 0) strcpy(book->publisher, isbn);
-    read_line("ÊäÈëĞÂ³ö°æÈÕÆÚ£¨»Ø³µ±£³Ö²»±ä£©: ", isbn, MAX_LEN);
+    read_line("è¾“å…¥æ–°å‡ºç‰ˆæ—¥æœŸï¼ˆå›è½¦ä¿æŒä¸å˜ï¼‰: ", isbn, MAX_LEN);
     if (strlen(isbn) > 0) strcpy(book->pubDate, isbn);
     char buffer[MAX_LEN];
-    read_line("ÊäÈëĞÂ¼Û¸ñ£¨»Ø³µ±£³Ö²»±ä£©: ", buffer, MAX_LEN);
+    read_line("è¾“å…¥æ–°ä»·æ ¼ï¼ˆå›è½¦ä¿æŒä¸å˜ï¼‰: ", buffer, MAX_LEN);
     if (strlen(buffer) > 0) book->price = atof(buffer);
-    read_line("ÊäÈëĞÂ²áÊı£¨»Ø³µ±£³Ö²»±ä£©: ", buffer, MAX_LEN);
+    read_line("è¾“å…¥æ–°å†Œæ•°ï¼ˆå›è½¦ä¿æŒä¸å˜ï¼‰: ", buffer, MAX_LEN);
     if (strlen(buffer) > 0) book->count = atoi(buffer);
-    printf("ĞŞ¸ÄÍê³É¡£\n");
+    printf("ä¿®æ”¹å®Œæˆã€‚\n");
 }
 
 void borrow_book(Book* head) {
     char isbn[MAX_LEN];
-    read_line("ÇëÊäÈëÒª½èÔÄÍ¼ÊéµÄISBN: ", isbn, MAX_LEN);
+    read_line("è¯·è¾“å…¥è¦å€Ÿé˜…å›¾ä¹¦çš„ISBN: ", isbn, MAX_LEN);
     Book* book = find_by_isbn(head, isbn);
     if (!book) {
-        printf("Î´ÕÒµ½Ö¸¶¨Í¼Êé¡£\n");
+        printf("æœªæ‰¾åˆ°æŒ‡å®šå›¾ä¹¦ã€‚\n");
         return;
     }
     if (book->borrowed >= book->count) {
-        printf("¸ÃÊéÒÑÈ«²¿½è³ö¡£\n");
+        printf("è¯¥ä¹¦å·²å…¨éƒ¨å€Ÿå‡ºã€‚\n");
         return;
     }
     book->borrowed++;
-    printf("½èÔÄ³É¹¦¡£µ±Ç°ÒÑ½è³ö %d ±¾¡£\n", book->borrowed);
+    printf("å€Ÿé˜…æˆåŠŸã€‚å½“å‰å·²å€Ÿå‡º %d æœ¬ã€‚\n", book->borrowed);
 }
 
 void return_book(Book* head) {
     char isbn[MAX_LEN];
-    read_line("ÇëÊäÈëÒª¹é»¹Í¼ÊéµÄISBN: ", isbn, MAX_LEN);
+    read_line("è¯·è¾“å…¥è¦å½’è¿˜å›¾ä¹¦çš„ISBN: ", isbn, MAX_LEN);
     Book* book = find_by_isbn(head, isbn);
     if (!book) {
-        printf("Î´ÕÒµ½Ö¸¶¨Í¼Êé¡£\n");
+        printf("æœªæ‰¾åˆ°æŒ‡å®šå›¾ä¹¦ã€‚\n");
         return;
     }
     if (book->borrowed <= 0) {
-        printf("µ±Ç°Ã»ÓĞ½è³öµÄ¸±±¾¡£\n");
+        printf("å½“å‰æ²¡æœ‰å€Ÿå‡ºçš„å‰¯æœ¬ã€‚\n");
         return;
     }
     book->borrowed--;
-    printf("¹é»¹³É¹¦¡£µ±Ç°ÒÑ½è³ö %d ±¾¡£\n", book->borrowed);
+    printf("å½’è¿˜æˆåŠŸã€‚å½“å‰å·²å€Ÿå‡º %d æœ¬ã€‚\n", book->borrowed);
 }
 
 void list_available_books(Book* head) {
@@ -349,7 +349,7 @@ void list_available_books(Book* head) {
         }
         p = p->next;
     }
-    if (!found) printf("µ±Ç°Ã»ÓĞ¿É½èÍ¼Êé¡£\n");
+    if (!found) printf("å½“å‰æ²¡æœ‰å¯å€Ÿå›¾ä¹¦ã€‚\n");
 }
 
 void list_borrowed_books(Book* head) {
@@ -363,14 +363,14 @@ void list_borrowed_books(Book* head) {
         }
         p = p->next;
     }
-    if (!found) printf("µ±Ç°Ã»ÓĞ½è³öµÄÍ¼Êé¡£\n");
+    if (!found) printf("å½“å‰æ²¡æœ‰å€Ÿå‡ºçš„å›¾ä¹¦ã€‚\n");
 }
 
 void count_by_author(Book* head) {
     char author[MAX_LEN];
-    read_line("ÊäÈëÒªÍ³¼ÆµÄ×÷Õß: ", author, MAX_LEN);
+    read_line("è¾“å…¥è¦ç»Ÿè®¡çš„ä½œè€…: ", author, MAX_LEN);
     if (strlen(author) == 0) {
-        printf("×÷ÕßÃû²»ÄÜÎª¿Õ¡£\n");
+        printf("ä½œè€…åä¸èƒ½ä¸ºç©ºã€‚\n");
         return;
     }
     Book* p = head->next;
@@ -381,12 +381,12 @@ void count_by_author(Book* head) {
         }
         p = p->next;
     }
-    printf("×÷Õß '%s' µÄÍ¼Êé×Ü²áÊı: %d\n", author, total);
+    printf("ä½œè€… '%s' çš„å›¾ä¹¦æ€»å†Œæ•°: %d\n", author, total);
 }
 
 void count_by_category(Book* head) {
     char category[MAX_LEN];
-    read_line("ÊäÈëÒªÍ³¼ÆµÄÀà±ğ: ", category, MAX_LEN);
+    read_line("è¾“å…¥è¦ç»Ÿè®¡çš„ç±»åˆ«: ", category, MAX_LEN);
     Book* p = head->next;
     int total = 0;
     while (p) {
@@ -395,13 +395,13 @@ void count_by_category(Book* head) {
         }
         p = p->next;
     }
-    printf("Àà±ğ '%s' µÄÍ¼Êé×Ü²áÊı: %d\n", category, total);
+    printf("ç±»åˆ« '%s' çš„å›¾ä¹¦æ€»å†Œæ•°: %d\n", category, total);
 }
 
 void save_to_file(Book* head, const char* filename) {
     FILE* fp = fopen(filename, "w");
     if (!fp) {
-        printf("ÎÄ¼şÎŞ·¨´ò¿ª: %s\n", filename);
+        printf("æ–‡ä»¶æ— æ³•æ‰“å¼€: %s\n", filename);
         return;
     }
     Book* p = head->next;
@@ -413,7 +413,7 @@ void save_to_file(Book* head, const char* filename) {
         p = p->next;
     }
     fclose(fp);
-    printf("ÒÑ±£´æµ½ÎÄ¼ş: %s\n", filename);
+    printf("å·²ä¿å­˜åˆ°æ–‡ä»¶: %s\n", filename);
 }
 
 int load_from_file(Book* head, const char* filename, int nextId) {
@@ -452,21 +452,21 @@ int main(void) {
     int nextId = 1;
     nextId = load_from_file(head, "books.txt", nextId);
     while (1) {
-        printf("\nÍ¼Êé¹ÜÀíÏµÍ³²Ëµ¥:\n");
-        printf("1. ĞÂÔöÍ¼Êé\n");
-        printf("2. É¾³ıÍ¼Êé\n");
-        printf("3. ĞŞ¸ÄÍ¼Êé\n");
-        printf("4. ²éÑ¯È«²¿Í¼Êé\n");
-        printf("5. Ìõ¼ş²éÑ¯Í¼Êé\n");
-        printf("6. ÅÅĞòÍ¼Êé\n");
-        printf("7. ½èÊé\n");
-        printf("8. »¹Êé\n");
-        printf("9. °´Àà±ğÍ³¼Æ²áÊı\n");
-        printf("10. ²éÑ¯¿É½èÍ¼Êé\n");
-        printf("11. ²éÑ¯ÒÑ½è³öÍ¼Êé\n");
-        printf("12. °´×÷ÕßÍ³¼Æ²áÊı\n");
-        printf("0. ±£´æ²¢ÍË³ö\n");
-        int choice = read_int("ÇëÑ¡Ôñ²Ù×÷: ");
+        printf("\nå›¾ä¹¦ç®¡ç†ç³»ç»Ÿèœå•:\n");
+        printf("1. æ–°å¢å›¾ä¹¦\n");
+        printf("2. åˆ é™¤å›¾ä¹¦\n");
+        printf("3. ä¿®æ”¹å›¾ä¹¦\n");
+        printf("4. æŸ¥è¯¢å…¨éƒ¨å›¾ä¹¦\n");
+        printf("5. æ¡ä»¶æŸ¥è¯¢å›¾ä¹¦\n");
+        printf("6. æ’åºå›¾ä¹¦\n");
+        printf("7. å€Ÿä¹¦\n");
+        printf("8. è¿˜ä¹¦\n");
+        printf("9. æŒ‰ç±»åˆ«ç»Ÿè®¡å†Œæ•°\n");
+        printf("10. æŸ¥è¯¢å¯å€Ÿå›¾ä¹¦\n");
+        printf("11. æŸ¥è¯¢å·²å€Ÿå‡ºå›¾ä¹¦\n");
+        printf("12. æŒ‰ä½œè€…ç»Ÿè®¡å†Œæ•°\n");
+        printf("0. ä¿å­˜å¹¶é€€å‡º\n");
+        int choice = read_int("è¯·é€‰æ‹©æ“ä½œ: ");
         switch (choice) {
         case 1: insert_book(head, &nextId); break;
         case 2: delete_book(head); break;
@@ -485,7 +485,7 @@ int main(void) {
             free_list(head);
             return 0;
         default:
-            printf("ÎŞĞ§Ñ¡Ïî£¬ÇëÖØĞÂÑ¡Ôñ¡£\n");
+            printf("æ— æ•ˆé€‰é¡¹ï¼Œè¯·é‡æ–°é€‰æ‹©ã€‚\n");
             break;
         }
     }

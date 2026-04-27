@@ -5,23 +5,179 @@
 #include<cassert>
 using namespace std;
 
+namespace bit
+{
+	class string
+	{
+	public:
+		typedef char* iterator;
+		typedef const char* const_iterator;
 
+		iterator begin()
+		{
+			return _str;
+		}
+
+		iterator end()
+		{
+			return _str + _size;
+		}
+
+		const_iterator begin() const
+		{
+			return _str;
+		}
+
+		const_iterator end() const
+		{
+			return _str + _size;
+		}
+
+		string(const char* str = "")
+			:_size(strlen(str))
+			, _capacity(_size)
+		{
+			cout << "string(char* str)-æ„é€ " << endl;
+			_str = new char[_capacity + 1];
+			strcpy(_str, str);
+		}
+
+		// æ‹·è´æ„é€ 
+		string(const string& s)
+			:_str(nullptr)
+		{
+			cout << "string(const string& s) -- æ‹·è´æ„é€ " << endl;
+			reserve(s._capacity);
+			for (auto ch : s)
+			{
+				push_back(ch);
+			}
+		}
+
+		void swap(string& ss)
+		{
+			::swap(_str, ss._str);
+			::swap(_size, ss._size);
+			::swap(_capacity, ss._capacity);
+		}
+
+		//ç§»åŠ¨æ„é€ 
+		string(string&& s)noexcept
+		{
+			cout << "string(string&& s) -- ç§»åŠ¨æ„é€ " << endl;
+			// è½¬ç§»æ å¤ºä½ çš„èµ„æº
+			swap(s);
+		}
+		//ä¹Ÿå°±æ˜¯å°†èµ„æºè½¬ç§»å‡ºæ¥ï¼Œè¿™ä¹Ÿæ˜¯å³å€¼å¼•ç”¨çš„ç±»å‹æ˜¯å·¦å€¼çš„åŸå› 
+
+		string& operator=(const string& s)
+		{
+			cout << "string& operator=(const string& s) -- æ‹·è´èµ‹å€¼" <<
+				endl;
+			if (this != &s)
+			{
+				_str[0] = '\0';
+				_size = 0;
+				reserve(s._capacity);
+				for (auto ch : s)
+				{
+					push_back(ch);
+				}
+			}
+			return *this;
+		}
+
+		// ç§»åŠ¨èµ‹å€¼
+		string& operator=(string&& s)noexcept
+		{
+			cout << "string& operator=(string&& s) -- ç§»åŠ¨èµ‹å€¼" << endl;
+			swap(s);
+			return *this;
+		}
+
+		~string()
+		{
+			//cout << "~string() -- ææ„" << endl;
+			delete[] _str;
+			_str = nullptr;
+		}
+
+		char& operator[](size_t pos)
+		{
+			assert(pos < _size);
+			return _str[pos];
+		}
+
+		void reserve(size_t n)
+		{
+			if (n > _capacity)
+			{
+				char* tmp = new char[n + 1];
+				if (_str)
+				{
+					strcpy(tmp, _str);
+					delete[] _str;
+				}
+				_str = tmp;
+				_capacity = n;
+			}
+		}
+
+		void push_back(char ch)
+		{
+			if (_size >= _capacity)
+			{
+				size_t newcapacity = _capacity == 0 ? 4 : _capacity * 2;
+				reserve(newcapacity);
+			}
+			_str[_size] = ch;
+			++_size;
+			_str[_size] = '\0';
+		}
+
+		string& operator+=(char ch)
+		{
+			push_back(ch);
+			return *this;
+		}
+
+		const char* c_str() const
+		{
+			return _str;
+		}
+
+		size_t size() const
+		{
+			return _size;
+		}
+	private:
+		char* _str = new char('\0');
+		size_t _size = 0;
+		size_t _capacity = 0;
+	};
+}
 namespace jyy
 {
 	template<class T>
 	class list_node
 	{
 	public:
-		//ÕâÀï»¹ÊÇÒ»¸ö×¢ÒâµÄµã£ºconstÊÇÎªÁË¼õÉÙ¿½±´,T()ÊÇÎªÁËÊ¹ÓÃÄ¬ÈÏ¹¹Ôì£¬ÓµÓĞ¸üºÃµÄÊÊÅäĞÔ
-		
+		//è¿™é‡Œè¿˜æ˜¯ä¸€ä¸ªæ³¨æ„çš„ç‚¹ï¼šconstæ˜¯ä¸ºäº†å‡å°‘æ‹·è´,T()æ˜¯ä¸ºäº†ä½¿ç”¨é»˜è®¤æ„é€ ï¼Œæ‹¥æœ‰æ›´å¥½çš„é€‚é…æ€§
+
 		list_node() = default;
 
-		template<class X>
+		/*template<class X>
 		list_node(X&& data = T())
 			:_data(forward<X>(data))
 			, next(nullptr)
 			, prev(nullptr)
-		{}
+		{}*/
+		template<class ...Args>
+		list_node(Args&&... args)
+			:_data(forward<Args>(args)...)
+			,next(nullptr)
+			,prev(nullptr)
+		{ }
 
 		T _data;
 		list_node<T>* next;
@@ -34,7 +190,7 @@ namespace jyy
 		typedef list_node<T> Node;
 		typedef list_iterator<T, Ref, Ptr> Self;
 
-		//ÕâÀïµÄSelf¿ÉÒÔ·Ç³£ºÃµÄ¼æÈİÁ½¸öÀàĞÍµÄµü´úÆ÷
+		//è¿™é‡Œçš„Selfå¯ä»¥éå¸¸å¥½çš„å…¼å®¹ä¸¤ä¸ªç±»å‹çš„è¿­ä»£å™¨
 		list_iterator(Node* node)
 			:_node(node)
 		{}
@@ -84,67 +240,6 @@ namespace jyy
 		Node* _node;
 	};
 
-
-
-	//template<class T>
-	//struct list_const_iterator
-	//{
-	//	typedef list_node<T> Node;
-	//	typedef list_const_iterator<T> const_iterator;
-
-	//	list_const_iterator(Node* node)
-	//		:_node(node)
-	//	{}
-
-	//	const_iterator& operator++()
-	//	{
-	//		_node = _node->next;
-	//		return *this;
-	//	}
-	//	const_iterator& operator--()
-	//	{
-	//		_node = _node->prev;
-	//		return *this;
-	//	}
-
-	//	const_iterator operator++(int)
-	//	{
-	//		const_iterator ret = *this;
-	//		_node = _node->next;
-	//		return ret;
-	//	}
-	//	const_iterator operator--(int)
-	//	{
-	//		const_iterator ret = *this;
-	//		_node = _node->prev;
-	//		return ret;
-	//	}
-
-	//	bool operator !=(const const_iterator& it)const
-	//	{
-	//		return (it._node != _node);
-	//	}
-	//	bool operator ==(const const_iterator& it)const
-	//	{
-	//		return it._node ==_node;
-	//	}
-
-	//	//´Ë´¦Ó¦¸ÃÊÇT&
-	//	const T& operator*()
-	//	{
-	//		return _node->_data;
-	//	}
-	//	const T* operator->()
-	//	{
-	//		return &_node->_data;
-	//	}
-	//	
-	//public:
-	//	Node* _node;
-	//};
-
-
-
 	template<class Contianer>
 	void printf_contianer(const Contianer& con)
 	{
@@ -163,6 +258,8 @@ namespace jyy
 		}
 		cout << endl;
 	}
+	
+	
 	template<class T>
 	class list
 	{
@@ -173,7 +270,7 @@ namespace jyy
 
 		typedef list_iterator<T, T&, T*>  iterator;
 		typedef list_iterator<T, const T&, const T*> const_iterator;
-		//¿ÉÒÔÈÏÎªÕâÊÇÔÚÀàÖĞÉùÃ÷ÁËµü´úÆ÷µÄÀàĞÍ£¬È»ºóÔÚÄ£°æÖĞÖ±½ÓÌ×ÓÃ
+		//å¯ä»¥è®¤ä¸ºè¿™æ˜¯åœ¨ç±»ä¸­å£°æ˜äº†è¿­ä»£å™¨çš„ç±»å‹ï¼Œç„¶ååœ¨æ¨¡ç‰ˆä¸­ç›´æ¥å¥—ç”¨
 		list()
 		{
 			_head = new Node();
@@ -182,11 +279,54 @@ namespace jyy
 			_size = 0;
 		}
 
-		template<class X>
-		void push_back(X&& x)
+		void push_back(const T& x)
 		{
-			insert(end(), forward<X>(x));
+			insert(end(), x);
 		}
+
+		void push_back(T&& x)
+		{
+			insert(end(), move(x));
+		}
+
+		/*iterator insert(iterator it, T&& data)
+		{
+			Node* new_node = new Node(move(data));
+
+			Node* next = it._node;
+			Node* prev = it._node->prev;
+
+			prev->next = new_node;
+			new_node->prev = prev;
+
+			next->prev = new_node;
+			new_node->next = next;
+			++_size;
+			return --it;
+		}
+
+		iterator insert(iterator it,const T& data)
+		{
+			Node* new_node = new Node(data);
+
+			Node* next = it._node;
+			Node* prev = it._node->prev;
+
+			prev->next = new_node;
+			new_node->prev = prev;
+
+			next->prev = new_node;
+			new_node->next = next;
+			++_size;
+			return --it;
+		}*/
+		///////////////////////////////
+		template<class... Args>
+		void emplace_back(Args&&... args)
+		{
+			insert(end(), forward<Args>(args)...);
+		}
+
 		void push_front(T x)
 		{
 			insert(begin(), x);
@@ -196,7 +336,7 @@ namespace jyy
 		{
 			erase(--end());
 		}
-		template<class X>
+		/*template<class X>
 		iterator insert(iterator it, X&& data)
 		{
 			Node* new_node = new Node(forward<X>(data));
@@ -211,7 +351,27 @@ namespace jyy
 			new_node->next = next;
 			++_size;
 			return --it;
+		}*/
+
+		
+		template<class... Args>
+		iterator insert(iterator it,Args&&... args)
+		{
+			Node* new_node = new Node(forward<Args>(args)...);
+
+			Node* next = it._node;
+			Node* prev = it._node->prev;
+
+			prev->next = new_node;
+			new_node->prev = prev;
+
+			next->prev = new_node;
+			new_node->next = next;
+			++_size;
+			return --it;
 		}
+
+
 
 		iterator erase(iterator it)
 		{
@@ -221,7 +381,7 @@ namespace jyy
 			Node* next = it._node->next;
 			Node* prev = it._node->prev;
 			iterator ret = ++it;
-			//ÕâÀï´æÔÚbug£¬»áÊ¹itÖ¸ÏòÏÂÒ»¸öÎ»ÖÃ£¬´Ó¶ødelete´íÎóµÄÎ»ÖÃ
+			//è¿™é‡Œå­˜åœ¨bugï¼Œä¼šä½¿itæŒ‡å‘ä¸‹ä¸€ä¸ªä½ç½®ï¼Œä»è€Œdeleteé”™è¯¯çš„ä½ç½®
 			prev->next = next;
 			next->prev = prev;
 
@@ -254,9 +414,3 @@ namespace jyy
 	};
 
 }
-
-
-
-
-
-
