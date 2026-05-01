@@ -20,17 +20,17 @@ using namespace std;
 //	auto ret1 = h1.find(20);
 //	if (ret1)
 //	{
-//		cout << "ÕÒµ½ÁË" << endl;
+//		cout << "æ‰¾åˆ°äº†" << endl;
 //	}
 //
 //	auto ret = h1.find(30);
 //	if (ret)
 //	{
-//		cout << "ÕÒµ½ÁË" << endl;
+//		cout << "æ‰¾åˆ°äº†" << endl;
 //	}
 //	else
 //	{
-//		cout << "Ã»ÓÐÕÒµ½" << endl;
+//		cout << "æ²¡æœ‰æ‰¾åˆ°" << endl;
 //	}
 //
 //}
@@ -98,7 +98,7 @@ using namespace std;
 //		ht2.insert({ e, e });
 //	}
 //
-//	// ¹þÏ£³åÍ»
+//	// å“ˆå¸Œå†²çª
 //	hash_bucket::HashTable<Date, int, DateHashFunc> ht;
 //	ht.insert({ { 2024, 10, 12 }, 1});
 //	ht.insert({ { 2024, 12, 10 }, 1 });
@@ -128,7 +128,7 @@ int main()
 
 
 
-//»¹ÊÇË®Ò»ÏÂ
+//è¿˜æ˜¯æ°´ä¸€ä¸‹
 
 //void test_map1()
 //{

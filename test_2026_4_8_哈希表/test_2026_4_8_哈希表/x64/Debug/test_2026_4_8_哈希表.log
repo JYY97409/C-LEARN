@@ -1,9 +1,9 @@
 ﻿  test.cpp
-C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(356,49): warning C4267: “参数”: 从“size_t”转换到“unsigned long”，可能丢失数据
+C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(360,49): warning C4267: “参数”: 从“size_t”转换到“unsigned long”，可能丢失数据
   (编译源文件“test.cpp”)
-      C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(356,49):
+      C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(360,49):
       模板实例化上下文(最早的实例化上下文)为
-          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\test.cpp(114,31):
+          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\test.cpp(116,31):
           查看对正在编译的 类 模板 实例化“jyy::unordered_map<int,int,HashFunc<K>>”的引用
           with
           [
@@ -17,7 +17,7 @@ C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4
               V=int,
               Hash=HashFunc<int>
           ]
-          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(343,24):
+          C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\HashTable.h(347,24):
           在编译 类 模板 成员函数“std::pair<hash_bucket::Iterator<K,T,T &,T *,KeyofT,Hash>,bool> hash_bucket::HashTable<K,T,KeyofT,Hash>::insert(const T &)”时
           with
           [
@@ -26,13 +26,13 @@ C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4
               KeyofT=jyy::unordered_map<int,int,HashFunc<int>>::KeyofMap,
               Hash=HashFunc<int>
           ]
-              C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\unordered_map.h(29,4):
+              C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\unordered_map.h(31,4):
               请参阅 "jyy::unordered_map<int,int,HashFunc<K>>::insert" 中对 "hash_bucket::HashTable<K,std::pair<const K,V>,jyy::unordered_map<K,V,HashFunc<K>>::KeyofMap,Hash>::insert" 的第一个引用
           with
           [
               K=int
           ]
-              C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\test.cpp(117,13):
+              C:\Users\lenovo\Desktop\github仓库\C-LEARN\test_2026_4_8_哈希表\test_2026_4_8_哈希表\test.cpp(119,13):
               请参阅 "main" 中对 "jyy::unordered_map<int,int,HashFunc<K>>::insert" 的第一个引用
           with
           [

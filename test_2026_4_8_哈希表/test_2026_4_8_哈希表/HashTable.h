@@ -11,7 +11,7 @@ enum State
 	EMPTY,
 	DELETE
 };
-
+//è¿™é‡Œè¿˜æ˜¯å­˜åœ¨å°å·§æ€çš„ï¼Œå°±æ˜¯åœ¨æŸ¥æ‰¾çš„æ—¶å€™æ˜¯æ ¹æ®æ˜¯ä¸æ˜¯emptyæ¥åˆ¤æ–­çš„ï¼Œä¸æ˜¯deleteï¼Œè¿™è¿˜æ˜¯æœ‰æ™ºæ…§çš„
 
 template<class K, class V>
 class HashNode
@@ -22,12 +22,12 @@ class HashNode
 	{ }*/
 
 
-	//¹¹Ôìº¯ÊıÔÚÃ»ÓĞÏÔÊ¾ÊµÏÖÊ±ºò»á×Ô¼ºµ÷ÓÃ×Ô¶¨ÒåÀàĞÍµÄ¹¹Ôìº¯Êı£¨Ç³¿½±´£©
+	//æ„é€ å‡½æ•°åœ¨æ²¡æœ‰æ˜¾ç¤ºå®ç°æ—¶å€™ä¼šè‡ªå·±è°ƒç”¨è‡ªå®šä¹‰ç±»å‹çš„æ„é€ å‡½æ•°ï¼ˆæµ…æ‹·è´ï¼‰
 public:
 	pair<K, V> _data;
 	State _state = EMPTY;
 };
-//Ä£°åÌØ»¯
+//æ¨¡æ¿ç‰¹åŒ–
 template<class K>
 struct HashFunc
 {
@@ -38,11 +38,13 @@ struct HashFunc
 
 };
 
+
+//è¿™å°±æ˜¯å°†stringè½¬æ¢æˆint ç±»å‹çš„
 template<>
 struct HashFunc<string>
 {
 	size_t operator()(const string& key)
-	{	
+	{
 		size_t ret = 0;
 		int flag = 1;
 		for (auto ch : key)
@@ -54,11 +56,11 @@ struct HashFunc<string>
 };
 
 
-//·Âº¯Êı½â¾öÀàĞÍ×ª»»ÎÊÌâ
-//³£¼ûÀàĞÍÊ¹ÓÃÄ£°åÌØ»¯
-//Êµ¼ÊÉÏÊÇ·´Ó³ÁË¹şÏ£¶ÔkeyµÄÒªÇó¾ÍÊÇkey¿ÉÒÔ×ª³ÉÕûĞÎ
-//¹şÏ£±íĞèÒªkeyÖ§³Ö×ª³ÉÕûĞÎºÍÖ§³ÖµÈÓÚ±È½Ï
-//ÕâÀï»¹ÊÇ´æÔÚÒ»¸öÎÊÌâ£º²ÎÊı²»Ó¦¸Ã´«µ±Ç°²ÎÊı£¬¶øÊÇ´«n + 1
+//ä»¿å‡½æ•°è§£å†³ç±»å‹è½¬æ¢é—®é¢˜
+//å¸¸è§ç±»å‹ä½¿ç”¨æ¨¡æ¿ç‰¹åŒ–
+//å®é™…ä¸Šæ˜¯åæ˜ äº†å“ˆå¸Œå¯¹keyçš„è¦æ±‚å°±æ˜¯keyå¯ä»¥è½¬æˆæ•´å½¢
+//å“ˆå¸Œè¡¨éœ€è¦keyæ”¯æŒè½¬æˆæ•´å½¢å’Œæ”¯æŒç­‰äºæ¯”è¾ƒ
+//è¿™é‡Œè¿˜æ˜¯å­˜åœ¨ä¸€ä¸ªé—®é¢˜ï¼šå‚æ•°ä¸åº”è¯¥ä¼ å½“å‰å‚æ•°ï¼Œè€Œæ˜¯ä¼ n + 1
 inline unsigned long __stl_next_prime(unsigned long n)
 {
 	// Note: assumes long is at least 32 bits.
@@ -71,10 +73,13 @@ inline unsigned long __stl_next_prime(unsigned long n)
 		50331653, 100663319, 201326611, 402653189, 805306457,
 		1610612741, 3221225473, 4294967291
 	};
+	//ä¹‹æ‰€ä»¥è¦ä½¿ç”¨ç´ æ•°è¡¨ï¼Œæ˜¯å› ä¸ºä½¿ç”¨2çš„næ¬¡å¹‚æ¯æ¬¡åªä¼šæœ‰å‡ ä¸ªä½çš„æ•°æ®å‚åŠ 
+
 	const unsigned long* first = __stl_prime_list;
 	const unsigned long* last = __stl_prime_list + __stl_num_primes;
 	const unsigned long* pos = lower_bound(first, last, n);
 	return pos == last ? *(last - 1) : *pos;
+
 }
 
 
@@ -83,6 +88,7 @@ inline unsigned long __stl_next_prime(unsigned long n)
 namespace open_adress
 {
 
+	//å¼€æ”¾å®šå€æ³•
 	template<class K, class V, class Hash = HashFunc<K>>
 	class HashTable
 	{
@@ -99,6 +105,7 @@ namespace open_adress
 				return false;
 			}
 
+			//è´Ÿè½½å› å­è¾¾åˆ°ç™¾åˆ†ä¹‹ä¸ƒåçš„æ—¶å€™æ‰©å®¹
 			if (_n * 10 / _table.size() > 7)
 			{
 				HashTable<K, V> new_hash(_table.size() * 2);
@@ -108,16 +115,21 @@ namespace open_adress
 					new_hash.insert(e._data);
 				}
 
+				//ç°ä»£å†™æ³•
 				_table.swap(new_hash._table);
 				_n = new_hash._n;
 			}
+
+			//hashfunc ç”¨æ¥å¤„ç†è½¬æ¢å½¢å¼
 			Hash hashF;
 			size_t hash0 = hashF(data.first) % _table.size();
 			size_t i = 1;
 			size_t hashi = hash0;
+			
+			
 			while (_table[hashi]._state == EXIST)
 			{
-				//µ±¸ÃÎ»ÖÃÊÇÓĞÊı¾İµÄÊ±ºòÊÇĞèÒªÒÆ¶¯µÄ
+				//å½“è¯¥ä½ç½®æ˜¯æœ‰æ•°æ®çš„æ—¶å€™æ˜¯éœ€è¦ç§»åŠ¨çš„
 				hashi = (hashi + i) % _table.size();
 				i++;
 			}
@@ -129,8 +141,8 @@ namespace open_adress
 		}
 
 
-		//ÕûÌå¾ÍÊÇÏÈÈ¡Ä££¬È»ºó++
-		//ÕâÀï²»ÊÇvector µÄÖ¸ÕëÊÇÒòÎªvectorÊµ¼ÊÉÏÊÇË³Ğò±í£¬²»ÊÇÊı×é
+		//æ•´ä½“å°±æ˜¯å…ˆå–æ¨¡ï¼Œç„¶å++
+		//è¿™é‡Œä¸æ˜¯vector çš„æŒ‡é’ˆæ˜¯å› ä¸ºvectorå®é™…ä¸Šæ˜¯é¡ºåºè¡¨ï¼Œä¸æ˜¯æ•°ç»„
 		HashNode<K, V>* find(const K& key)
 		{
 			Hash hashF;
@@ -141,14 +153,16 @@ namespace open_adress
 			}
 			size_t i = 1;
 			size_t hashi = hash0;
+
+			//è¿™ä¸ªæŸ¥æ‰¾é€»è¾‘æ—¶é—´ä¸Šæ˜¯å’Œå¼€æ”¾å®šå€æ³•å¤„ç†å“ˆå¸Œå†²çªçš„æ–¹æ³•ä¸€è‡´çš„
 			while (_table[hashi]._state != EMPTY)
 			{
-				//Õâµ¼ÖÂ¹şÏ£±íµÄkeyĞèÒªÖ§³Ö==£¬¶ømapÖ»ĞèÒªÖ§³ÖĞ¡ÓÚ±È½Ï¾ÍĞĞ
+				//è¿™å¯¼è‡´å“ˆå¸Œè¡¨çš„keyéœ€è¦æ”¯æŒ==ï¼Œè€Œmapåªéœ€è¦æ”¯æŒå°äºæ¯”è¾ƒå°±è¡Œ
 				if (_table[hashi]._state == EXIST && _table[hashi]._data.first == key)
 				{
 					return &_table[hashi];
 				}
-				//µ±¸ÃÎ»ÖÃÊÇÓĞÊı¾İµÄÊ±ºòÊÇĞèÒªÒÆ¶¯µÄ
+				//å½“è¯¥ä½ç½®æ˜¯æœ‰æ•°æ®çš„æ—¶å€™æ˜¯éœ€è¦ç§»åŠ¨çš„
 				hashi = (hashi + i) % _table.size();
 				i++;
 			}
@@ -175,6 +189,7 @@ namespace open_adress
 		size_t _n;
 	};
 }
+//ä½†æ˜¯å¼€æ”¾å®šå€æ³•è¿˜æ˜¯æ²¡æœ‰ä»æ ¹æœ¬ä¸Šè§£å†³é—®é¢˜ï¼Œå…¶å®è¿˜æ˜¯å ç”¨å…¶ä»–æ•°æ®çš„ä½ç½®ï¼Œå…¶å®æ˜¯æ²¡ä»€ä¹ˆæ•ˆæœçš„
 
 namespace hash_bucket
 {
@@ -190,18 +205,19 @@ namespace hash_bucket
 			, _next(nullptr)
 		{}
 
-		//¹¹Ôìº¯ÊıÔÚÃ»ÓĞÏÔÊ¾ÊµÏÖÊ±ºò»á×Ô¼ºµ÷ÓÃ×Ô¶¨ÒåÀàĞÍµÄ¹¹Ôìº¯Êı£¨Ç³¿½±´£©
+		//æ„é€ å‡½æ•°åœ¨æ²¡æœ‰æ˜¾ç¤ºå®ç°æ—¶å€™ä¼šè‡ªå·±è°ƒç”¨è‡ªå®šä¹‰ç±»å‹çš„æ„é€ å‡½æ•°ï¼ˆæµ…æ‹·è´ï¼‰
 	public:
 		T _data;
 		State _state = EMPTY;
 		Node* _next = nullptr;
 	};
 
+	//å‰ç½®å£°æ˜
 	template<class K, class T, class KeyofT, class Hash>
 	class HashTable;
 
 
-	template<class K,class T,class Ref,class Ptr,class KeyofT,class Hash>
+	template<class K, class T, class Ref, class Ptr, class KeyofT, class Hash>
 	class Iterator
 	{
 	public:
@@ -209,11 +225,12 @@ namespace hash_bucket
 		using HashTable = HashTable<K, T, KeyofT, Hash>;
 		using Self = Iterator<K, T, Ref, Ptr, KeyofT, Hash>;
 
-		Iterator<K, T, Ref, Ptr, KeyofT, Hash>( Node* node , HashTable* ht)
+		Iterator<K, T, Ref, Ptr, KeyofT, Hash>(Node* node, HashTable* ht)
 			:_node(node)
-			,_ht(ht)
+			, _ht(ht)
 		{}
 
+		//ptrå’Œreféƒ½æ˜¯æ¨¡ç‰ˆçš„å¦™ç”¨ï¼Œè¿™æ˜¯å› ä¸ºåŸæ¥æ˜¯è¦å†™ä¸¤ä¸ªè¿­ä»£å™¨çš„
 		Ptr operator->()
 		{
 			return &(_node->_data);
@@ -223,7 +240,7 @@ namespace hash_bucket
 		{
 			return _node->_data;
 		}
-		
+
 		bool operator==(const Self& s)
 		{
 			return _node == s._node && _ht == s._ht;
@@ -232,17 +249,18 @@ namespace hash_bucket
 		{
 			return !operator==(s);
 		}
-		
-		//Ç°ÖÃ++
+
+		//å‰ç½®++
 		Self& operator++()
 		{
+
 			if (_node->_next)
 			{
 				_node = _node->_next;
 			}
 			else
 			{
-				//ÕâÀï¿ÉÒÔÓÅ»¯Ò»ÏÂ
+				//è¿™é‡Œå¯ä»¥ä¼˜åŒ–ä¸€ä¸‹
 				Hash hashf;
 				KeyofT kot;
 				size_t hashi = hashf(kot(_node->_data)) % _ht->_table.size() + 1;
@@ -264,30 +282,32 @@ namespace hash_bucket
 					_node = nullptr;
 				}
 			}
-
+			//å“ˆå¸Œæ¡¶æ˜¯å•å‘ç»“æ„ï¼Œæ‰€ä»¥åªå¯ä»¥æ”¯æŒ++ï¼Œä½†æ˜¯ä¸èƒ½æ”¯æŒ--ï¼Œæ— æ³•å›æº¯
 			return *this;
 		}
 
 	private:
 		Node* _node;
 		HashTable* _ht;
+		//è¿­ä»£å™¨ä¹‹æ‰€ä»¥è¦åŒ…å«HashTableï¼Œæ˜¯å› ä¸ºè¿­ä»£å™¨æ˜¯éœ€è¦++çš„ï¼Œè¿˜æ˜¯éœ€è¦hash_tableçš„
+	
 	};
 
-	template<class K, class T ,class KeyofT, class Hash>
+	template<class K, class T, class KeyofT, class Hash>
 	class HashTable
 	{
 		template<class K, class T, class Ref, class Ptr, class KeyofT, class Hash>
 		friend class Iterator;
-		//Ä£°åÓÑÔªÉùÃ÷ĞèÒªÁ¬ÉÏÄ£°å²ÎÊı
+		//æ¨¡æ¿å‹å…ƒå£°æ˜éœ€è¦è¿ä¸Šæ¨¡æ¿å‚æ•°
 	public:
 		using Node = HashNode<T>;
 		using iterator = Iterator<K, T, T&, T*, KeyofT, Hash>;
-		using const_iterator = Iterator<K, T, const T&,const T*, KeyofT, Hash>;
+		using const_iterator = Iterator<K, T, const T&, const T*, KeyofT, Hash>;
 
 
-		HashTable<K,T,KeyofT,Hash>(size_t size = 29)
+		HashTable<K, T, KeyofT, Hash>(size_t size = 29)
 			:_table(size)
-			,_n(0)
+			, _n(0)
 		{}
 
 		iterator begin()
@@ -299,7 +319,7 @@ namespace hash_bucket
 				if (_table[hashi])
 				{
 					cur = _table[hashi];
-					return iterator(cur,this);
+					return iterator(cur, this);
 				}
 				else
 				{
@@ -340,7 +360,7 @@ namespace hash_bucket
 			return const_iterator(nullptr, this);
 		}
 
-		pair<iterator ,bool> insert(const T& data)
+		pair<iterator, bool> insert(const T& data)
 		{
 			KeyofT kot;
 			Node* ret = find(kot(data));
@@ -348,13 +368,15 @@ namespace hash_bucket
 			{
 				return { iterator(ret,this),false };
 			}
+			//hashfunc 
 			Hash hashf;
 			if (_n == _table.size())
 			{
-				//À©ÈİÂß¼­
+				//æ‰©å®¹é€»è¾‘
 
 				vector<Node*> new_table(__stl_next_prime(_n + 1));
 				Node* cur = nullptr;
+				
 				for (int i = 0; i < _table.size(); i++)
 				{
 
@@ -380,6 +402,8 @@ namespace hash_bucket
 			Node* new_node = new Node(data);
 			new_node->_next = _table[hashi];
 			_table[hashi] = new_node;
+			//éƒ½æ˜¯å¤´æ’
+
 
 			return { iterator(new_node,this),true };
 		}
@@ -393,7 +417,7 @@ namespace hash_bucket
 			Node* prev = nullptr;
 			while (cur)
 			{
-				if ( kot(cur->_data) == key)
+				if (kot(cur->_data) == key)
 				{
 					if (prev == nullptr)
 					{
@@ -421,7 +445,7 @@ namespace hash_bucket
 
 		Node* find(const K& key)
 		{
-			
+
 			Hash hashf;
 			size_t hashi = hashf(key) % _table.size();
 

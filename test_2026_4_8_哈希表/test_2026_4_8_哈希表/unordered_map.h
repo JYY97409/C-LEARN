@@ -24,12 +24,14 @@ namespace jyy
 		typedef typename  hash_bucket::HashTable<K, pair<const K, V>, KeyofMap, Hash>::const_iterator const_iterator;
 		typedef hash_bucket::HashTable<K, pair<const K, V>, KeyofMap, Hash> Hashtable;
 		typedef unordered_map<K, V, Hash> Self;
+
+
 		bool insert(const pair<K, V> kv)
 		{
 			return _ht.insert(kv).second;
 		}
 
-		
+
 		iterator begin()
 		{
 			return _ht.begin();
@@ -57,7 +59,7 @@ namespace jyy
 		}
 
 
-		
+
 	private:
 		hash_bucket::HashTable<K, pair<const K, V>, KeyofMap, Hash> _ht;
 	};
