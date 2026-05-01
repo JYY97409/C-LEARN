@@ -7,7 +7,7 @@ using namespace std;
 
 namespace jyy
 {
-	//ÔÚÕâ¸öÖĞÊµÏÖoperator[]£¬ÒòÎªÍ¨ÓÃ´úÂëÖĞvalueµÄÀàĞÍÊÇ²»È·¶¨µÄ
+	//åœ¨è¿™ä¸ªä¸­å®ç°operator[]ï¼Œå› ä¸ºé€šç”¨ä»£ç ä¸­valueçš„ç±»å‹æ˜¯ä¸ç¡®å®šçš„
 	template <class key, class value>
 	class map
 	{
@@ -17,7 +17,7 @@ namespace jyy
 		typedef Iterator<T, T&, T*> iterator;
 		typedef Iterator<T, const T&, const T*> const_iterator;
 
-		
+
 		class MapKeyofValue
 		{
 		public:
@@ -31,7 +31,7 @@ namespace jyy
 
 		value& operator[](const key& key)
 		{
-			pair<iterator, bool> ret = _root.Insert({key,value()});
+			pair<iterator, bool> ret = _root.Insert({ key,value() });
 			return (ret.first)->second;
 		}
 
@@ -69,7 +69,7 @@ namespace jyy
 		{
 			return _root.begin();
 		}
-		//ÕâÊÇÏû³ıÆçÒåµÄ·½·¨
+		//è¿™æ˜¯æ¶ˆé™¤æ­§ä¹‰çš„æ–¹æ³•
 
 
 		iterator end()
@@ -85,7 +85,7 @@ namespace jyy
 	private:
 		RBTree<key, T, MapKeyofValue> _root;
 
-		//ÆğÂëÕâÒ»²ãµÄ·â×°ºÃÁË
+		//èµ·ç è¿™ä¸€å±‚çš„å°è£…å¥½äº†
 	};
 
 }

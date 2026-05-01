@@ -11,11 +11,11 @@ enum Colour
 };
 
 
-// ÕâÀïÎÒÃÇÄ¬ÈÏ°´key/value½á¹¹ÊµÏÖ
+// è¿™é‡Œæˆ‘ä»¬é»˜è®¤æŒ‰key/valueç»“æ„å®ç°
 template<class T>
 struct RBTreeNode
 {
-	// ÕâÀï¸üĞÂ¿ØÖÆÆ½ºâÒ²Òª¼ÓÈëparentÖ¸Õë
+	// è¿™é‡Œæ›´æ–°æ§åˆ¶å¹³è¡¡ä¹Ÿè¦åŠ å…¥parentæŒ‡é’ˆ
 	T _data;
 	RBTreeNode<T>* _left;
 	RBTreeNode<T>* _right;
@@ -28,25 +28,26 @@ struct RBTreeNode
 		, _left(nullptr)
 		, _right(nullptr)
 		, _parent(nullptr)
+		,_col(BLACK)
 	{}
 };
 
-//ÔÚÕâÀï¼ÓÉÏµü´úÆ÷
+//åœ¨è¿™é‡ŒåŠ ä¸Šè¿­ä»£å™¨
 
-template <class T,class Ref ,class Ptr>
-class Iterator 
+template <class T, class Ref, class Ptr>
+class Iterator
 {
 public:
 	typedef RBTreeNode<T> Node;
 	typedef Iterator<T, Ref, Ptr> Self;
 	Node* _node;
 	Node* _root;
-	//È·ÊµÊÇ²»µÃ²»ÊµÏÖÒÔÏÂ¹¹Ôìº¯Êı
-	//ÕâÀïÊÇÎªÁËÔÚoperator--Ê±·½±ã¸üĞÂ
+	//ç¡®å®æ˜¯ä¸å¾—ä¸å®ç°ä»¥ä¸‹æ„é€ å‡½æ•°
+	//è¿™é‡Œæ˜¯ä¸ºäº†åœ¨operator--æ—¶æ–¹ä¾¿æ›´æ–°
 
-	Iterator( Node* node,Node* root)
+	Iterator(Node* node, Node* root)
 		:_node(node)
-		,_root(root)
+		, _root(root)
 	{}
 
 	Iterator(const Self& i)
@@ -55,7 +56,7 @@ public:
 		_root = i._root;
 	}
 
-	//ÕâÀïÊµ¼ÊÉÏÊÇÊ¡ÂÔÁËÒ»´Î->Êµ¼ÊÉÏÓ¦¸Ãµ÷ÓÃÁ½¸ö->
+	//è¿™é‡Œå®é™…ä¸Šæ˜¯çœç•¥äº†ä¸€æ¬¡->å®é™…ä¸Šåº”è¯¥è°ƒç”¨ä¸¤ä¸ª->
 	Ptr operator->()
 	{
 		return &(_node->_data);
@@ -67,11 +68,11 @@ public:
 
 	Self& operator++()
 	{
-		//ÕâÀïµÄÂß¼­ÊÇ´æÔÚÓÒ½Úµã¾ÍÒÆ¶¯µ½×îÓÒ½Úµã
-		//¼ÙÈçÃ»ÓĞ×îÓÒ½Úµã£¬ÑØÂ·¾¶µ½×î½üµÄ×ÓÊ÷ÔÚ×ó±ßµÄ¸¸½Úµã
+		//è¿™é‡Œçš„é€»è¾‘æ˜¯å­˜åœ¨å³èŠ‚ç‚¹å°±ç§»åŠ¨åˆ°å³å­æ ‘çš„æœ€å·¦èŠ‚ç‚¹
+		//å‡å¦‚æ²¡æœ‰æœ€å³èŠ‚ç‚¹ï¼Œæ²¿è·¯å¾„åˆ°æœ€è¿‘çš„å­æ ‘åœ¨å·¦è¾¹çš„çˆ¶èŠ‚ç‚¹
 		if (_node->_right)
 		{
-			//ĞèÒªÕÒµ½ÓÒ×ÓÊ÷µÄ×î×óÖµ
+			//éœ€è¦æ‰¾åˆ°å³å­æ ‘çš„æœ€å·¦å€¼
 
 			Node* cur = _node->_right;
 			while (cur->_left)
@@ -82,6 +83,8 @@ public:
 		}
 		else
 		{
+			//å½“æœ¬èŠ‚ç‚¹æ˜¯åœ¨çˆ¶èŠ‚ç‚¹çš„å³è¾¹çš„æ—¶å€™ï¼Œæ˜¯ä¸ç¬¦åˆæ ‡å‡†çš„
+
 
 			Node* cur = _node;
 			Node* parent = _node->_parent;
@@ -90,7 +93,7 @@ public:
 				cur = parent;
 				parent = parent->_parent;
 			}
-			//ÕâĞèÒª¸´Ï°£¬»¹ÊÇÕÆÎÕµÄ²»ºÃ			
+			//è¿™éœ€è¦å¤ä¹ ï¼Œè¿˜æ˜¯æŒæ¡çš„ä¸å¥½			
 			_node = parent;
 		}
 
@@ -109,6 +112,9 @@ public:
 
 	Self& operator--()
 	{
+		//è¿™é‡Œå°±æ˜¯ä»¥nullpträ½œä¸ºå°¾èŠ‚ç‚¹çš„
+		//å°¾èŠ‚ç‚¹--å°±æ˜¯æœ€åä¸€ä¸ªèŠ‚ç‚¹
+
 		if (_node == nullptr)
 		{
 			Node* cur = _root;
@@ -118,8 +124,9 @@ public:
 			}
 			_node = cur;
 		}
-		else if(_node->_left)
+		else if (_node->_left)
 		{
+			//è¿™å°±æ˜¯æ‰¾åˆ°å·¦å­æ ‘çš„æœ€å³èŠ‚ç‚¹
 			Node* cur = _node->_left;
 			while (cur->_right)
 			{
@@ -129,8 +136,10 @@ public:
 		}
 		else
 		{
+			//å‘ä¸Šå›æº¯ï¼Œæ‰¾åˆ°ç¬¬ä¸€ä¸ªå›æº¯å­æ ‘æ˜¯å³å­æ ‘çš„çˆ¶èŠ‚ç‚¹
 			Node* cur = _node;
 			Node* parent = cur->_parent;
+			//ç»§ç»­æ¡ä»¶
 			while (parent && cur == parent->_left)
 			{
 				cur = parent;
@@ -151,7 +160,7 @@ public:
 		return ret;
 	}
 
-
+	
 	bool operator==(const Self& i)const
 	{
 		return _node == i._node;
@@ -162,20 +171,20 @@ public:
 	}
 
 
-	//ÕâÀï´æÔÚÒ»¸öÎóÇø£¬operator[]º¯Êı²¢²»ÊÇµü´úÆ÷µÄº¯Êı
+	//è¿™é‡Œå­˜åœ¨ä¸€ä¸ªè¯¯åŒºï¼Œoperator[]å‡½æ•°å¹¶ä¸æ˜¯è¿­ä»£å™¨çš„å‡½æ•°
 
 };
 
 
 
 //template<class K, class V>
-template<class K, class T ,class KeyofValue>
+template<class K, class T, class KeyofValue>
 class RBTree
 {
 	typedef RBTreeNode<T> Node;
 public:
 	typedef Iterator<T, T&, T*> iterator;
-	typedef Iterator<T,const T&,const T*> const_iterator;
+	typedef Iterator<T, const T&, const T*> const_iterator;
 
 	iterator begin()
 	{
@@ -185,7 +194,7 @@ public:
 		{
 			ret = ret->_left;
 		}
-		return iterator(ret,_root);
+		return iterator(ret, _root);
 	}
 	const_iterator begin()const
 	{
@@ -195,9 +204,9 @@ public:
 		{
 			ret = ret->_left;
 		}
-		return const_iterator(ret,_root);
+		return const_iterator(ret, _root);
 	}
-	//ÕâÊÇÏû³ıÆçÒåµÄ·½·¨
+	//è¿™æ˜¯æ¶ˆé™¤æ­§ä¹‰çš„æ–¹æ³•
 
 
 	iterator end()
@@ -208,22 +217,23 @@ public:
 	{
 		return const_iterator(nullptr, _root);
 	}
-	//½«nullptr×÷Îªend£¬±£Ö¤×ó±ÕÓÒ¿ªÔ­Ôò
-
- 	
+	//å°†nullpträ½œä¸ºendï¼Œä¿è¯å·¦é—­å³å¼€åŸåˆ™
 
 
-	pair<iterator,bool>  Insert(const T& data)  
+
+
+	pair<iterator, bool>  Insert(const T& data)
 	{
-		//»¹ÊÇÏÈ²åÈë
+		//è¿˜æ˜¯å…ˆæ’å…¥
 		KeyofValue get;
 
 		if (_root == nullptr)
 		{
 			_root = new Node(data);
 			_root->_col = BLACK;
-			return {iterator(_root,_root),true};
+			return { iterator(_root,_root),true };
 		}
+		//å¤´ç»“ç‚¹å¿…é¡»æ˜¯é»‘è‰²çš„ï¼Œè¿™æ˜¯ä¸ºäº†æ›´å¥½åœ°ç»´æŠ¤æ¯ä¸€æ¡æœ€çŸ­è·¯å¾„ä¸Šéƒ½æœ‰ç›¸åŒæ•°é‡çš„é»‘è‰²èŠ‚ç‚¹
 
 		Node* cur = _root;
 		Node* parent = cur->_parent;
@@ -241,10 +251,14 @@ public:
 			}
 			else
 			{
-				return {iterator(cur,_root),false};
+				return { iterator(cur,_root),false };
 			}
 		}
+		//è¿™å°±æ˜¯å…ˆæŸ¥æ‰¾æ’å…¥ä½ç½®ï¼Œå¦‚æœé‡å¤å°±ç›´æ¥è¿”å›
 
+
+		//è¿™é‡Œå…¶å®ä¸çŸ¥é“key_valueé”®å€¼å¯¹ä¸­çš„valueæ˜¯ä»€ä¹ˆç±»å‹ï¼Œæ‰€ä»¥ä½¿ç”¨keyofvalueä»¿å‡½æ•°æ¥å–å‡º
+		
 		cur = new Node(data);
 		if (get(data) > get(parent->_data))
 		{
@@ -256,31 +270,38 @@ public:
 		}
 		cur->_parent = parent;
 		cur->_col = RED;
+		//æ–°æ’å…¥çš„èŠ‚ç‚¹æ˜¯çº¢è‰²çš„ï¼Œè¿™æ˜¯ä¸ºäº†ä¿è¯è§„åˆ™
+
 
 		Node* ret = cur;
 
 		Node* grandparent = parent->_parent;
 		Node* uncle = nullptr;
-		
-		//ÕâÀïÊÇÒÔparent_colÀ´×öÅĞ¶Ï
+
+		//è¿™é‡Œæ˜¯ä»¥parent_colæ¥åšåˆ¤æ–­
 		while (parent && parent->_col == RED)
 		{
+			//ä¸¤ä¸ªçº¢
 			grandparent = parent->_parent;
 
 			if (grandparent == nullptr)
 				break;
+			//è¿™æ˜¯ä¸ºäº†ç»“æŸåˆ¤æ–­
+
+			//è¿™æ˜¯ä¸ºäº†ç¡®è®¤å”å”èŠ‚ç‚¹
 			if (parent == grandparent->_left)
 			{
-				 uncle = grandparent->_right;
+				uncle = grandparent->_right;
 			}
 			else
 			{
-				 uncle = grandparent->_left;
+				uncle = grandparent->_left;
 			}
 
+			
 			if (uncle && uncle->_col == RED)
 			{
-				//ÕâÊ±ºò½«uncle½ÚµãÖÃÎªBLACK½Úµã
+				//è¿™æ—¶å€™å°†uncleèŠ‚ç‚¹ç½®ä¸ºBLACKèŠ‚ç‚¹
 				uncle->_col = BLACK;
 				parent->_col = BLACK;
 				grandparent->_col = RED;
@@ -288,33 +309,32 @@ public:
 				parent = cur->_parent;
 
 			}
-			//ÕâÊÇÍ³Ò»±äÉ«´¦Àí
+			//è¿™æ˜¯ç»Ÿä¸€å˜è‰²å¤„ç†
 			else
 			{
 				if (parent == grandparent->_left)
 				{
-					
+
 					if (cur == parent->_left)
 					{
 
-						//    g
-						//  p   u
-						// c
+						//æ­¤æ—¶uncleä¸æ˜¯çº¢è‰²
+
+						//    g           p
+						//  p   u  ->   c    g
+						// c                  u
 						RotateR(grandparent);
-						//µ«ÊÇÕâÀïĞı×ª¹ıºóĞèÒª±£Ö¤Õâ¸ö¸ù½ÚµãÊÇºÚÉ«µÄ
+						//ä½†æ˜¯è¿™é‡Œæ—‹è½¬è¿‡åéœ€è¦ä¿è¯è¿™ä¸ªæ ¹èŠ‚ç‚¹æ˜¯é»‘è‰²çš„
 
 						parent->_col = BLACK;
 						grandparent->_col = RED;
 
-						//Õâ¸ö»¹Ã»¸ãÍê£¬¸ÄÈÕÔÙÒé
-						break;
-						//´ËÊ±Õâ¸ö×ÓÊ÷µÄ¸ù½Úµã»¹ÊÇºÚÉ«µÄ£¬´ËÊ±²»ĞèÒªÏòÉÏ¸üĞÂ
 					}
 					else
 					{
-						//   g 
-						//  p   u
-						//   c 
+						//   g              g              c 
+						//  p   u   ->   c     u   ->    p    g
+						//   c          p                       u 
 						RotateL(parent);
 						RotateR(grandparent);
 
@@ -322,6 +342,8 @@ public:
 						grandparent->_col = RED;
 
 					}
+					break;
+					//æ­¤æ—¶è¿™ä¸ªå­æ ‘çš„æ ¹èŠ‚ç‚¹è¿˜æ˜¯é»‘è‰²çš„ï¼Œæ­¤æ—¶ä¸éœ€è¦å‘ä¸Šæ›´æ–°
 				}
 				else if (parent == grandparent->_right)
 				{
@@ -332,21 +354,20 @@ public:
 						//         c   
 
 						RotateL(grandparent);
-						//µ«ÊÇÕâÀïĞı×ª¹ıºóĞèÒª±£Ö¤Õâ¸ö¸ù½ÚµãÊÇºÚÉ«µÄ
+						//ä½†æ˜¯è¿™é‡Œæ—‹è½¬è¿‡åéœ€è¦ä¿è¯è¿™ä¸ªæ ¹èŠ‚ç‚¹æ˜¯é»‘è‰²çš„
 
 						parent->_col = BLACK;
 						grandparent->_col = RED;
 
-						//Õâ¸ö»¹Ã»¸ãÍê£¬¸ÄÈÕÔÙÒé
-						break;
-						//´ËÊ±Õâ¸ö×ÓÊ÷µÄ¸ù½Úµã»¹ÊÇºÚÉ«µÄ£¬´ËÊ±²»ĞèÒªÏòÉÏ¸üĞÂ
+						//è¿™ä¸ªè¿˜æ²¡æå®Œï¼Œæ”¹æ—¥å†è®®
+						
 					}
-					
+
 					else
 					{
-						//   g 
+						//    g 
 						//  u    p
-						//     c  
+						//    c  
 
 						RotateR(parent);
 						RotateL(grandparent);
@@ -354,28 +375,34 @@ public:
 						cur->_col = BLACK;
 						grandparent->_col = RED;
 					}
+					break;
+					//æ­¤æ—¶è¿™ä¸ªå­æ ‘çš„æ ¹èŠ‚ç‚¹è¿˜æ˜¯é»‘è‰²çš„ï¼Œæ­¤æ—¶ä¸éœ€è¦å‘ä¸Šæ›´æ–°
+
 				}
 				else
 				{
+					//é˜²å¾¡æ€§ç¼–ç¨‹è¯´æ˜¯
 					assert(false);
 				}
 			}
 		}
+
+		//è¿˜å‘ç°äº†bugï¼Œè¿™æ˜¯å¥½äº‹å•Š
 		_root->_col = BLACK;
-		return {iterator(ret,_root),true};
+		return { iterator(ret,_root),true };
 	}
-	
+
 
 	bool IsBalance()
-	{	
-		//ÕâÀïÆäÊµÊÇÇ¶Ì×ÁËÒ»²ã
+	{
+		//è¿™é‡Œå…¶å®æ˜¯åµŒå¥—äº†ä¸€å±‚
 
 		if (_root == nullptr)
 			return true;
 
 		if (_root->_col == RED)
 			return false;
-		//¼ì²é¸ù½ÚµãÊÇ²»ÊÇºÚÉ«
+		//æ£€æŸ¥æ ¹èŠ‚ç‚¹æ˜¯ä¸æ˜¯é»‘è‰²
 
 		Node* cur = _root;
 		int refNum = 0;
@@ -383,9 +410,10 @@ public:
 		{
 			if (cur->_col == BLACK)
 				refNum++;
-			
+
 			cur = cur->_left;
 		}
+		//è¿™é‡Œå°±æ˜¯å…ˆæ·±åº¦ä¼˜å…ˆéå†ä¸€é
 		return Check(_root, 0, refNum);
 	}
 
@@ -428,7 +456,7 @@ public:
 	}
 private:
 
-
+	//è¿™å°±æ˜¯ä¸å‘å¤–å¼€æ”¾çš„æ¥å£
 	size_t _Height(Node* root)
 	{
 		if (!root)
@@ -458,10 +486,10 @@ private:
 		cout << root->_data.first << " ";
 		_InOrder(root->_right);
 	}
-	// ÓÒµ¥Ğı
+	// å³å•æ—‹
 	void RotateR(Node* parent)
 	{
-		//×ó±ß¸ßµÄÊ±ºòĞèÒªÓÒµ¥Ğı
+		//å·¦è¾¹é«˜çš„æ—¶å€™éœ€è¦å³å•æ—‹
 		Node* subL = parent->_left;
 		Node* subLR = subL->_right;
 
@@ -473,7 +501,8 @@ private:
 		parent->_parent = subL;
 		subL->_parent = pParent;
 		if (subLR) subLR->_parent = parent;
-		//ÔÚº¯ÊıÖĞ½â¾öÆ½ºâÒò×ÓµÄ¸üĞÂ
+		//åœ¨å‡½æ•°ä¸­è§£å†³å¹³è¡¡å› å­çš„æ›´æ–°
+		//æ­¤å¤„çš„xubLRå¯èƒ½æ˜¯nullptr
 
 		if (_root == parent)
 		{
@@ -488,7 +517,7 @@ private:
 		}
 
 	}
-	// ×óµ¥Ğı
+	// å·¦å•æ—‹
 	void RotateL(Node* parent)
 	{
 		Node* subR = parent->_right;
@@ -499,13 +528,13 @@ private:
 		parent->_right = subRL;
 		subR->_left = parent;
 
-		//È»ºóÊÇ¸üĞÂ¸¸½Úµã
+		//ç„¶åæ˜¯æ›´æ–°çˆ¶èŠ‚ç‚¹
 
 		parent->_parent = subR;
 		if (subRL) subRL->_parent = parent;
 		subR->_parent = pParent;
 
-		//ÔÙÈ»ºóÊÇ¸üĞÂ¸¸½ÚµãµÄÖ¸Ïò
+		//å†ç„¶åæ˜¯æ›´æ–°çˆ¶èŠ‚ç‚¹çš„æŒ‡å‘
 
 		if (_root == parent)
 		{
@@ -525,7 +554,7 @@ private:
 	bool Check(Node* root, int blackNum, const int refNum)
 	{
 
-		//ÕâÀïÆäÊµ¾ÍÊÇÏÈ½«»ù×¼ÖµÕÒ³öÀ´£¬ÔÙÍ¨¹ıĞÎ²Îµİ¹é£¬ÕâÊ±
+		//è¿™é‡Œå…¶å®å°±æ˜¯å…ˆå°†åŸºå‡†å€¼æ‰¾å‡ºæ¥ï¼Œå†é€šè¿‡å½¢å‚é€’å½’ï¼Œè¿™æ—¶
 		if (root == nullptr)
 		{
 			if (blackNum == refNum)
@@ -534,7 +563,7 @@ private:
 			return false;
 		}
 
-
+		//è¿™å…¶å®å°±æ˜¯è®°å½•é»‘è‰²èŠ‚ç‚¹çš„æ•°é‡
 		if (root->_col == BLACK)
 			blackNum++;
 		else
@@ -542,7 +571,7 @@ private:
 			if (root->_parent->_col == RED)
 				return false;
 		}
-		//ÕâÀïÏòÏÂ¼ì²é»¹ÊÇ±È½ÏÀ§ÄÑµÄ£¬»¹ÊÇ´ÓÉÏÍùÏÂ±È½ÏºÃ
+		//è¿™é‡Œå‘ä¸‹æ£€æŸ¥è¿˜æ˜¯æ¯”è¾ƒå›°éš¾çš„ï¼Œè¿˜æ˜¯ä»ä¸Šå¾€ä¸‹æ¯”è¾ƒå¥½
 
 		return Check(root->_left, blackNum, refNum) &&
 			Check(root->_right, blackNum, refNum);

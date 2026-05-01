@@ -15,7 +15,7 @@ namespace jyy
 		typedef RBTreeNode<T> Node;
 		typedef Iterator<T, T&, T*> iterator;
 		typedef Iterator<T, const T&, const T*> const_iterator;
-		//Ôø¾­¸ã´íÁË
+		//æ›¾ç»æé”™äº†
 		///////////////////////////////////////////////////////
 		class SetKeyofValue
 		{
@@ -40,9 +40,9 @@ namespace jyy
 		{
 			return _root.Size();
 		}
-		Node* Find(const key& key)
+		iterator Find(const key& key)
 		{
-			return _root.Find(key);
+			return { _root.Find(key) ,_root};
 		}
 		void InOrder()
 		{
@@ -61,9 +61,9 @@ namespace jyy
 		{
 			return _root.begin();
 		}
-		//ÕâÊÇÏû³ıÆçÒåµÄ·½·¨
+		//è¿™æ˜¯æ¶ˆé™¤æ­§ä¹‰çš„æ–¹æ³•
 		////////////////////////////
-		//Õâ¸öÊÇÍüÁË
+		//è¿™ä¸ªæ˜¯å¿˜äº†
 
 		iterator end()
 		{

@@ -9,9 +9,9 @@ using namespace std;
 //void TestRBTree1()
 //{
 //	dataTree<int, int> t;
-//	// ³£¹æµÄ²âÊÔÓÃÀı
+//	// å¸¸è§„çš„æµ‹è¯•ç”¨ä¾‹
 //	int a[] = { 16, 3, 7, 11, 9, 26, 18, 14, 15 };
-//	// ÌØÊâµÄ´øÓĞË«Ğı³¡¾°µÄ²âÊÔÓÃÀı
+//	// ç‰¹æ®Šçš„å¸¦æœ‰åŒæ—‹åœºæ™¯çš„æµ‹è¯•ç”¨ä¾‹
 //	//int a[] = { 4, 2, 6, 1, 3, 5, 15, 7, 16, 14 };
 //
 //	for (auto e : a)
@@ -48,12 +48,12 @@ using namespace std;
 //	cout << "Size:" << t.Size() << endl;
 //
 //	size_t begin1 = clock();
-//	// È·¶¨ÔÚµÄÖµ
+//	// ç¡®å®šåœ¨çš„å€¼
 //	for (auto e : v)
 //	{
 //		t.Find(e);
 //	}
-//	// Ëæ»úÖµ
+//	// éšæœºå€¼
 //	for (size_t i = 0; i < N; i++)
 //	{
 //		t.Find((rand() + i));
@@ -109,18 +109,18 @@ int main()
 
 
 	jyy::map<string, string> dict;
-	dict.insert({ "sort", "ÅÅĞò" });
-	dict.insert({ "left", "×ó±ß" });
-	dict.insert({ "right", "ÓÒ±ß" });
+	dict.insert({ "sort", "æ’åº" });
+	dict.insert({ "left", "å·¦è¾¹" });
+	dict.insert({ "right", "å³è¾¹" });
 
-	dict["left"] = "×ó±ß£¬Ê£Óà";
-	dict["insert"] = "²åÈë";
+	dict["left"] = "å·¦è¾¹ï¼Œå‰©ä½™";
+	dict["insert"] = "æ’å…¥";
 	dict["string"];
 
 	jyy::map<string, string>::iterator it = dict.begin();
 	while (it != dict.end())
 	{
-		// ²»ÄÜĞŞ¸Äfirst£¬¿ÉÒÔĞŞ¸Äsecond
+		// ä¸èƒ½ä¿®æ”¹firstï¼Œå¯ä»¥ä¿®æ”¹second
 		//it->first += 'x';
 		it->second += 'x';
 
@@ -128,7 +128,6 @@ int main()
 		++it;
 	}
 	cout << endl;
-
 	for (auto& data : dict)
 	{
 		cout << data.first << ":" << data.second << endl;
