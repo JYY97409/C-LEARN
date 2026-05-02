@@ -1,12 +1,13 @@
-#include<iostream>
-using namespace std;
-
 #define _CRT_SECURE_NO_WARNINGS 1
+
 
 #include<iostream>
 #include<memory>
 #include<functional>
 #include<atomic>
+#include<thread>
+#include<mutex>
+
 using namespace std;
 
 
@@ -20,8 +21,7 @@ struct Date
         :_year(year)
         , _month(month)
         , _day(day)
-    {
-    }
+    {}
 
     ~Date()
     {
@@ -31,6 +31,8 @@ struct Date
 
 namespace bit
 {
+
+
     template<class T>
     class shared_ptr
     {
@@ -38,8 +40,7 @@ namespace bit
         shared_ptr(T* ptr)
             : _ptr(ptr)
             , _pcount(new atomic<int>(1))
-        {
-        }
+        {}
 
         template<class D>
         shared_ptr(T* ptr, D del)
@@ -114,7 +115,102 @@ namespace bit
     };
 };
 
+namespace jyy
+{ 
+    template<class T>
+    class shared_ptr
+    {
+    public:
+        shared_ptr(T* ptr)
+            :_ptr(ptr)
+            , _pcount(new atomic<int>(1))
+        {}
+        template<class D>
+        shared_ptr(T* ptr, D d_func)
+            : _ptr(ptr)
+            , _pcount(new atomic<int>(1) )
+            ,_delete(d_func)
+        {}
 
+
+        ~shared_ptr()
+        {
+            if (*_pcount == 1)
+            {
+                _delete(_ptr);
+
+                delete _pcount;
+            }
+            else
+            {
+                (*_pcount)--;
+            }
+        }
+
+
+        //拷贝构造说是
+        shared_ptr(const shared_ptr<T>& p1)
+            : _ptr(p1._ptr)
+            , _pcount(p1._pcount)
+            , _delete(p1._delete)
+
+        {
+            ++(*_pcount);
+        }
+
+
+        shared_ptr<T>& operator = (const shared_ptr<T>& p1)
+        {
+            //这里要考虑的还是比较多的，主要是不知道之前是不是已经指向空间了
+
+            if (_ptr != nullptr)
+            {
+                if (--(*_pcount) == 0)
+                {
+                    _delete(_ptr);
+                    delete _pcount;
+                }
+            }
+            
+            _ptr = p1._ptr;
+            _pcount = p1._pcount;
+            _delete = p1._delete;
+
+            ++(*_pcount);
+
+
+            return *this;
+        }
+
+
+        T* operator->()
+        {
+            return _ptr;
+        }
+
+        T& operator*()
+        {
+            return *_ptr;
+        }
+
+        int use_count()
+        {
+            return *_pcount;
+        }
+
+
+    private:
+        T* _ptr;
+        //int* _pcount;
+        
+        atomic<int>* _pcount;
+
+
+
+        function<void(T*)> _delete = [](T* ptr) {delete ptr; };
+    };
+
+}
 
 
 //int main()
@@ -141,36 +237,47 @@ namespace bit
 //}
 
 
-//int main()
-//{
-//    bit::shared_ptr<AA> p(new AA);
-//    const size_t n = 100000;
-//
-//    mutex mtx;
-//    auto func = [&]()
-//    {
-//        for (size_t i = 0; i < n; ++i)
-//        {
-//            // 这里智能指针拷贝会++计数
-//            bit::shared_ptr<AA> copy(p);
-//            {
-//                unique_lock<mutex> lk(mtx);
-//                copy->_a1++;
-//                copy->_a2++;
-//            }
-//        }
-//    };
-//
-//    thread t1(func);
-//    thread t2(func);
-//
-//    t1.join();
-//    t2.join();
-//
-//    cout << p->_a1 << endl;
-//    cout << p->_a2 << endl;
-//
-//    cout << p.use_count() << endl;
-//
-//    return 0;
-//}
+struct AA
+{
+    int _a1 = 0;
+    int _a2 = 0;
+
+    ~AA()
+    {
+        cout << "~AA()" << endl;
+    }
+};
+
+int main()
+{
+    jyy::shared_ptr<AA> p(new AA);
+    const size_t n = 100000;
+
+    mutex mtx;
+    auto func = [&]()
+    {
+        for (size_t i = 0; i < n; ++i)
+        {
+            // 这里智能指针拷贝会++计数
+            jyy::shared_ptr<AA> copy(p);
+            {
+                unique_lock<mutex> lk(mtx);
+                copy->_a1++;
+                copy->_a2++;
+            }
+        }
+    };
+    //此处不是用atomic的话会引发进程间的相互干扰
+    thread t1(func);
+    thread t2(func);
+
+    t1.join();
+    t2.join();
+
+    cout << p->_a1 << endl;
+    cout << p->_a2 << endl;
+
+    cout << p.use_count() << endl;
+
+    return 0;
+}
