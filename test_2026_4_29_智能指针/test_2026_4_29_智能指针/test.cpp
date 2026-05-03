@@ -213,6 +213,11 @@ namespace jyy
 }
 
 
+
+
+
+
+
 //int main()
 //{
 //    std::shared_ptr<Date> sp1(new Date(2024, 9, 11));
@@ -248,36 +253,36 @@ struct AA
     }
 };
 
-int main()
-{
-    jyy::shared_ptr<AA> p(new AA);
-    const size_t n = 100000;
-
-    mutex mtx;
-    auto func = [&]()
-    {
-        for (size_t i = 0; i < n; ++i)
-        {
-            // 这里智能指针拷贝会++计数
-            jyy::shared_ptr<AA> copy(p);
-            {
-                unique_lock<mutex> lk(mtx);
-                copy->_a1++;
-                copy->_a2++;
-            }
-        }
-    };
-    //此处不是用atomic的话会引发进程间的相互干扰
-    thread t1(func);
-    thread t2(func);
-
-    t1.join();
-    t2.join();
-
-    cout << p->_a1 << endl;
-    cout << p->_a2 << endl;
-
-    cout << p.use_count() << endl;
-
-    return 0;
-}
+//int main()
+//{
+//    jyy::shared_ptr<AA> p(new AA);
+//    const size_t n = 100000;
+//
+//    mutex mtx;
+//    auto func = [&]()
+//    {
+//        for (size_t i = 0; i < n; ++i)
+//        {
+//            // 这里智能指针拷贝会++计数
+//            jyy::shared_ptr<AA> copy(p);
+//            {
+//                unique_lock<mutex> lk(mtx);
+//                copy->_a1++;
+//                copy->_a2++;
+//            }
+//        }
+//    };
+//    //此处不是用atomic的话会引发进程间的相互干扰
+//    thread t1(func);
+//    thread t2(func);
+//
+//    t1.join();
+//    t2.join();
+//
+//    cout << p->_a1 << endl;
+//    cout << p->_a2 << endl;
+//
+//    cout << p.use_count() << endl;
+//
+//    return 0;
+//}
