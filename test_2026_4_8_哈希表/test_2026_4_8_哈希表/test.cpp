@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 //void test_hash1()
 //{
 //	open_adress::HashTable<int, int > h1;
@@ -105,9 +106,6 @@ using namespace std;
 //
 //	return 0;
 //}
-
-
-
 
 
 int main()

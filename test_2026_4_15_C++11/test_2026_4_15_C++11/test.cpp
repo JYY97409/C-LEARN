@@ -652,28 +652,28 @@ private:
 	double _rate;
 };
 
-int main()
-{
-	double rate = 0.49;
-
-	// lambda
-	auto r2 = [rate](double money, int year) {
-		return money * rate * year;
-	};
-
-	// 函数对象
-	Rate r1(rate);
-	r1(10000, 2);
-	r2(10000, 2);
-
-	auto func1 = [] {
-		cout << "hello world" << endl;
-	};
-
-	func1();
-
-	return 0;
-}
+//int main()
+//{
+//	double rate = 0.49;
+//
+//	// lambda
+//	auto r2 = [rate](double money, int year) {
+//		return money * rate * year;
+//	};
+//
+//	// 函数对象
+//	Rate r1(rate);
+//	r1(10000, 2);
+//	r2(10000, 2);
+//
+//	auto func1 = [] {
+//		cout << "hello world" << endl;
+//	};
+//
+//	func1();
+//
+//	return 0;
+//}
 
 
 ////移动构造和移动赋值的默认生成机制：在析构、拷贝构造、移动赋值重载中右任意一个没写，生成原则和之前的拷贝构造的默认生成是一致的
@@ -779,7 +779,7 @@ int subx(int a, int b,int c)
 	return a + b + c;
 }
 
-//bind表达式
+////bind表达式
 //int main()
 //{
 //
@@ -789,81 +789,77 @@ int subx(int a, int b,int c)
 //	auto sub1 = bind(sub,_1, _2);
 //	cout << sub1(a, b) << endl;
 //
-//	auto sub5 = bind(sub, _2, _1);
-//	cout << sub5(a, b) << endl;
-//
 //	auto sub2 = bind(sub, 100, _1);
 //	cout << sub2(a) << endl;
 //	
 //	auto sub3 = bind(subx, _1, _2,_3);
-//	cout << sub3(a, b,c) << endl;
+//	cout << sub3(a, b, c) << endl;
 //
 //	auto sub4 = bind(subx, 100 , _1, _2);
 //	cout << sub4(a, b) << endl;
 //
-//	return 0;
+//	auto sub5 = bind(sub, _2, _1);
+//	cout << sub5(a, b) << endl;
 //
-// 
-// 
-// 
+//
+//	return 0; 
 //}
 
-//int f(int a, int b)
-//{
-//	return a + b;
-//}
-//
-//struct Functor
-//{
-//public:
-//	int operator() (int a, int b)
-//	{
-//		return a + b;
-//	}
-//};
-//
-//class Plus
-//{
-//public:
-//	Plus(int n = 10)
-//		:_n(n)
-//	{}
-//
-//	int plusi(int a, int b)
-//	{
-//		return a + b;
-//	}
-//
-//	double plusd(double a, double b)
-//	{
-//		return (a + b) * _n;
-//	}
-//
-//private:
-//	int _n;
-//};
-//
-//int main()
-//{
-//	function<int(int, int)> f1 = f;
-//	Plus p1;
-//
-//	//类的成员函数存在一个隐藏的变量：this指针
-//	//可以认为这里的this指针是为了绑定指向哪一个类的实例，这是因为类的成员函数很可能是会调用类的成员变量的，这时候要确保绑定了类的实例
-//	//this指针的引用是会决定类中数据的改变与否的，比如传值传参很显然由于创建临时对象的缘故是不会影响原来的数据的
-//	
-//	
-//	function<double(Plus, double, double)> f2 = &Plus::plusi;
-//	cout << f2(Plus(), 1.1, 2.2) << endl;
-//	
-//	function<double(Plus*, double, double)> f3 = &Plus::plusi;
-//	cout << f3(&p1, 1.1, 2.2) << endl;
-//
-//	function<double(Plus&&, double, double)> f4 = &Plus::plusi;
-//	cout << f4(move(p1), 1.1, 2.2) << endl;
-//
-//
-//	return 0;
-//}
+int f(int a, int b)
+{
+	return a + b;
+}
+
+struct Functor
+{
+public:
+	int operator() (int a, int b)
+	{
+		return a + b;
+	}
+};
+
+class Plus
+{
+public:
+	Plus(int n = 10)
+		:_n(n)
+	{}
+
+	int plusi(int a, int b)
+	{
+		return a + b;
+	}
+
+	double plusd(double a, double b)
+	{
+		return (a + b) * _n;
+	}
+
+private:
+	int _n;
+};
+int main()
+{
+	function<int(int, int)> f1 = f;
+	Plus p1;
+
+	//类的成员函数存在一个隐藏的变量：this指针
+	//可以认为这里的this指针是为了绑定指向哪一个类的实例，这是因为类的成员函数很可能是会调用类的成员变量的，这时候要确保绑定了类的实例
+	//this指针的引用是会决定类中数据的改变与否的，比如传值传参很显然由于创建临时对象的缘故是不会影响原来的数据的
+	
+	
+	function<double(Plus, double, double)> f2 = &Plus::plusi;
+	cout << f2(Plus(), 1.1, 2.2) << endl;
+	
+	function<double(Plus*, double, double)> f3 = &Plus::plusi;
+	cout << f3(&p1, 1.1, 2.2) << endl;
+
+	function<double(Plus&&, double, double)> f4 = &Plus::plusi;
+	cout << f4(move(p1), 1.1, 2.2) << endl;
+
+
+	return 0;
+}
 
 

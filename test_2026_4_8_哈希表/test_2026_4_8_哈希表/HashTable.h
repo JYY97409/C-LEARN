@@ -1,7 +1,6 @@
 #pragma once
 #include<iostream>
 #include<vector>
-
 using namespace std;
 
 
@@ -20,7 +19,6 @@ class HashNode
 		:_data(data)
 		, _state(EMPTY)
 	{ }*/
-
 
 	//构造函数在没有显示实现时候会自己调用自定义类型的构造函数（浅拷贝）
 public:
@@ -53,6 +51,8 @@ struct HashFunc<string>
 		}
 		return ret;
 	}
+	//模板特化说是
+
 };
 
 
@@ -61,6 +61,7 @@ struct HashFunc<string>
 //实际上是反映了哈希对key的要求就是key可以转成整形
 //哈希表需要key支持转成整形和支持等于比较
 //这里还是存在一个问题：参数不应该传当前参数，而是传n + 1
+
 inline unsigned long __stl_next_prime(unsigned long n)
 {
 	// Note: assumes long is at least 32 bits.
@@ -81,8 +82,6 @@ inline unsigned long __stl_next_prime(unsigned long n)
 	return pos == last ? *(last - 1) : *pos;
 
 }
-
-
 
 
 namespace open_adress
@@ -442,6 +441,8 @@ namespace hash_bucket
 
 			return false;
 		}
+
+
 
 		Node* find(const K& key)
 		{

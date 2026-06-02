@@ -109,7 +109,6 @@ public:
 	}
 
 
-
 	Self& operator--()
 	{
 		//这里就是以nullptr作为尾节点的
@@ -390,6 +389,9 @@ public:
 		//还发现了bug，这是好事啊
 		_root->_col = BLACK;
 		return { iterator(ret,_root),true };
+
+
+
 	}
 
 
@@ -463,7 +465,6 @@ private:
 			return 0;
 		size_t heightL = _Height(root->_left);
 		size_t heightR = _Height(root->_right);
-
 		return heightL > heightR ? heightL + 1 : heightR + 1;
 	}
 	size_t _Size(Node* root)
@@ -550,7 +551,7 @@ private:
 
 	}
 
-
+	
 	bool Check(Node* root, int blackNum, const int refNum)
 	{
 
@@ -580,3 +581,4 @@ private:
 	}
 	Node* _root = nullptr;
 };
+
